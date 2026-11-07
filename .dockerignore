@@ -1,8 +1,8 @@
 target
-Cargo.lock
+.git
+.idea
+.github
+deploy
 web/node_modules
 web/.svelte-kit
 web/build
-.git
-.github
-deploy
