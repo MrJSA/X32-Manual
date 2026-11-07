@@ -2,6 +2,8 @@
 	import Header from '#lib/components/Header.svelte';
 	import Sidebar from '#lib/components/Sidebar.svelte';
 	import SearchModal from '#lib/components/SearchModal.svelte';
+	import { page } from '$app/state';
+	import { langOf } from '#lib/i18n/index.js';
 	import '#lib/styles/global.css';
 
 	interface Props {
@@ -12,6 +14,14 @@
 
 	let isSidebarOpen = $state(false);
 	let isSearchOpen = $state(false);
+
+	const currentLang = $derived(langOf(page.url.pathname));
+
+	$effect(() => {
+		if (typeof document !== 'undefined') {
+			document.documentElement.lang = currentLang;
+		}
+	});
 
 	function toggleSidebar() {
 		isSidebarOpen = !isSidebarOpen;

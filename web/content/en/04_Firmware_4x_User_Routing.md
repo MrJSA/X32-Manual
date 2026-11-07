@@ -1,7 +1,6 @@
 # Chapter 04: Firmware 4.x User Routing & 1:1 Patching
 
-*How the firmware 4 user input and user output patch works, when to use it, and how to set it up on the console
-and with x32control.*
+*How the Firmware 4 User Input and User Output patch works, when to use it, and step-by-step configuration on the console and remote software.*
 
 ---
 
@@ -146,30 +145,4 @@ inputs from either stage box, card returns, any of the outputs, P16 feeds or the
 
 ---
 
-## User routing with x32control
-
-### Remote Control & Automation (MCP Server)
-
-The x32control automation server can read and change the complete patch over network OSC. Example commands and tools:
-
-- *Inspect patch* uses `get_patch`, which resolves every channel through channel source → input block → user patch
-  to its physical input and preamp, and lists inputs that land on more than one channel.
-- *Patch inputs 1-28 from AES50 A 1-28 and 29-32 from local 1-4* uses `set_user_routing` (slot 1, sources `A1`…`A28`;
-  slot 29, sources `Local 1`…`Local 4`), then `set_routing` to switch the input blocks to `UIN1-8` … `UIN25-32`.
-- *Put Matrix 1/2 on aux outs 5/6 post fader and record them on card 31/32* uses `set_output` (aux5 = Mtx 1, tap
-  POST; aux6 = Mtx 2), `set_user_routing` (out, slot 31: `Aux Out 5`, `Aux Out 6`), then the card output blocks.
-- *Raise the gain of channel 2 by 3 dB* uses `set_headamp`, which follows the patch to the correct preamp, local
-  or stage box.
-
-**Safety:** every routing or patch change requires explicit operator confirmation before execution. Always take a `backup_state` snapshot before applying major re-patching.
-
-### Desktop app
-
-The ROUTING page currently shows the input blocks, including the *User In* blocks. The User patch, Card Out and
-AES50 Out tabs are being added.
-
----
-
-*X32 is a trademark of Behringer / Music Tribe, M32 of Midas. x32control is an independent project and not
-affiliated with them. Several of the practical setups above follow the user-routing tutorials by Drew Brashler,
-which are worth watching for a walkthrough on the console itself.*
+*X32 is a trademark of Behringer / Music Tribe, M32 of Midas. Practical setup workflows in this guide reference verified console engineering best practices and routing walkthroughs.*

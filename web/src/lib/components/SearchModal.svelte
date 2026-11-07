@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { buildSearchIndex } from '#lib/content.js';
+	import { page } from '$app/state';
+	import { langOf, localize, texts } from '#lib/i18n/index.js';
 
 	interface Props {
 		isOpen?: boolean;
@@ -9,7 +11,10 @@
 	let { isOpen = false, onClose }: Props = $props();
 
 	let query = $state('');
-	const searchIndex = buildSearchIndex();
+
+	const currentLang = $derived(langOf(page.url.pathname));
+	const t = $derived(texts[currentLang]);
+	const searchIndex = $derived(buildSearchIndex(currentLang));
 
 	let results = $derived.by(() => {
 		const q = query.trim().toLowerCase();
@@ -18,7 +23,6 @@
 			.filter((entry) => {
 				return (
 					entry.title.toLowerCase().includes(q) ||
-					entry.number.toLowerCase().includes(q) ||
 					entry.category.toLowerCase().includes(q) ||
 					entry.headings.some((h: string) => h.toLowerCase().includes(q)) ||
 					entry.excerpt.toLowerCase().includes(q)
@@ -46,7 +50,7 @@
 			role="dialog"
 			tabindex="0"
 			aria-modal="true"
-			aria-label="Search manual"
+			aria-label={t.searchTitle}
 		>
 			<div class="search-input-wrap">
 				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -57,7 +61,7 @@
 				<input
 					type="text"
 					bind:value={query}
-					placeholder="Search chapters, routing, plugins, preamps..."
+					placeholder={t.searchPlaceholder}
 					class="search-input"
 					autofocus
 				/>
@@ -68,13 +72,12 @@
 
 			<div class="search-results">
 				{#if query.trim() && results.length === 0}
-					<div class="empty-state">No matching topics found for "{query}"</div>
+					<div class="empty-state">{t.searchNoResults} "{query}"</div>
 				{:else if results.length > 0}
 					<div class="results-list">
 						{#each results as item}
-							<a href="/{item.slug}" class="result-card" onclick={onClose}>
+							<a href={localize(`/${item.slug}`, currentLang)} class="result-card" onclick={onClose}>
 								<div class="result-header">
-									<span class="badge">{item.number}</span>
 									<span class="title">{item.title}</span>
 									<span class="cat">{item.category}</span>
 								</div>
@@ -84,14 +87,23 @@
 					</div>
 				{:else}
 					<div class="search-hints">
-						<span class="hint-title">POPULAR TOPICS:</span>
+						<span class="hint-title">{currentLang === 'de' ? 'BELIEBTE THEMEN:' : 'POPULAR TOPICS:'}</span>
 						<div class="hint-tags">
-							<button class="hint-tag" onclick={() => (query = 'User Routing')}>User Routing</button>
-							<button class="hint-tag" onclick={() => (query = 'Vintage Compressor')}>Vintage Compressors</button>
-							<button class="hint-tag" onclick={() => (query = 'Sends on Faders')}>Sends on Faders</button>
-							<button class="hint-tag" onclick={() => (query = 'Gain Split')}>Gain Split</button>
-							<button class="hint-tag" onclick={() => (query = 'Virtual Soundcheck')}>Virtual Soundcheck</button>
-							<button class="hint-tag" onclick={() => (query = 'AES50 Shielded')}>AES50 Cabling</button>
+							{#if currentLang === 'de'}
+								<button class="hint-tag" onclick={() => (query = 'User Routing')}>User Routing</button>
+								<button class="hint-tag" onclick={() => (query = 'Kompressor')}>Kompressoren</button>
+								<button class="hint-tag" onclick={() => (query = 'Sends on Faders')}>Sends on Faders</button>
+								<button class="hint-tag" onclick={() => (query = 'Gain Split')}>Gain Split</button>
+								<button class="hint-tag" onclick={() => (query = 'Virtual Soundcheck')}>Virtual Soundcheck</button>
+								<button class="hint-tag" onclick={() => (query = 'AES50 geschirmt')}>AES50 Verkabelung</button>
+							{:else}
+								<button class="hint-tag" onclick={() => (query = 'User Routing')}>User Routing</button>
+								<button class="hint-tag" onclick={() => (query = 'Vintage Compressor')}>Vintage Compressors</button>
+								<button class="hint-tag" onclick={() => (query = 'Sends on Faders')}>Sends on Faders</button>
+								<button class="hint-tag" onclick={() => (query = 'Gain Split')}>Gain Split</button>
+								<button class="hint-tag" onclick={() => (query = 'Virtual Soundcheck')}>Virtual Soundcheck</button>
+								<button class="hint-tag" onclick={() => (query = 'AES50 Shielded')}>AES50 Cabling</button>
+							{/if}
 						</div>
 					</div>
 				{/if}
@@ -205,16 +217,6 @@
 		display: flex;
 		align-items: center;
 		gap: 0.6rem;
-	}
-
-	.badge {
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		background: var(--bg);
-		border: 1px solid var(--border-strong);
-		padding: 0.1rem 0.35rem;
-		border-radius: 4px;
-		color: var(--accent);
 	}
 
 	.title {

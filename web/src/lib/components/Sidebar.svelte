@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { CHAPTERS } from '#lib/content.js';
+	import { getChapters } from '#lib/content.js';
 	import { page } from '$app/state';
+	import { langOf, localize, unlocalize, texts } from '#lib/i18n/index.js';
 
 	interface Props {
 		isOpen?: boolean;
@@ -11,10 +12,14 @@
 
 	let activeSectionId = $state<string>('');
 
+	const currentLang = $derived(langOf(page.url.pathname));
+	const currentChapters = $derived(getChapters(currentLang));
+	const t = $derived(texts[currentLang]);
+
 	// Group chapters by category in strict sequential order
 	const categories = $derived.by(() => {
-		const map = new Map<string, typeof CHAPTERS>();
-		for (const ch of CHAPTERS) {
+		const map = new Map<string, typeof currentChapters>();
+		for (const ch of currentChapters) {
 			const list = map.get(ch.category) ?? [];
 			list.push(ch);
 			map.set(ch.category, list);
@@ -28,7 +33,7 @@
 		}
 	}
 
-	function handleSubsectionClick(e: MouseEvent) {
+	function handleSubsectionClick() {
 		if (onClose && typeof window !== 'undefined' && window.innerWidth <= 860) {
 			onClose();
 		}
@@ -44,7 +49,7 @@
 
 		let observer: IntersectionObserver | null = null;
 
-		// Use requestAnimationFrame to ensure the new chapter's DOM is mounted
+		// Use requestAnimationFrame / timeout to ensure the new chapter's DOM is mounted
 		const timer = setTimeout(() => {
 			const headings = Array.from(document.querySelectorAll<HTMLElement>('.markdown-body h2[id], .markdown-body h3[id]'));
 			if (headings.length === 0) return;
@@ -88,36 +93,40 @@
 <aside class="sidebar" class:open={isOpen}>
 	<div class="sidebar-inner">
 		<nav class="nav-tree" aria-label="Manual Navigation">
-			<a href="/" class="nav-item home-link" class:active={page.url.pathname === '/'} onclick={handleChapterClick}>
+			<a
+				href={localize('/', currentLang)}
+				class="nav-item home-link"
+				class:active={unlocalize(page.url.pathname) === '/'}
+				onclick={handleChapterClick}
+			>
 				<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
 					<polyline points="9 22 9 12 15 12 15 22"></polyline>
 				</svg>
-				<span>Overview & Index</span>
+				<span>{t.overviewAndIndex}</span>
 			</a>
 
 			{#each categories as [categoryName, items]}
 				<div class="category-block">
 					<div class="category-title">{categoryName}</div>
 					{#each items as item}
-						{@const isActive = page.url.pathname === `/${item.slug}`}
-						<div class="chapter-entry" class:expanded={isActive}>
+						{@const isChapterActive = unlocalize(page.url.pathname) === `/${item.slug}`}
+						<div class="chapter-entry" class:expanded={isChapterActive}>
 							<a
-								href="/{item.slug}"
+								href={localize(`/${item.slug}`, currentLang)}
 								class="nav-item chapter-link"
-								class:active={isActive}
+								class:active={isChapterActive}
 								onclick={handleChapterClick}
 							>
-								<span class="chapter-badge">{item.number}</span>
 								<span class="chapter-title">{item.shortTitle}</span>
 							</a>
 
-							{#if isActive && item.toc && item.toc.length > 0}
+							{#if isChapterActive && item.toc && item.toc.length > 0}
 								<div class="subsections-tree">
 									{#each item.toc as heading (heading.id)}
 										{@const isSectionActive = activeSectionId === heading.id}
 										<a
-											href="/{item.slug}#{heading.id}"
+											href="{localize(`/${item.slug}`, currentLang)}#{heading.id}"
 											class="sub-item"
 											class:depth-3={heading.depth === 3}
 											class:active={isSectionActive}
@@ -210,23 +219,6 @@
 		font-weight: 600;
 	}
 
-	.chapter-badge {
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		background: var(--surface);
-		border: 1px solid var(--border);
-		padding: 0.1rem 0.35rem;
-		border-radius: 4px;
-		color: var(--text-faint);
-		flex-shrink: 0;
-	}
-
-	.nav-item.active .chapter-badge {
-		border-color: var(--accent);
-		color: var(--accent);
-		background: var(--accent-soft);
-	}
-
 	.chapter-title {
 		white-space: nowrap;
 		overflow: hidden;
@@ -248,7 +240,7 @@
 
 	/* Subsections Tree (Expanded only for active chapter) */
 	.subsections-tree {
-		margin: 0.25rem 0 0.5rem 1.15rem;
+		margin: 0.25rem 0 0.5rem 0.65rem;
 		padding-left: 0.75rem;
 		border-left: 1px solid var(--border-strong);
 		display: flex;

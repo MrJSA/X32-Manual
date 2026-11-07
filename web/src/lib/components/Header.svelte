@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
+	import { langOf, localize, rememberLang, texts, type Lang } from '#lib/i18n/index.js';
+
 	interface Props {
 		onToggleSidebar?: () => void;
 		onOpenSearch?: () => void;
@@ -7,6 +11,9 @@
 	let { onToggleSidebar, onOpenSearch }: Props = $props();
 
 	let theme = $state<'dark' | 'light'>('dark');
+
+	const currentLang = $derived(langOf(page.url.pathname));
+	const t = $derived(texts[currentLang]);
 
 	$effect(() => {
 		if (typeof document !== 'undefined') {
@@ -22,6 +29,13 @@
 			localStorage.setItem('theme', next);
 		}
 	}
+
+	function switchLanguage(targetLang: Lang) {
+		if (targetLang === currentLang) return;
+		rememberLang(targetLang);
+		const targetUrl = localize(page.url.pathname, targetLang);
+		goto(targetUrl);
+	}
 </script>
 
 <header class="header">
@@ -35,24 +49,47 @@
 				</svg>
 			</button>
 
-			<a href="/" class="brand">
-				<span class="brand-badge">X32 / M32</span>
-				<span class="brand-title">TECHNICAL MANUAL</span>
+			<a href={localize('/', currentLang)} class="brand">
+				<span class="brand-badge">{t.brandBadge}</span>
+				<span class="brand-title">{t.brandTitle}</span>
 			</a>
-			<span class="firmware-tag">FW 4.x</span>
+			<span class="firmware-tag">{t.firmwareTag}</span>
 		</div>
 
 		<div class="right-group">
-			<button class="search-trigger" onclick={onOpenSearch} aria-label="Search documentation">
+			<button class="search-trigger" onclick={onOpenSearch} aria-label={t.searchTitle}>
 				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<circle cx="11" cy="11" r="8"></circle>
 					<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
 				</svg>
-				<span class="search-text">Search manual...</span>
-				<kbd class="search-kbd">Ctrl K</kbd>
+				<span class="search-text">{t.searchPlaceholder}</span>
+				<kbd class="search-kbd">{t.searchKbd}</kbd>
 			</button>
 
-			<button class="icon-button" onclick={toggleTheme} aria-label="Toggle light/dark theme">
+			<!-- Language Switcher -->
+			<div class="lang-switcher" role="group" aria-label={t.switchLang}>
+				<button
+					class="lang-btn"
+					class:active={currentLang === 'en'}
+					onclick={() => switchLanguage('en')}
+					title="English"
+					aria-pressed={currentLang === 'en'}
+				>
+					EN
+				</button>
+				<span class="lang-divider">/</span>
+				<button
+					class="lang-btn"
+					class:active={currentLang === 'de'}
+					onclick={() => switchLanguage('de')}
+					title="Deutsch"
+					aria-pressed={currentLang === 'de'}
+				>
+					DE
+				</button>
+			</div>
+
+			<button class="icon-button" onclick={toggleTheme} aria-label={t.toggleTheme}>
 				{#if theme === 'dark'}
 					<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<circle cx="12" cy="12" r="5"></circle>
@@ -182,6 +219,46 @@
 		padding: 0.1rem 0.35rem;
 		border-radius: 4px;
 		color: var(--text-faint);
+	}
+
+	/* Language Switcher */
+	.lang-switcher {
+		display: flex;
+		align-items: center;
+		gap: 0.2rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-sm);
+		padding: 0.2rem 0.4rem;
+	}
+
+	.lang-btn {
+		background: transparent;
+		border: none;
+		font-family: var(--font-display);
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		color: var(--text-faint);
+		cursor: pointer;
+		padding: 0.15rem 0.35rem;
+		border-radius: 3px;
+		transition: all 0.12s ease;
+	}
+
+	.lang-btn:hover {
+		color: var(--text);
+	}
+
+	.lang-btn.active {
+		background: var(--accent);
+		color: #000;
+	}
+
+	.lang-divider {
+		font-size: 0.72rem;
+		color: var(--border-strong);
+		user-select: none;
 	}
 
 	.icon-button {

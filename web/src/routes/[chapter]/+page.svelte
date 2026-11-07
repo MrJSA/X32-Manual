@@ -2,6 +2,8 @@
 	import ChapterNav from '#lib/components/ChapterNav.svelte';
 	import type { ChapterMeta } from '#lib/content.js';
 	import type { TocItem } from '#lib/markdown.js';
+	import { page } from '$app/state';
+	import { langOf, localize, texts } from '#lib/i18n/index.js';
 
 	interface Props {
 		data: {
@@ -21,20 +23,22 @@
 	}
 
 	let { data }: Props = $props();
+	const currentLang = $derived(langOf(page.url.pathname));
+	const t = $derived(texts[currentLang]);
 </script>
 
 <svelte:head>
-	<title>Chapter {data.chapter.number}: {data.chapter.title} | X32 Manual</title>
+	<title>{t.breadcrumbChapter} {data.chapter.number}: {data.chapter.title} | {t.brandBadge} Manual</title>
 	<meta name="description" content={data.chapter.summary} />
 </svelte:head>
 
 <div class="chapter-view">
 	<nav class="breadcrumbs" aria-label="Breadcrumb">
-		<a href="/" class="crumb-link">Manual</a>
+		<a href={localize('/', currentLang)} class="crumb-link">{t.breadcrumbManual}</a>
 		<span class="crumb-sep">/</span>
 		<span class="crumb-category">{data.chapter.category}</span>
 		<span class="crumb-sep">/</span>
-		<span class="crumb-current">Chapter {data.chapter.number}</span>
+		<span class="crumb-current">{t.breadcrumbChapter} {data.chapter.number}</span>
 	</nav>
 
 	<article class="markdown-body">
@@ -64,6 +68,7 @@
 	.crumb-link {
 		color: var(--text-muted);
 		text-decoration: none;
+		transition: color 0.12s ease;
 	}
 
 	.crumb-link:hover {
@@ -71,7 +76,7 @@
 	}
 
 	.crumb-sep {
-		color: var(--text-faint);
+		color: var(--border-strong);
 	}
 
 	.crumb-category {
@@ -79,7 +84,7 @@
 	}
 
 	.crumb-current {
-		color: var(--accent);
-		font-weight: 600;
+		color: var(--accent-cyan);
+		font-weight: 500;
 	}
 </style>

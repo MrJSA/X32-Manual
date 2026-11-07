@@ -1,12 +1,12 @@
-import { CHAPTERS, getIndexContent } from '#lib/content.js';
+import { getChapters, getIndexContent } from '#lib/content.js';
 import { renderMarkdown } from '#lib/markdown.js';
 
 export function load() {
-	const rawIndex = getIndexContent();
+	const rawIndex = getIndexContent('en');
 	const renderedIndex = renderMarkdown(rawIndex);
 
 	return {
-		chapters: CHAPTERS,
+		chapters: getChapters('en'),
 		renderedIndex
 	};
 }

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { ChapterMeta } from '#lib/content.js';
+	import { page } from '$app/state';
+	import { langOf, localize, texts } from '#lib/i18n/index.js';
 
 	interface Props {
 		data: {
@@ -9,6 +11,9 @@
 	}
 
 	let { data }: Props = $props();
+
+	const currentLang = $derived(langOf(page.url.pathname));
+	const t = $derived(texts[currentLang]);
 
 	// Group chapters by category
 	const categories = $derived.by(() => {
@@ -23,43 +28,41 @@
 </script>
 
 <svelte:head>
-	<title>X32 / M32 Technical Manual & Field Guide (FW 4.x)</title>
-	<meta name="description" content="Comprehensive engineering guide and reference manual for Behringer X32 and Midas M32 consoles." />
+	<title>{t.brandBadge} {t.brandTitle} & {t.heroTitle} ({t.firmwareTag})</title>
+	<meta name="description" content={t.heroSubtitle} />
 </svelte:head>
 
 <div class="home-page">
 	<div class="hero">
 		<div class="badge-row">
-			<span class="hero-badge">BEHRINGER X32 & MIDAS M32</span>
-			<span class="firmware-badge">FIRMWARE 4.x</span>
+			<span class="hero-badge">{t.heroBadge}</span>
+			<span class="firmware-badge">{t.firmwareTag}</span>
 		</div>
-		<h1 class="hero-title">Console Engineering & Field Guide</h1>
-		<p class="hero-subtitle">
-			A complete, practical, and in-depth technical manual for routing, headamp gain staging, channel processing, mix buses, virtual rack plugins, and live show automation.
-		</p>
+		<h1 class="hero-title">{t.heroTitle}</h1>
+		<p class="hero-subtitle">{t.heroSubtitle}</p>
 
 		<div class="stats-row">
 			<div class="stat-card">
 				<span class="stat-val">40</span>
-				<span class="stat-lbl">Processing Channels</span>
+				<span class="stat-lbl">{t.statChannels}</span>
 			</div>
 			<div class="stat-card">
 				<span class="stat-val">25</span>
-				<span class="stat-lbl">Time-Aligned Buses</span>
+				<span class="stat-lbl">{t.statBuses}</span>
 			</div>
 			<div class="stat-card">
 				<span class="stat-val">8</span>
-				<span class="stat-lbl">Virtual FX Slots</span>
+				<span class="stat-lbl">{t.statFx}</span>
 			</div>
 			<div class="stat-card">
 				<span class="stat-val">15</span>
-				<span class="stat-lbl">Manual Chapters</span>
+				<span class="stat-lbl">{t.statChapters}</span>
 			</div>
 		</div>
 	</div>
 
 	<div class="chapters-section">
-		<h2 class="section-title">Manual Table of Contents</h2>
+		<h2 class="section-title">{t.manualTocTitle}</h2>
 
 		<div class="categories-container">
 			{#each categories as [categoryName, items]}
@@ -67,7 +70,7 @@
 					<h3 class="category-heading">{categoryName}</h3>
 					<div class="cards-grid">
 						{#each items as item}
-							<a href="/{item.slug}" class="chapter-card">
+							<a href={localize(`/${item.slug}`, currentLang)} class="chapter-card">
 								<div class="card-top">
 									<span class="chapter-number">{item.number}</span>
 									<span class="chapter-badge">{item.category}</span>
@@ -76,7 +79,7 @@
 								<p class="card-desc">{item.summary}</p>
 								<div class="card-footer">
 									<span class="read-link">
-										Read chapter
+										{t.readChapter}
 										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 											<line x1="5" y1="12" x2="19" y2="12"></line>
 											<polyline points="12 5 19 12 12 19"></polyline>

@@ -1,13 +1,13 @@
 import { error } from '@sveltejs/kit';
-import { getChapterBySlug, CHAPTERS } from '#lib/content.js';
+import { getChapterBySlug, getChapters } from '#lib/content.js';
 import { renderMarkdown, extractToc } from '#lib/markdown.js';
 
 export function entries() {
-	return CHAPTERS.map((ch) => ({ chapter: ch.slug }));
+	return getChapters('en').map((ch) => ({ chapter: ch.slug }));
 }
 
 export function load({ params }) {
-	const chapter = getChapterBySlug(params.chapter);
+	const chapter = getChapterBySlug(params.chapter, 'en');
 	if (!chapter) {
 		throw error(404, `Chapter "${params.chapter}" not found in manual`);
 	}

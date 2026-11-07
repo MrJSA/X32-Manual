@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { ChapterMeta } from '#lib/content.js';
+	import { page } from '$app/state';
+	import { langOf, localize, texts } from '#lib/i18n/index.js';
 
 	interface Props {
 		prev: ChapterMeta | null;
@@ -7,20 +9,22 @@
 	}
 
 	let { prev, next }: Props = $props();
+
+	const currentLang = $derived(langOf(page.url.pathname));
+	const t = $derived(texts[currentLang]);
 </script>
 
 <div class="chapter-nav">
 	{#if prev}
-		<a href="/{prev.slug}" class="nav-card prev-card">
+		<a href={localize(`/${prev.slug}`, currentLang)} class="nav-card prev-card">
 			<span class="nav-direction">
 				<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<line x1="19" y1="12" x2="5" y2="12"></line>
 					<polyline points="12 19 5 12 12 5"></polyline>
 				</svg>
-				PREVIOUS CHAPTER
+				{t.prevChapter.toUpperCase()}
 			</span>
 			<span class="nav-title">
-				<span class="badge">{prev.number}</span>
 				{prev.shortTitle}
 			</span>
 		</a>
@@ -29,16 +33,15 @@
 	{/if}
 
 	{#if next}
-		<a href="/{next.slug}" class="nav-card next-card">
+		<a href={localize(`/${next.slug}`, currentLang)} class="nav-card next-card">
 			<span class="nav-direction">
-				NEXT CHAPTER
+				{t.nextChapter.toUpperCase()}
 				<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<line x1="5" y1="12" x2="19" y2="12"></line>
 					<polyline points="12 5 19 12 12 19"></polyline>
 				</svg>
 			</span>
 			<span class="nav-title">
-				<span class="badge">{next.number}</span>
 				{next.shortTitle}
 			</span>
 		</a>
@@ -100,16 +103,6 @@
 		font-size: 1.05rem;
 		font-weight: 600;
 		color: var(--text);
-	}
-
-	.badge {
-		font-family: var(--font-mono);
-		font-size: 0.76rem;
-		background: var(--bg);
-		border: 1px solid var(--border-strong);
-		padding: 0.1rem 0.4rem;
-		border-radius: 4px;
-		color: var(--accent);
 	}
 
 	.empty-slot {
