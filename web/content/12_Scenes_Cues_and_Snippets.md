@@ -1,4 +1,4 @@
-# Chapter 7: Scenes, Cues, Snippets & Show Control
+# Chapter 12: Scenes, Cues, Snippets & Show Control
 
 The Behringer X32 and Midas M32 feature an enterprise-grade automation and show control engine. Understanding the distinction between **Shows**, **Cues**, **Scenes**, **Snippets**, and **Safes** is vital to prevent accidental configuration overwrites, audio dropouts, and live performance disasters.
 

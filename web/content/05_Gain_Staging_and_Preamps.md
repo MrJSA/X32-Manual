@@ -1,4 +1,4 @@
-# Chapter 1: Gain Staging, Preamps & Headamps
+# Chapter 05: Gain Staging, Preamps & Headamps
 
 Gain staging is the foundational step of all live sound and studio engineering. On digital consoles like the Behringer X32 and Midas M32, proper gain staging ensures the lowest possible noise floor, preserves dynamic range, and prevents catastrophic digital clipping.
 

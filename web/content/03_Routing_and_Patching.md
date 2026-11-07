@@ -1,4 +1,4 @@
-# Chapter 3: Routing, Patching & Signal Distribution
+# Chapter 03: Routing, Patching & Signal Distribution
 
 The routing matrix of the Behringer X32 and Midas M32 is one of the most flexible and misunderstood components of the console. Firmware 4.x expanded the original "blocks-of-eight" architecture by introducing **User 1:1 Routing**, allowing any physical connector (local XLR, stagebox AES50, expansion card, or auxiliary jack) to be patched to any channel or output independently.
 

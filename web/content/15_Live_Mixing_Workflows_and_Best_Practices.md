@@ -1,4 +1,4 @@
-# Chapter 13: Live Mixing Workflows, System Tuning & Best Practices
+# Chapter 15: Live Mixing Workflows, System Tuning & Best Practices
 
 Delivering an exceptional live mix requires more than technical feature knowledge; it demands disciplined gain staging, rigorous soundcheck methodology, intelligent loudspeaker system alignment, feedback management, and tailored broadcast streaming.
 

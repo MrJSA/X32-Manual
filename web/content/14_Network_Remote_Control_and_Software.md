@@ -1,4 +1,4 @@
-# Chapter 12: Network Setup, Remote Control & Software
+# Chapter 14: Network Setup, Remote Control & Software
 
 Remote wireless control allows audio engineers to mix from anywhere in a venue—evaluating acoustic coverage from balcony seats, front rows, and under-balcony shadows while adjusting parameters in real time. The Behringer X32 and Midas M32 feature an Ethernet remote control interface supporting dedicated software, third-party tablet apps, and Open Sound Control (OSC) automation.
 

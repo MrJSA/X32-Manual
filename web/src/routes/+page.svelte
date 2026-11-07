@@ -52,7 +52,7 @@
 				<span class="stat-lbl">Virtual FX Slots</span>
 			</div>
 			<div class="stat-card">
-				<span class="stat-val">14</span>
+				<span class="stat-val">15</span>
 				<span class="stat-lbl">Manual Chapters</span>
 			</div>
 		</div>

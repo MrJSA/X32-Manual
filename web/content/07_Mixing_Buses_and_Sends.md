@@ -1,4 +1,4 @@
-# Chapter 4: Mix Buses, Sends-on-Faders & Matrices
+# Chapter 07: Mix Buses, Sends-on-Faders & Matrices
 
 The Behringer X32 and Midas M32 internal architecture includes **25 time-aligned mix buses**: 16 configurable Mix Buses, 6 Matrix Buses, and the Main Left, Right, and Center/Mono buses. 
 

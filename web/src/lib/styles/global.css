@@ -12,9 +12,9 @@
 	--radius-sm: 6px;
 	--radius: 10px;
 	--radius-lg: 16px;
-	--container: 1280px;
-	--content-max: 860px;
-	--sidebar-w: 290px;
+	--container: 1360px;
+	--content-max: 920px;
+	--sidebar-w: 310px;
 	--header-h: 64px;
 	--ease: cubic-bezier(0.16, 1, 0.3, 1);
 

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import TableOfContents from '#lib/components/TableOfContents.svelte';
 	import ChapterNav from '#lib/components/ChapterNav.svelte';
 	import type { ChapterMeta } from '#lib/content.js';
 	import type { TocItem } from '#lib/markdown.js';
@@ -25,42 +24,32 @@
 </script>
 
 <svelte:head>
-	<title>{data.chapter.number} — {data.chapter.title} | X32 Manual</title>
+	<title>Chapter {data.chapter.number}: {data.chapter.title} | X32 Manual</title>
 	<meta name="description" content={data.chapter.summary} />
 </svelte:head>
 
 <div class="chapter-view">
-	<div class="reading-column">
-		<nav class="breadcrumbs" aria-label="Breadcrumb">
-			<a href="/" class="crumb-link">Manual</a>
-			<span class="crumb-sep">/</span>
-			<span class="crumb-category">{data.chapter.category}</span>
-			<span class="crumb-sep">/</span>
-			<span class="crumb-current">Chapter {data.chapter.number}</span>
-		</nav>
+	<nav class="breadcrumbs" aria-label="Breadcrumb">
+		<a href="/" class="crumb-link">Manual</a>
+		<span class="crumb-sep">/</span>
+		<span class="crumb-category">{data.chapter.category}</span>
+		<span class="crumb-sep">/</span>
+		<span class="crumb-current">Chapter {data.chapter.number}</span>
+	</nav>
 
-		<article class="markdown-body">
-			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-			{@html data.html}
-		</article>
+	<article class="markdown-body">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		{@html data.html}
+	</article>
 
-		<ChapterNav prev={data.chapter.prev} next={data.chapter.next} />
-	</div>
-
-	<TableOfContents items={data.toc} />
+	<ChapterNav prev={data.chapter.prev} next={data.chapter.next} />
 </div>
 
 <style>
 	.chapter-view {
-		display: flex;
-		gap: 3rem;
-		position: relative;
-	}
-
-	.reading-column {
-		flex: 1;
-		min-width: 0;
 		max-width: var(--content-max);
+		margin: 0 auto;
+		width: 100%;
 	}
 
 	.breadcrumbs {

@@ -1,4 +1,4 @@
-# Chapter 2: Channel Processing Architecture
+# Chapter 06: Channel Processing Architecture
 
 Every input channel on the Behringer X32 and Midas M32 contains a dedicated high-performance processing strip driven by a 40-bit floating-point DSP engine. Each channel includes input polarity inversion, a steep low-cut filter, a flexible gate/expander/ducker, insert routing, a 4-band fully parametric EQ with real-time analysis (RTA), a comprehensive dynamics compressor/limiter with integrated parallel mixing, and bus routing.
 

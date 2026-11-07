@@ -1,4 +1,4 @@
-# User Routing on the Behringer X32 / Midas M32
+# Chapter 04: Firmware 4.x User Routing & 1:1 Patching
 
 *How the firmware 4 user input and user output patch works, when to use it, and how to set it up on the console
 and with x32control.*

@@ -1,4 +1,4 @@
-# Chapter 9: Digital Snakes, Stageboxes & AES50 Networks
+# Chapter 02: Digital Snakes, Stageboxes & AES50 Networks
 
 The SuperMAC AES50 networking protocol, developed by Sony Pro Audio and refined by Klark Teknik, is the digital backbone of the Behringer X32 and Midas M32 ecosystems. Carrying 48 channels of bidirectional 24-bit 48 kHz digital audio over a single network cable with sub-millisecond latency, AES50 replaces heavy analog copper snake multicables with lightweight, interference-free digital connections.
 

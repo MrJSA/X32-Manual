@@ -1,4 +1,4 @@
-# Chapter 11: Recording, Playback & Expansion Cards
+# Chapter 13: Recording, Playback & Expansion Cards
 
 The Behringer X32 and Midas M32 offer exceptional recording and playback versatility, from simple stereo walk-in music and board-mix capture on the top-panel USB port to 32-channel multitrack DAW recording and standalone dual-SD card playback via modular expansion cards.
 

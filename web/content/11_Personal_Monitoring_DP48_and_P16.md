@@ -1,4 +1,4 @@
-# Chapter 10: Personal Monitoring: P16 & Midas DP48
+# Chapter 11: Personal Monitoring: Ultranet P16 & Midas DP48
 
 Personal monitoring systems empower musicians on stage to create and control their own customized in-ear mixes without requiring the Front of House engineer's attention. The Behringer X32 and Midas M32 natively support two industry-standard digital personal monitoring architectures: the **Behringer Powerplay P16** (via Ultranet) and the **Midas DP48** (via AES50).
 

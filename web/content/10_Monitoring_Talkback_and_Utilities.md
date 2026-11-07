@@ -1,4 +1,4 @@
-# Chapter 8: Monitoring, Solo, Talkback & Utilities
+# Chapter 10: Monitoring, Solo, Talkback & Utilities
 
 A mixing console is only as effective as the engineer's ability to accurately monitor audio, communicate with the stage, verify signal continuity, and manage multiple open microphones. The Behringer X32 and Midas M32 include dedicated control room monitoring circuitry, dual talkback communication matrices, an onboard test signal oscillator, a 100-band Real-Time Analyzer (RTA), and a 8-channel Dan Dugan-style speech automixer.
 

@@ -1,4 +1,4 @@
-# Chapter 0: Introduction & Console Hardware Overview
+# Chapter 01: Hardware Overview & Surface Anatomy
 
 The Behringer X32 (and its sister console, the Midas M32) is a 40-input, 25-bus digital mixing console designed for live sound, studio recording, and broadcast production. Operating at 44.1 kHz or 48 kHz with 40-bit floating-point internal processing, the console combines dedicated physical surface controls with a flexible software architecture.
 

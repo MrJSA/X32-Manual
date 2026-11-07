@@ -1,4 +1,4 @@
-# Chapter 5: DCAs, Mute Groups & Fader Management
+# Chapter 08: DCAs, Mute Groups & Fader Management
 
 Modern live sound mixing requires managing 30 to 40 channels simultaneously under intense time pressure. Navigating multiple layers to adjust individual instruments is impossible during fast-paced performances. The Behringer X32 and Midas M32 provide two primary organizational control tools: **8 Digitally Controlled Amplifiers (DCAs)** with **DCA Spill**, and **6 dedicated Master Mute Groups**.
 

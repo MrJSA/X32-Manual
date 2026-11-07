@@ -1,6 +1,10 @@
 import { error } from '@sveltejs/kit';
-import { getChapterBySlug } from '#lib/content.js';
+import { getChapterBySlug, CHAPTERS } from '#lib/content.js';
 import { renderMarkdown, extractToc } from '#lib/markdown.js';
+
+export function entries() {
+	return CHAPTERS.map((ch) => ({ chapter: ch.slug }));
+}
 
 export function load({ params }) {
 	const chapter = getChapterBySlug(params.chapter);
@@ -9,7 +13,7 @@ export function load({ params }) {
 	}
 
 	const html = renderMarkdown(chapter.rawContent);
-	const toc = extractToc(chapter.rawContent);
+	const toc = chapter.toc ?? extractToc(chapter.rawContent);
 
 	return {
 		chapter: {

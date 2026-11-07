@@ -1,4 +1,4 @@
-# Chapter 6: Virtual Effects Rack & The 30+ Effect Processors
+# Chapter 09: Virtual Effects Rack & Processors
 
 The Behringer X32 and Midas M32 feature an internal **8-slot virtual 19" effects rack** powered by dedicated 40-bit DSP. The console eliminates the need for bulky outboard gear by faithfully modeling legendary vintage analog hardware—including UREI 1176, Teletronix LA-2A, Fairchild 670, Pultec EQP-1A / MEQ-5, SPL Transient Designer, BBE Sonic Maximizer, EMT 250, and 31-band true-response graphic equalizers.
 
