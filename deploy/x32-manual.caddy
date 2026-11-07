@@ -1,0 +1,4 @@
+# /etc/caddy/sites/x32-manual.caddy (uses the `proxy` snippet from your Caddyfile)
+x32.mrjsa.com {
+	import proxy 8088
+}

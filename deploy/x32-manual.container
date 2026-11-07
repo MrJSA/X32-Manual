@@ -1,0 +1,33 @@
+# Podman Quadlet systemd unit:
+#   sudo cp x32-manual.container /etc/containers/systemd/
+#   sudo systemctl daemon-reload && sudo systemctl start x32-manual
+[Unit]
+Description=Behringer X32 / Midas M32 Field Guide & Technical Manual
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=ghcr.io/mrjsa/x32-manual:latest
+ContainerName=x32-manual
+# Only reachable from localhost — Caddy forwards to it.
+PublishPort=127.0.0.1:8088:8080
+# Hardening: read-only file system, no capabilities, no privilege escalation.
+ReadOnly=true
+DropCapability=all
+NoNewPrivileges=true
+# Resource limits
+PodmanArgs=--memory=256m --memory-swap=256m --cpus=1 --pids-limit=128
+# Direct exec healthcheck without requiring a shell
+HealthCmd=["/server","--healthcheck"]
+HealthInterval=30s
+HealthStartPeriod=5s
+# Auto-update when new image is published
+AutoUpdate=registry
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+Environment=REGISTRY_AUTH_FILE=/etc/containers/auth.json
+
+[Install]
+WantedBy=multi-user.target
