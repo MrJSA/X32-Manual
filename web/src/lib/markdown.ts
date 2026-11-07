@@ -79,8 +79,24 @@ const marked = new Marked({
 			const relAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
 			return `<a href="${href}"${titleAttr}${relAttr}>${text}</a>`;
 		},
-		table({ header, rows }) {
-			return `<div class="table-container"><table><thead>${header}</thead><tbody>${rows}</tbody></table></div>`;
+		table(token) {
+			let headerCells = '';
+			for (let j = 0; j < token.header.length; j++) {
+				headerCells += this.tablecell(token.header[j]);
+			}
+			const header = this.tablerow({ text: headerCells });
+
+			let body = '';
+			for (let j = 0; j < token.rows.length; j++) {
+				const row = token.rows[j];
+				let rowCells = '';
+				for (let k = 0; k < row.length; k++) {
+					rowCells += this.tablecell(row[k]);
+				}
+				body += this.tablerow({ text: rowCells });
+			}
+			const tbody = body ? `<tbody>\n${body}</tbody>\n` : '';
+			return `<div class="table-container"><table>\n<thead>\n${header}</thead>\n${tbody}</table></div>\n`;
 		}
 	}
 });
