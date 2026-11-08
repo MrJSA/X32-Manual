@@ -148,5 +148,5 @@ Verbindung von FOH-, Monitor- und Broadcast-Pulten zum gemeinsamen Zugriff auf d
    - *Ergebnis*: Das FOH-Pult erhält die originalen Mikrofonkanäle verlustfrei und ohne Latenzverzögerung.
 2. **Gain-Split-Schutz**:
    - Das Monitorpult verwaltet die analogen Preamps.
-   - Am FOH- und Broadcast-Pult aktivieren Sie unter **SETUP → PREAMPS** die Funktion **HA Gain Split**.
+   - Am FOH- und Broadcast-Pult aktivieren Sie unter **SETUP → GLOBAL** die Funktion **HA Gain Split**.
    - FOH und Broadcast können nun unabhängige digitale Trim-Pegel (-18 dB bis +18 dB) anpassen, ohne den Monitormix der Musiker auf der Bühne zu verändern.

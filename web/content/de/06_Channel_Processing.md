@@ -118,7 +118,7 @@ Das X32 bietet fünf verschiedene Betriebsmodi in der Gate-Sektion:
 
 ### Key-Filter (Sidechain-Filterung):
 Das Steuersignal kann frequenzselektiv gefiltert werden:
-- **Filtermodi**: Low Cut, High Cut oder Peak (Bandpass).
+- **Filtermodi**: Low Cut (6/12 dB), High Cut (6/12 dB) oder Peak (Bandpass, Q 0,3–10,0).
 - **Frequenz**: 20 Hz bis 20 kHz.
 - **Key Source**: Intern (`Self`) oder jeder andere beliebige Kanalzug bzw. Mix-Bus.
 
@@ -132,6 +132,8 @@ Das Steuersignal kann frequenzselektiv gefiltert werden:
    - Als **Key Source** wählen Sie den Kanal der **Kickdrum**.
    - **Range** auf **4 dB bis 6 dB**, Attack auf **5 ms**, Release auf **80 ms** stellen.
    - *Ergebnis*: Bei jedem Kick-Schlag senkt sich der Bass für den Bruchteil einer Sekunde um 5 dB ab. Kick und Bass verzahnen sich perfekt, ohne dass sich die Tiefbässe gegenseitig überlagern.
+3. **Automatisches Ducking von Musik bei Sprache**:
+   - Hintergrundmusik (Aux 7/8) auswählen. Modus auf **DUCK** stellen und als Key Source das Mikrofon des Pastors bzw. Moderators wählen. Die Musik wird automatisch leiser, sobald jemand spricht.
 
 ---
 
@@ -154,7 +156,46 @@ Jeder Eingangskanal verfügt über vier vollwertige parametrische Bänder. Band 
 
 ### Echtzeit-Analyzer (RTA):
 Drücken Sie `VIEW` im EQ-Bereich. Das Display blendet den 100-Band-RTA direkt hinter der Filterkurve ein:
+- **RTA-Modus**: Balkenanzeige oder Spektrogramm (Wasserfall).
 - **Abgriff**: **Pre** (zeigt das unveränderte Rohsignal) oder **Post** (zeigt das Ergebnis nach dem EQ).
+
+### Die „Sweep and Destroy“-EQ-Technik:
+So beseitigen Sie klingelnde Resonanzen, Feedback-Frequenzen oder nasale Töne:
+1. Ein parametrisches Mittenband wählen (Band 2 oder 3).
+2. Q schmal einstellen (**Q = 5,0 bis 8,0**) und den Gain um **+9 dB** anheben.
+3. Den Frequenzregler langsam durch das Spektrum fahren, während der Musiker singt oder spielt.
+4. Sobald die störende Frequenz unangenehm heraussticht, anhalten.
+5. Den Gain von +9 dB auf **-3 dB bis -6 dB** umkehren und das Q etwas verbreitern (**Q = 2,0 bis 3,0**). Die störende Resonanz verschwindet, ohne dem Instrument seine Musikalität zu nehmen.
+
+### EQ-Spickzettel für Instrumente:
+
+```
+GESANG:
+  80-140 Hz  : Low Cut (gegen Explosivlaute und Bühnenrumpeln)
+  200-300 Hz : 2-3 dB absenken (weniger Matsch / Nahbesprechungseffekt)
+  1,0-1,5 kHz: schmal absenken (entfernt billigen „Megafon“-Klang)
+  3,0-4,0 kHz: sanft anheben (mehr Sprachverständlichkeit und Artikulation)
+  10-12 kHz  : High Shelf +2 dB (weicher, luftiger Glanz)
+
+SNARE:
+  80 Hz      : Low Cut
+  200-240 Hz : 2-4 dB anheben (Snare-„Fleisch“ und Körper)
+  600-900 Hz : schmale Kerbe -4 dB (entfernt hohlen Pappkarton-Ring)
+  2,5-3,5 kHz: 2-3 dB anheben (Stick-Anschlag und Attack)
+  8,0 kHz    : High Shelf (Teppich-Brillanz)
+
+BASSDRUM:
+  30 Hz      : Low Cut
+  50-70 Hz   : 3 dB anheben (Sub-Bass-Druck in der Brust)
+  250-400 Hz : 4-8 dB tief absenken (räumt den matschigen Pappkarton-Klang aus)
+  3,5-5,0 kHz: 3-5 dB anheben (Schlägel-Klick, setzt sich gegen dichte Gitarren durch)
+
+E-GITARRE:
+  80 Hz      : Low Cut
+  400-500 Hz : 2-3 dB absenken (entfernt Matsch, schafft Platz für den E-Bass)
+  2,0-3,5 kHz: sanft anheben (holt die Gitarre im Mix nach vorne)
+  6,5 kHz    : High Cut (entfernt digitales Amp-Modeler-Kratzen)
+```
 
 ---
 
@@ -171,7 +212,8 @@ Der Kanalkompressor glättet Dynamiksprünge, sorgt für Durchsetzungsfähigkeit
   - *100:1*: Hard-Knee-Spitzenwertbegrenzer (Limiter).
 - **Attack** (0 bis 120 ms): Ansprechzeit.
   - *Schnell (0–5 ms)*: Fängt Pegelspitzen ab; glättet Gesang.
-  - *Langsam (20–40 ms)*: Lässt den Anschlagstransienten ungehindert durch, bevor komprimiert wird – sorgt für maximalen Klick und Druck bei Drums.
+  - *Langsam (20–50 ms)*: Lässt den Anschlagstransienten ungehindert durch, bevor komprimiert wird – sorgt für maximalen Klick und Druck bei Drums.
+- **Hold** (0 bis 2000 ms) & **Release** (10 bis 4000 ms): Erholzeit nach der Kompression. (Das Release sollte natürlich mit dem Tempo des Songs atmen; für Gesang typischerweise 100–200 ms).
 - **Knee** (0 = Hard Knee bis 5 = Soft Knee): Sanfterer Übergang in die Kompression.
 - **Detektion**: **RMS** (gehörrichtig, musikalisch weich) vs. **Peak** (blitzschnell auf Spitzen reagierend).
 - **Make-up Gain** (0 dB bis 24 dB): Gleicht den durch Kompression verlorenen Ausgangspegel wieder aus.
@@ -179,8 +221,8 @@ Der Kanalkompressor glättet Dynamiksprünge, sorgt für Durchsetzungsfähigkeit
 ### Integrierte parallele Kompression (Der MIX-Regler):
 Jeder Kanalkompressor im X32 besitzt einen integrierten **MIX-Regler (0% bis 100%)**:
 - **100%**: Reines komprimiertes Signal (seriell).
-- **40% – 50%**: Mischt 50% unkomprimiertes Originalsignal mit 50% brachial komprimiertem Signal (New-York-Style Parallelkompression).
-- *Vorteil*: Sie können eine Snare Drum oder Gesangsstimme mit 10:1 Ratio und 10 dB Gain-Reduction massiv verdichten und durch Zurückdrehen des MIX-Reglers auf **45%** volle Transientenfrische und unendliches Sustain vereinen.
+- **50%**: Mischt 50% unkomprimiertes Originalsignal mit 50% brachial komprimiertem Signal (New-York-Style Parallelkompression).
+- *Vorteil*: Sie können eine Snare Drum oder Gesangsstimme mit 10:1 Ratio und 10 dB Gain-Reduction massiv verdichten und den MIX-Regler dann auf **40%** zurückdrehen. So erhalten Sie maximalen Druck, klare Transienten und endloses Sustain, ohne dass es gequetscht oder erstickt klingt.
 
 ---
 
@@ -201,5 +243,6 @@ Jeder Kanal kann wahlweise einen der 8 internen virtuellen Rack-Effektprozessore
 Ungerade und gerade Kanalpaare (z. B. 1+2, 3+4, 15+16) können zu einem echten Stereokanal verknüpft werden:
 1. Wählen Sie den ungeraden Kanal (z. B. Kanal 1).
 2. Drücken Sie auf der Seite **Config** den Drehknopf **Link** und bestätigen Sie mit `YES`.
-3. Fader, Mute, EQ, Kompressor und Preamp-Gain bewegen sich ab sofort synchron.
-4. Die Panoramaregler werden automatisch spiegelbildlich auf 100% Links und 100% Rechts gepannt.
+3. Beide Scribble-Strips zeigen nun Klammern für die Verkopplung an.
+4. **Verhalten der Verkopplung**: Fader, Mute, EQ, Kompressor und Preamp-Gain bewegen sich synchron.
+5. **Unabhängiges Panorama**: Die Panoramaregler werden automatisch entkoppelt und gespiegelt (Kanal 1 hart links, Kanal 2 hart rechts), damit das Stereobild erhalten bleibt. Die Link-Regeln legen Sie unter **SETUP → CONFIG → Link Preferences** fest.

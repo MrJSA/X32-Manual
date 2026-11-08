@@ -108,7 +108,9 @@ Das 800x480 Farb-TFT-Display dient der detaillierten Parametrisierung und dem Si
 │                                                             │
 │                    HAUPT-7"-TFT-DISPLAY                     │
 │                                                             │
-│                    (Encoder 1 bis 6)                        │
+├─────────────────────────────────────────────────────────────┤
+│   (1)         (2)         (3)         (4)         (5)   (6) │
+│ [Encoder]  [Encoder]  [Encoder]  [Encoder]  [Encoder] [Push]│
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -143,6 +145,15 @@ Halten Sie die `SELECT`-Taste des gewünschten Kanals gedrückt und drücken Sie
 ---
 
 ## 5. Anschlüsse auf der Geräterückseite
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────┐
+│  [ XLR INPUTS 1-16 ]            [ XLR INPUTS 17-32 ]             [ XLR OUTPUTS 1-8 ]        │
+│  [ XLR OUTPUTS 9-16 ]           [ AUX IN 1-6 (TRS) + RCA 5-6 ]   [ AUX OUT 1-6 + RCA 5-6 ]  │
+│  [ AES50 PORT A ] [ AES50 PORT B ]   [ ULTRANET P16 ]   [ REMOTE ETHERNET ]  [ MIDI IN/OUT] │
+│  [ POWER SWITCH & IEC ]         [ X-USB / X-LIVE EXPANSION CARD INTERFACE (32x32) ]         │
+└─────────────────────────────────────────────────────────────────────────────────────────────┘
+```
 
 | Anschluss / Schnittstelle | Steckertyp | Funktion & Einsatzzweck |
 |---|---|---|

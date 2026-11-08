@@ -15,8 +15,9 @@ mod headers;
 mod healthcheck;
 
 use std::io::IsTerminal;
-use std::time::Instant;
+use std::time::{Duration, Instant};
 
+use axum::http::StatusCode;
 use axum::{
     Router,
     extract::Request,
@@ -25,6 +26,7 @@ use axum::{
     routing::get,
 };
 use tower_http::services::{ServeDir, ServeFile};
+use tower_http::timeout::TimeoutLayer;
 use tracing::info;
 use tracing_subscriber::EnvFilter;
 
@@ -62,6 +64,12 @@ async fn main() {
     let app = Router::new()
         .route("/healthz", get(|| async { "ok" }))
         .fallback_service(static_files)
+        .layer(middleware::from_fn(headers::only_get_head))
+        // Static files answer in microseconds; anything slower is a stuck client.
+        .layer(TimeoutLayer::with_status_code(
+            StatusCode::REQUEST_TIMEOUT,
+            Duration::from_secs(15),
+        ))
         .layer(middleware::from_fn(headers::apply))
         .layer(middleware::from_fn(log_request));
 

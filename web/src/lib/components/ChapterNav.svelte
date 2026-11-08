@@ -22,7 +22,7 @@
 					<line x1="19" y1="12" x2="5" y2="12"></line>
 					<polyline points="12 19 5 12 12 5"></polyline>
 				</svg>
-				{t.prevChapter.toUpperCase()}
+				{t.prevChapter}
 			</span>
 			<span class="nav-title">
 				{prev.shortTitle}
@@ -35,7 +35,7 @@
 	{#if next}
 		<a href={localize(`/${next.slug}`, currentLang)} class="nav-card next-card">
 			<span class="nav-direction">
-				{t.nextChapter.toUpperCase()}
+				{t.nextChapter}
 				<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<line x1="5" y1="12" x2="19" y2="12"></line>
 					<polyline points="12 5 19 12 12 19"></polyline>
@@ -54,30 +54,45 @@
 	.chapter-nav {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 1.25rem;
-		margin-top: 3.5rem;
-		padding-top: 2rem;
-		border-top: 1px solid var(--border);
+		gap: 16px;
+		margin-top: 4rem;
 	}
 
 	.nav-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
-		gap: 0.4rem;
-		padding: 1.25rem 1.5rem;
+		gap: 6px;
+		padding: 22px 26px;
 		background: var(--surface);
 		border: 1px solid var(--border);
-		border-radius: var(--radius);
-		text-decoration: none;
-		transition: all 0.15s ease;
-		box-shadow: var(--shadow-sm);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		isolation: isolate;
+		transition:
+			transform 0.35s var(--ease),
+			border-color 0.35s var(--ease),
+			box-shadow 0.35s var(--ease);
+	}
+
+	.nav-card::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: var(--grad-soft);
+		opacity: 0;
+		transition: opacity 0.35s var(--ease);
 	}
 
 	.nav-card:hover {
-		border-color: var(--accent);
-		background: var(--surface-hover);
-		transform: translateY(-2px);
-		text-decoration: none;
+		transform: translateY(-3px);
+		border-color: rgb(251 113 133 / 0.35);
+		box-shadow: var(--shadow);
+	}
+
+	.nav-card:hover::before {
+		opacity: 1;
 	}
 
 	.next-card {
@@ -88,25 +103,30 @@
 	.nav-direction {
 		display: flex;
 		align-items: center;
-		gap: 0.4rem;
-		font-family: var(--font-display);
-		font-size: 0.72rem;
-		font-weight: 700;
-		letter-spacing: 0.07em;
+		gap: 6px;
+		font-size: 0.8rem;
+		font-weight: 600;
 		color: var(--text-faint);
 	}
 
-	.nav-title {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-size: 1.05rem;
-		font-weight: 600;
-		color: var(--text);
+	.nav-direction svg {
+		transition: transform 0.3s var(--ease);
 	}
 
-	.empty-slot {
-		display: block;
+	.prev-card:hover .nav-direction svg {
+		transform: translateX(-4px);
+	}
+
+	.next-card:hover .nav-direction svg {
+		transform: translateX(4px);
+	}
+
+	.nav-title {
+		font-family: var(--font-display);
+		font-size: 1.08rem;
+		font-weight: 700;
+		letter-spacing: -0.015em;
+		color: var(--text);
 	}
 
 	@media (max-width: 640px) {

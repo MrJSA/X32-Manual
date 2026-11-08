@@ -11,3 +11,6 @@ web/build
 Thumbs.db
 .idea/
 .vscode/
+
+# Private source material (guide drafts, transcripts)
+/private/

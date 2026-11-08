@@ -3,7 +3,8 @@
 	import Sidebar from '#lib/components/Sidebar.svelte';
 	import SearchModal from '#lib/components/SearchModal.svelte';
 	import { page } from '$app/state';
-	import { langOf } from '#lib/i18n/index.js';
+	import { langOf, texts } from '#lib/i18n/index.js';
+	import { ui } from '#lib/ui.svelte.js';
 	import '#lib/styles/global.css';
 
 	interface Props {
@@ -12,83 +13,77 @@
 
 	let { children }: Props = $props();
 
-	let isSidebarOpen = $state(false);
-	let isSearchOpen = $state(false);
-
 	const currentLang = $derived(langOf(page.url.pathname));
+	const t = $derived(texts[currentLang]);
 
 	$effect(() => {
-		if (typeof document !== 'undefined') {
-			document.documentElement.lang = currentLang;
-		}
+		document.documentElement.lang = currentLang;
 	});
-
-	function toggleSidebar() {
-		isSidebarOpen = !isSidebarOpen;
-	}
-
-	function closeSidebar() {
-		isSidebarOpen = false;
-	}
-
-	function openSearch() {
-		isSearchOpen = true;
-	}
-
-	function closeSearch() {
-		isSearchOpen = false;
-	}
 
 	function handleGlobalKeyDown(e: KeyboardEvent) {
 		if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
 			e.preventDefault();
-			isSearchOpen = !isSearchOpen;
+			ui.searchOpen = !ui.searchOpen;
 		}
 	}
 </script>
 
 <svelte:window onkeydown={handleGlobalKeyDown} />
 
-<div class="app-layout">
-	<Header onToggleSidebar={toggleSidebar} onOpenSearch={openSearch} />
+<div class="app">
+	<Header onToggleSidebar={() => (ui.sidebarOpen = !ui.sidebarOpen)} onOpenSearch={() => (ui.searchOpen = true)} />
 
-	<div class="layout-body">
-		<Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
+	<div class="body">
+		<Sidebar isOpen={ui.sidebarOpen} onClose={() => (ui.sidebarOpen = false)} />
 
-		<main class="main-content">
-			{#if children}
-				{@render children()}
-			{/if}
+		<main class="main">
+			{@render children?.()}
+
+			<footer class="footer">
+				<span>{t.footerNote}</span>
+			</footer>
 		</main>
 	</div>
 
-	<SearchModal isOpen={isSearchOpen} onClose={closeSearch} />
+	<SearchModal isOpen={ui.searchOpen} onClose={() => (ui.searchOpen = false)} />
 </div>
 
 <style>
-	.app-layout {
+	.app {
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
 	}
 
-	.layout-body {
+	.body {
 		flex: 1;
 		display: flex;
+		gap: clamp(0px, 2vw, 24px);
 		max-width: var(--container);
 		width: 100%;
 		margin: 0 auto;
+		padding: 0 clamp(12px, 2vw, 24px);
 	}
 
-	.main-content {
+	.main {
 		flex: 1;
 		min-width: 0;
-		padding: 2.5rem clamp(1.25rem, 4vw, 3rem) 5rem;
+		padding: 2.25rem clamp(0.25rem, 3vw, 2.5rem) 2rem;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.footer {
+		margin-top: auto;
+		padding-top: 4rem;
+		text-align: center;
+		font-size: 0.8rem;
+		color: var(--text-faint);
 	}
 
 	@media (max-width: 860px) {
-		.main-content {
-			padding: 1.5rem 1rem 4rem;
+		.main {
+			padding: 1.5rem 0.25rem 2rem;
 		}
 	}
 </style>

@@ -66,7 +66,7 @@ Drücken Sie die rot blinkende Taste **SENDS ON FADER** erneut. Die Motorfader f
 ### A. Bodenmonitore (Wedges):
 - **Zwingende Einstellung**: Busse für Bodenmonitore müssen auf **PRE-FADER** (oder Post-EQ) stehen.
 - *Warum Pre-Fader Pflicht ist*: Bei Post-Fader würde jede Faderbewegung des FOH-Mischers die Lautstärke auf der Bühne verändern. Zieht der Mischer Gesang im Saal leiser, hört sich der Musiker selbst nicht mehr. Schiebt er ein Gitarrensolo laut, pfeift der Monitor auf der Bühne sofort in Rückkopplung.
-- **Rückkopplungen einpfeifen**: Nutzen Sie den 6-Band-PEQ des Busses mit schmalen Kerbfiltern (Q = 8,0), um Raummoden gezielt abzusenken.
+- **Rückkopplungen einpfeifen**: Schleifen Sie einen **Dual TruEQ** ein oder nutzen Sie den 6-Band-PEQ des Busses mit schmalen Kerbfiltern (Q = 8,0), um die im RTA erkannten Feedback-Frequenzen gezielt abzusenken.
 
 ### B. In-Ear-Monitoring (IEM):
 - **Stereo-Bus-Linking**: Verlinken Sie zwei Busse zu einem Stereopaar (z. B. Bus 1+2 für Sänger-IEM).
@@ -78,12 +78,23 @@ Drücken Sie die rot blinkende Taste **SENDS ON FADER** erneut. Die Motorfader f
 
 ## 4. Audio-Subgruppen vs. DCAs
 
+Viele Techniker verwechseln Subgruppen und DCAs. Beide steuern mehrere Kanäle mit einem einzigen Fader, funktionieren aber völlig unterschiedlich:
+
 | Eigenschaft | Audio-Subgruppe | DCA-Gruppe |
 |---|---|---|
 | **Audiosignal** | Summiert echte Audiosignale physikalisch zusammen | Führt **kein Audio**; reine Fernsteuerungs-Offsets |
 | **Bearbeitung** | Eigener 6-Band-EQ, Kompressor, Insert-Rack und Delay | Keinerlei Signalbearbeitung |
 | **Zuweisung** | Kanäle müssen von Main LR entkoppelt und auf den Bus geroutet werden | Kanäle bleiben direkt auf Main LR geschaltet |
-| **Bester Einsatz** | Schlagzeug-Buskompression, Chorbearbeitung, Stems | Lautstärkegruppierung von Bläsern, Band und Effekt-Returns |
+| **Send-Verhalten** | Fester 0-dB-Send der Kanäle (nur Ein/Aus-Zuweisung) | Proportionale Faderfahrt über alle zugewiesenen Kanäle |
+| **Bester Einsatz** | Schlagzeug-Buskompression, parallele Drum-Kompression, Chor-„Glue“ | Lautstärke von Bläsersätzen, Band-Stems oder Effekten steuern |
+
+### Eine Audio-Subgruppe einrichten:
+1. Die zu gruppierenden Kanäle auswählen (z. B. Kanäle 1–8: Drums).
+2. Unter **Channel → Main** die Zuweisung zu **STEREO LR** aufheben. (Sie speisen den Saal dann nicht mehr direkt.)
+3. Die Kanäle mit Send-Pegel **0 dB (Unity)** auf **Bus 1–2** routen und den Bus-Abgriff auf **Subgroup** stellen.
+4. **Bus 1 und Bus 2** als Stereopaar verlinken.
+5. **Bus 1–2** auswählen, auf **STEREO LR** routen und den Masterfader auf 0 dB stellen.
+6. Nun steht eine vollständige Drum-Bus-Bearbeitung zur Verfügung: EQ anwenden, einen Bus-Kompressor einschleifen und das gesamte Schlagzeug mit den Bus-Fadern 1–2 steuern.
 
 ---
 
@@ -108,6 +119,8 @@ Parallele Kompression kombiniert ein dynamisches, knackiges Schlagzeug mit einer
              [BUS 1-2 FADER] ───────────────► Unter Main LR dazumischen (-10 bis -6 dB)
 ```
 
+*Ergebnis:* Die trockenen Drums behalten Transienten-Knack und Stick-Anschlag, während der parallel gequetschte Bus massiven Raumklang, Körper und Sustain hinzufügt, ohne den Mix zu verschmieren.
+
 ---
 
 ## 6. Die 6 Matrix-Mischungen: „Der Mix vom Mix“
@@ -123,6 +136,14 @@ Ein Matrix-Mischer empfängt keine einzelnen Kanalzüge, sondern speist sich aus
 │ Mono / Center   │ ──┘
 └─────────────────┘
 ```
+
+### Warum Matrizen für die PA-Verteilung?
+Wird die PA (Endstufen oder aktive Lautsprecher) direkt vom Main-LR-Fader gespeist, ist das riskant: Stößt jemand gegen den Masterfader, geraten Lautsprecherabstimmung und Delays durcheinander. Laufen die PA-Zonen über Matrizen, mischt der Main-LR-Fader die Show, während die Matrizen das Lautsprecher-Processing übernehmen.
+
+### Bearbeitungsfunktionen der Matrizen:
+- **6-Band parametrischer EQ**: Eigene Raumabstimmung pro Lautsprecherzone.
+- **Limiter**: Schützt Endstufen und Treiber vor Überlastung.
+- **Ausgangs-Delay (0 bis 500 ms)**: Unverzichtbar für die Laufzeitkorrektur nach Entfernung.
 
 ### Typische Matrix-Verteilung in Beschallungssystemen:
 ```
@@ -144,7 +165,11 @@ Schall legt in der Luft bei 20°C etwa **0,343 Meter pro Millisekunde (1 Meter i
 
 ## 7. Main Stereo Bus & Subwoofer über Aux/Mono (Aux-Fed Subs)
 
-### Subwoofer auf dem diskreten Mono/Center-Bus betreiben:
+### Option A: Standard-Stereo Main LR (Subwoofer über Frequenzweiche)
+Main L/R speist eine System-Frequenzweiche oder eine Sub-/Satelliten-PA. Alle Kanäle des Pultes gelangen entsprechend ihrem Tiefbassanteil gleichermaßen in die Subwoofer.
+
+### Option B: Aux-gespeiste Subwoofer (Subwoofer auf dem Mono/Center-Bus)
+Die Subwoofer werden ausschließlich vom **Mono-/Center-Bus** des Pultes gespeist:
 1. Den Subwoofer-Verstärker an **Out 14** anschließen (Quelle: **Mono / Center**, Abgriff: **Post-Fader**).
 2. Am Mischpult weisen Sie **ausschließlich Instrumente mit echtem Tiefbass** dem Mono-Bus zu:
    - Kick Drum: `MONO EIN`

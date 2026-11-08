@@ -1,4 +1,9 @@
-# /etc/caddy/sites/x32-manual.caddy (uses the `proxy` snippet from your Caddyfile)
+# /etc/caddy/sites/x32-manual.caddy (uses the `common` snippet from your Caddyfile)
 x32.mrjsa.com {
-	import proxy 8088
+	# The manual sets its own cache + security headers (incl. CSP) and serves
+	# pre-compressed files, so no `encode` here (same as mrjsa.com).
+	import common
+	# Two years of HTTPS-only; overrides the shorter value from `common` for this site.
+	header Strict-Transport-Security "max-age=63072000; includeSubDomains"
+	reverse_proxy 127.0.0.1:8088
 }

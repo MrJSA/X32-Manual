@@ -38,11 +38,11 @@ X32-Manual/
 │   ├── headers.rs            # HTTP cache policies and security headers
 │   └── healthcheck.rs        # Container healthcheck CLI probe
 ├── web/
-│   ├── content/              # Master markdown chapter source files
+│   ├── content/              # Chapter markdown, one folder per language (en, de)
 │   ├── src/
 │   │   ├── lib/              # Content parser, marked renderer, components, global styles
-│   │   └── routes/           # SvelteKit routes (+page.svelte, [chapter]/+page.svelte)
-│   ├── static/               # Favicon, webmanifest, robots.txt
+│   │   └── routes/           # Pages (EN at /, DE at /de/), sitemap.xml, robots.txt, search.json
+│   ├── static/               # Favicon, webmanifest
 │   ├── package.json
 │   ├── tsconfig.json
 │   └── vite.config.ts
@@ -58,18 +58,20 @@ X32-Manual/
 
 | Chapter | Title | Focus & Core Content |
 |---|---|---|
-| **00** | **Hardware Overview & Surface Anatomy** | Surface topography, fader banks, channel strip controls, 7" screen, scribble strips, rear connectivity. |
-| **01** | **Gain Staging, Preamps & Headamps** | Analog headamp vs digital trim, -18 dBFS digital target, phantom power protocols, polarity flip, HA Gain Split. |
-| **02** | **Channel Processing Architecture** | Low Cut HPF guidelines, 5-mode Gate/Expander/Ducker, 4-band PEQ with RTA, compressor with parallel mix %. |
-| **03** | **Routing, Patching & Signal Distribution** | Blocks of eight vs User 1:1 Routing, tap point selection (In/LC, Pre-EQ, Pre-Fader, Post-Fader), stage setups. |
-| **04** | **Mix Buses, Sends-on-Faders & Matrices** | 16 Mix Buses, Sends-on-Faders, stage wedges vs IEMs, audio subgroups vs DCAs, parallel drum smash, 6 Matrices. |
-| **05** | **DCAs, Mute Groups & Fader Management** | 8 DCAs, DCA pre/post-fader send behavior gotcha, DCA Spill, 6 Master Mute Groups, and FX Mute protocol. |
-| **06** | **Virtual Effects Rack & All 30+ Processors** | 8-slot rack, vintage compressors (1176, LA-2A, Fairchild), Pultec EQs, delays, reverbs, enhancers, IEM reverb routing. |
-| **07** | **Scenes, Cues, Snippets & Show Control** | Show control hierarchy (Show → Cues → Scenes → Snippets), surgical snippet recalls, Parameter and Channel Safes. |
-| **08** | **Monitoring, Solo, Talkback & Utilities** | Control Room / Phones, PFL vs AFL solo, Talkback A/B destination matrices, oscillator, Dan Dugan speech automixer. |
-| **09** | **Digital Snakes, Stageboxes & AES50 Networks**| SuperMAC AES50, S16/S32/SD/DL stageboxes, mandatory shielded STP cabling (preventing ESD), master/slave clocking. |
-| **10** | **Personal Monitoring: P16 & Midas DP48** | Ultranet P16-M mixers and P16-D hubs, 16-channel squeeze strategy, stage ambient mics, Midas DP48 over AES50. |
-| **11** | **Recording, Playback & Expansion Cards** | Top-panel 2-track USB WAV recorder, 32x32 X-USB interface, X-LIVE standalone dual SD card recording, Virtual Soundcheck. |
-| **12** | **Network Setup, Remote Control & Software** | Static IP configuration, 5 GHz Wi-Fi optimization, X32-Edit sync safety, Mixing Station app customization, OSC protocol. |
-| **13** | **Live Mixing Workflows & System Tuning** | Step-by-step soundcheck protocol, PA time-alignment formulas, ringing out stage monitors with RTA, broadcast streaming. |
-| **App** | **Deep Dive: Firmware 4.x User Routing** | Comprehensive 1:1 flexible patching architecture, multi-stagebox setups, wireless mic integration. |
+| **01** | **Hardware Overview & Surface Anatomy** | Surface layout, fader banks, channel strip controls, 7" screen, scribble strips, rear connectivity. |
+| **02** | **Digital Snakes, Stageboxes & AES50 Networks** | SuperMAC AES50, S16/S32/SD/DL stageboxes, shielded STP cabling, master/slave clocking. |
+| **03** | **Routing, Patching & Signal Distribution** | Blocks of eight, tap points, XLR/Aux/Ultranet/Card outputs, stage patch recipes. |
+| **04** | **Firmware 4.x User Routing (1:1 Patching)** | User In / User Out patching, multi-stagebox setups, wireless racks, recording feeds. |
+| **05** | **Gain Staging, Preamps & Headamps** | Analog headamp vs digital trim, -18 dBFS target, phantom power, polarity, HA Gain Split. |
+| **06** | **Channel Processing Architecture** | Low Cut, Gate/Expander/Ducker, 4-band PEQ with RTA, compressor with parallel mix. |
+| **07** | **Mix Buses, Sends-on-Faders & Matrices** | 16 mix buses, Sends on Faders, wedges vs IEMs, subgroups vs DCAs, 6 matrices. |
+| **08** | **DCAs, Mute Groups & Fader Management** | 8 DCAs, pre/post-fader send gotcha, DCA Spill, 6 mute groups, FX mute. |
+| **09** | **Virtual Effects Rack & Processors** | 8-slot rack, 1176/LA-2A/Fairchild models, Combinator, Pultec EQs, reverbs, delays. |
+| **10** | **Monitoring, Solo, Talkback & Utilities** | Control room/phones, PFL vs AFL, Talkback A/B, oscillator, Dan Dugan automixer, RTA. |
+| **11** | **Personal Monitoring: Ultranet P16 & Midas DP48** | P16-M/P16-D, 16-channel squeeze, ambient mics, DP48 over AES50. |
+| **12** | **Scenes, Cues, Snippets & Show Control** | Show → Cues → Scenes → Snippets, Parameter and Channel Safes. |
+| **13** | **Recording, Playback & Expansion Cards** | USB 2-track recorder, X-USB, X-LIVE SD recording, Virtual Soundcheck. |
+| **14** | **Network Setup, Remote Control & Software** | Static IP, 5 GHz Wi-Fi, X32-Edit sync safety, Mixing Station, OSC. |
+| **15** | **Live Mixing Workflows & System Tuning** | Soundcheck protocol, PA time alignment, ringing out monitors, streaming loudness. |
+
+Every chapter exists in English (`/`) and German (`/de/`); the content lives in `web/content/en` and `web/content/de`.

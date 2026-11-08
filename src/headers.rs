@@ -1,18 +1,28 @@
-//! Cache and security headers applied to responses, with permanent trailing-slash handling.
+//! Request filtering plus cache and security headers on every response, with permanent
+//! trailing-slash redirects.
 
 use axum::{
     extract::Request,
-    http::{HeaderMap, HeaderName, HeaderValue, StatusCode, header},
+    http::{HeaderMap, HeaderName, HeaderValue, Method, StatusCode, header},
     middleware::Next,
-    response::Response,
+    response::{IntoResponse, Response},
 };
 
 /// Fingerprinted build output — filename changes whenever content does.
 const IMMUTABLE: &str = "public, max-age=31536000, immutable";
 /// Images, icons, and static assets.
 const STATIC_ASSET: &str = "public, max-age=86400";
-/// HTML and markdown data — revalidate to ensure updates deploy immediately.
+/// HTML and data — revalidate to ensure updates deploy immediately.
 const REVALIDATE: &str = "public, no-cache";
+
+/// HTML pages carry their own `<meta>` CSP with hashes of SvelteKit's inline scripts and
+/// styles (see `web/vite.config.ts`). Both policies are enforced, so the header adds only
+/// what a `<meta>` policy cannot express or what must hold even without it.
+const CSP_HTML: &str =
+    "frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'none'";
+/// Everything else (JSON, SVG, XML, fonts, …) never needs to run or load anything.
+const CSP_OTHER: &str =
+    "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'";
 
 const SECURITY_HEADERS: &[(&str, &str)] = &[
     ("x-content-type-options", "nosniff"),
@@ -20,16 +30,43 @@ const SECURITY_HEADERS: &[(&str, &str)] = &[
     ("referrer-policy", "strict-origin-when-cross-origin"),
     (
         "permissions-policy",
-        "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+        "accelerometer=(), autoplay=(), browsing-topics=(), camera=(), display-capture=(), \
+         encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), hid=(), \
+         magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), \
+         publickey-credentials-get=(), screen-wake-lock=(), serial=(), usb=(), \
+         xr-spatial-tracking=()",
     ),
     ("cross-origin-opener-policy", "same-origin"),
+    ("cross-origin-embedder-policy", "require-corp"),
+    ("cross-origin-resource-policy", "same-origin"),
+    ("origin-agent-cluster", "?1"),
+    ("x-permitted-cross-domain-policies", "none"),
+    ("x-dns-prefetch-control", "off"),
 ];
+
+/// A static site only ever needs GET and HEAD; everything else is refused before it
+/// reaches the file service.
+pub async fn only_get_head(req: Request, next: Next) -> Response {
+    if req.method() == Method::GET || req.method() == Method::HEAD {
+        next.run(req).await
+    } else {
+        let mut res = StatusCode::METHOD_NOT_ALLOWED.into_response();
+        res.headers_mut()
+            .insert(header::ALLOW, HeaderValue::from_static("GET, HEAD"));
+        res
+    }
+}
 
 pub async fn apply(req: Request, next: Next) -> Response {
     let cache = cache_policy(req.uri().path());
     let mut res = next.run(req).await;
     *res.status_mut() = permanent(res.status());
     let status = res.status();
+    let is_html = res
+        .headers()
+        .get(header::CONTENT_TYPE)
+        .and_then(|v| v.to_str().ok())
+        .is_some_and(|v| v.starts_with("text/html"));
     let headers = res.headers_mut();
 
     if status.is_success() || status.is_redirection() {
@@ -37,6 +74,11 @@ pub async fn apply(req: Request, next: Next) -> Response {
     } else {
         set(headers, header::CACHE_CONTROL, "no-store");
     }
+    set(
+        headers,
+        header::CONTENT_SECURITY_POLICY,
+        if is_html { CSP_HTML } else { CSP_OTHER },
+    );
     for (name, value) in SECURITY_HEADERS {
         set(headers, HeaderName::from_static(name), value);
     }
@@ -65,6 +107,8 @@ fn cache_policy(path: &str) -> &'static str {
     }
 }
 
+/// `ServeDir` answers `/chapter` with a temporary 307 to `/chapter/`. The move is
+/// permanent, and search engines only transfer ranking for permanent redirects.
 fn permanent(status: StatusCode) -> StatusCode {
     if status == StatusCode::TEMPORARY_REDIRECT {
         StatusCode::PERMANENT_REDIRECT
@@ -86,10 +130,11 @@ mod tests {
     #[test]
     fn cache_policies() {
         assert_eq!(cache_policy("/_app/immutable/chunks/abc.js"), IMMUTABLE);
-        assert_eq!(cache_policy("/favicon.png"), STATIC_ASSET);
+        assert_eq!(cache_policy("/favicon.svg"), STATIC_ASSET);
         assert_eq!(cache_policy("/font.woff2"), STATIC_ASSET);
         assert_eq!(cache_policy("/"), REVALIDATE);
-        assert_eq!(cache_policy("/01_Gain_Staging_and_Preamps"), REVALIDATE);
+        assert_eq!(cache_policy("/06-channel-processing/"), REVALIDATE);
+        assert_eq!(cache_policy("/init.js"), REVALIDATE);
     }
 
     #[test]

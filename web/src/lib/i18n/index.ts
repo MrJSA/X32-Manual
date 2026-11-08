@@ -7,7 +7,14 @@ export type { I18nTexts };
 
 export const texts: Record<Lang, I18nTexts> = { en, de };
 
+/** localStorage key of the language picked in the header (read early in app.html). */
 export const LANG_KEY = 'x32.lang';
+
+/** Public origin of the site, used for canonical, hreflang and sitemap URLs. */
+export const SITE_URL = 'https://x32.mrjsa.com';
+
+/** Open Graph locale per language. */
+export const locales: Record<Lang, string> = { en: 'en_US', de: 'de_DE' };
 
 export function isLang(value: unknown): value is Lang {
 	return typeof value === 'string' && (langs as readonly string[]).includes(value);
@@ -26,15 +33,22 @@ export function langOf(pathname: string): Lang {
 
 /**
  * Localizes a path for the given language.
- * `/01-hardware-overview/` with 'de' -> `/de/01-hardware-overview/`
- * `/01-hardware-overview/` with 'en' -> `/01-hardware-overview/`
+ * `/01-hardware-overview` with 'de' -> `/de/01-hardware-overview/`
+ * `/de/01-hardware-overview/` with 'en' -> `/01-hardware-overview/`
+ *
+ * Pages are prerendered as `<path>/index.html` (trailingSlash: 'always'), so links
+ * always end in `/` — otherwise every click costs a 308 redirect.
  */
 export function localize(path: string, lang: Lang): string {
-	const clean = unlocalize(path);
-	if (lang === 'en') {
-		return clean;
-	}
-	return clean === '/' ? '/de/' : `/de${clean}`;
+	let clean = unlocalize(path);
+	if (!clean.endsWith('/')) clean += '/';
+	return lang === 'en' ? clean : `/de${clean}`;
+}
+
+/** True if both paths point to the same page, ignoring language prefix and trailing slash. */
+export function samePage(a: string, b: string): boolean {
+	const norm = (p: string) => unlocalize(p).replace(/\/+$/, '') || '/';
+	return norm(a) === norm(b);
 }
 
 /**

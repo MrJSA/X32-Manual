@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import { langOf, localize, rememberLang, texts, type Lang } from '#lib/i18n/index.js';
+	import Logo from '#lib/components/Logo.svelte';
+	import { langOf, langs, localize, rememberLang, texts, type Lang } from '#lib/i18n/index.js';
 
 	interface Props {
 		onToggleSidebar?: () => void;
@@ -14,97 +15,81 @@
 
 	const currentLang = $derived(langOf(page.url.pathname));
 	const t = $derived(texts[currentLang]);
+	const langNames: Record<Lang, string> = { en: 'English', de: 'Deutsch' };
 
 	$effect(() => {
-		if (typeof document !== 'undefined') {
-			theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
-		}
+		theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
 	});
 
 	function toggleTheme() {
 		const next = theme === 'dark' ? 'light' : 'dark';
 		theme = next;
-		if (typeof document !== 'undefined') {
-			document.documentElement.dataset.theme = next;
+		document.documentElement.dataset.theme = next;
+		try {
 			localStorage.setItem('theme', next);
+		} catch {
+			// storage may be blocked (private mode)
 		}
 	}
 
 	function switchLanguage(targetLang: Lang) {
 		if (targetLang === currentLang) return;
 		rememberLang(targetLang);
-		const targetUrl = localize(page.url.pathname, targetLang);
-		goto(targetUrl);
+		goto(localize(page.url.pathname, targetLang));
 	}
 </script>
 
 <header class="header">
-	<div class="header-inner">
-		<div class="left-group">
-			<button class="mobile-toggle" onclick={onToggleSidebar} aria-label="Toggle navigation menu">
-				<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<line x1="3" y1="12" x2="21" y2="12"></line>
-					<line x1="3" y1="6" x2="21" y2="6"></line>
-					<line x1="3" y1="18" x2="21" y2="18"></line>
+	<div class="bar">
+		<div class="left">
+			<button class="icon-btn menu-btn" onclick={onToggleSidebar} aria-label={t.toggleMenu}>
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+					<path d="M4 7h16M4 12h10M4 17h16" />
 				</svg>
 			</button>
 
 			<a href={localize('/', currentLang)} class="brand">
-				<span class="brand-badge">{t.brandBadge}</span>
-				<span class="brand-title">{t.brandTitle}</span>
+				<Logo size={34} />
+				<span class="brand-text">
+					<span class="brand-name">X32 / M32</span>
+					<span class="brand-sub">{t.brandTitle}</span>
+				</span>
 			</a>
-			<span class="firmware-tag">{t.firmwareTag}</span>
 		</div>
 
-		<div class="right-group">
-			<button class="search-trigger" onclick={onOpenSearch} aria-label={t.searchTitle}>
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<circle cx="11" cy="11" r="8"></circle>
-					<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+		<div class="right">
+			<button class="search" onclick={onOpenSearch} aria-label={t.searchTitle}>
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+					<circle cx="11" cy="11" r="7" />
+					<path d="m20 20-3.5-3.5" />
 				</svg>
 				<span class="search-text">{t.searchPlaceholder}</span>
-				<kbd class="search-kbd">{t.searchKbd}</kbd>
+				<kbd>{t.searchKbd}</kbd>
 			</button>
 
-			<!-- Language Switcher -->
-			<div class="lang-switcher" role="group" aria-label={t.switchLang}>
-				<button
-					class="lang-btn"
-					class:active={currentLang === 'en'}
-					onclick={() => switchLanguage('en')}
-					title="English"
-					aria-pressed={currentLang === 'en'}
-				>
-					EN
-				</button>
-				<span class="lang-divider">/</span>
-				<button
-					class="lang-btn"
-					class:active={currentLang === 'de'}
-					onclick={() => switchLanguage('de')}
-					title="Deutsch"
-					aria-pressed={currentLang === 'de'}
-				>
-					DE
-				</button>
+			<div class="segmented" role="group" aria-label={t.switchLang}>
+				{#each langs as l (l)}
+					<button
+						class:active={currentLang === l}
+						onclick={() => switchLanguage(l)}
+						title={langNames[l]}
+						aria-pressed={currentLang === l}
+						lang={l}
+					>
+						{l.toUpperCase()}
+					</button>
+				{/each}
 			</div>
 
-			<button class="icon-button" onclick={toggleTheme} aria-label={t.toggleTheme}>
+			<button class="icon-btn" onclick={toggleTheme} aria-label={t.toggleTheme}>
 				{#if theme === 'dark'}
-					<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<circle cx="12" cy="12" r="5"></circle>
-						<line x1="12" y1="1" x2="12" y2="3"></line>
-						<line x1="12" y1="21" x2="12" y2="23"></line>
-						<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-						<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-						<line x1="1" y1="12" x2="3" y2="12"></line>
-						<line x1="21" y1="12" x2="23" y2="12"></line>
-						<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-						<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+						<circle cx="12" cy="12" r="4.5" />
+						<path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4" />
 					</svg>
 				{:else}
-					<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z" />
 					</svg>
 				{/if}
 			</button>
@@ -118,179 +103,184 @@
 		top: 0;
 		z-index: 40;
 		height: var(--header-h);
-		background: var(--bg-elev);
-		border-bottom: 1px solid var(--border);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
+		padding: 12px clamp(12px, 2vw, 24px) 0;
 	}
 
-	.header-inner {
+	.bar {
 		max-width: var(--container);
-		height: 100%;
+		height: calc(var(--header-h) - 12px);
 		margin: 0 auto;
-		padding: 0 1.5rem;
+		padding: 0 10px 0 12px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		gap: 12px;
+		background: var(--bg-elev);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-pill);
+		box-shadow: var(--shadow);
+		backdrop-filter: blur(18px) saturate(1.4);
+		-webkit-backdrop-filter: blur(18px) saturate(1.4);
 	}
 
-	.left-group {
+	.left,
+	.right {
 		display: flex;
 		align-items: center;
-		gap: 0.85rem;
-	}
-
-	.mobile-toggle {
-		display: none;
-		background: transparent;
-		border: none;
-		color: var(--text-muted);
-		cursor: pointer;
-		padding: 0.35rem;
-		border-radius: var(--radius-sm);
+		gap: 10px;
+		min-width: 0;
 	}
 
 	.brand {
 		display: flex;
 		align-items: center;
-		gap: 0.6rem;
-		text-decoration: none;
+		gap: 10px;
+		color: var(--text);
+		min-width: 0;
+	}
+
+	.brand:hover {
 		color: var(--text);
 	}
 
-	.brand-badge {
-		font-family: var(--font-display);
-		font-weight: 700;
-		font-size: 0.85rem;
-		background: var(--accent);
-		color: #000;
-		padding: 0.2rem 0.5rem;
-		border-radius: var(--radius-sm);
-		letter-spacing: 0.04em;
-	}
-
-	.brand-title {
-		font-family: var(--font-display);
-		font-weight: 700;
-		font-size: 1.15rem;
-		letter-spacing: 0.05em;
-	}
-
-	.firmware-tag {
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		background: var(--surface);
-		border: 1px solid var(--border);
-		padding: 0.15rem 0.45rem;
-		border-radius: 9999px;
-		color: var(--accent-cyan);
-	}
-
-	.right-group {
+	.brand-text {
 		display: flex;
-		align-items: center;
-		gap: 0.85rem;
+		flex-direction: column;
+		line-height: 1.1;
 	}
 
-	.search-trigger {
-		display: flex;
-		align-items: center;
-		gap: 0.65rem;
-		background: var(--surface);
-		border: 1px solid var(--border);
+	.brand-name {
+		white-space: nowrap;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 1rem;
+		letter-spacing: -0.02em;
+	}
+
+	.brand-sub {
+		font-size: 0.75rem;
 		color: var(--text-muted);
-		padding: 0.4rem 0.8rem;
-		border-radius: var(--radius-sm);
-		cursor: pointer;
-		font-size: 0.88rem;
-		transition: all 0.15s ease;
+		font-weight: 500;
 	}
 
-	.search-trigger:hover {
-		border-color: var(--border-strong);
-		color: var(--text);
-	}
-
-	.search-kbd {
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		background: var(--bg);
-		border: 1px solid var(--border);
-		padding: 0.1rem 0.35rem;
-		border-radius: 4px;
-		color: var(--text-faint);
-	}
-
-	/* Language Switcher */
-	.lang-switcher {
+	.search {
 		display: flex;
 		align-items: center;
-		gap: 0.2rem;
+		gap: 10px;
+		height: 40px;
+		padding: 0 8px 0 16px;
+		min-width: 240px;
 		background: var(--surface);
 		border: 1px solid var(--border);
-		border-radius: var(--radius-sm);
-		padding: 0.2rem 0.4rem;
+		border-radius: var(--radius-pill);
+		color: var(--text-faint);
+		font-size: 0.9rem;
+		cursor: pointer;
+		transition: all 0.25s var(--ease);
 	}
 
-	.lang-btn {
+	.search:hover {
+		background: var(--surface-hover);
+		border-color: var(--border-strong);
+		color: var(--text-muted);
+	}
+
+	.search-text {
+		flex: 1;
+		text-align: left;
+	}
+
+	kbd {
+		font-family: var(--font-sans);
+		font-size: 0.72rem;
+		font-weight: 600;
+		padding: 4px 9px;
+		border-radius: var(--radius-pill);
+		background: var(--surface-active);
+		color: var(--text-muted);
+	}
+
+	.segmented {
+		display: flex;
+		padding: 4px;
+		gap: 2px;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-pill);
+	}
+
+	.segmented button {
+		border: 0;
 		background: transparent;
-		border: none;
-		font-family: var(--font-display);
-		font-size: 0.78rem;
+		padding: 5px 11px;
+		border-radius: var(--radius-pill);
+		font-size: 0.76rem;
 		font-weight: 700;
-		letter-spacing: 0.04em;
 		color: var(--text-faint);
 		cursor: pointer;
-		padding: 0.15rem 0.35rem;
-		border-radius: 3px;
-		transition: all 0.12s ease;
+		transition: all 0.25s var(--ease);
 	}
 
-	.lang-btn:hover {
+	.segmented button:hover {
 		color: var(--text);
 	}
 
-	.lang-btn.active {
-		background: var(--accent);
-		color: #000;
+	.segmented button.active {
+		background: var(--grad);
+		color: #1a0f12;
+		box-shadow: 0 4px 14px -4px rgb(251 113 133 / 0.6);
 	}
 
-	.lang-divider {
-		font-size: 0.72rem;
-		color: var(--border-strong);
-		user-select: none;
-	}
-
-	.icon-button {
-		background: var(--surface);
+	.icon-btn {
+		width: 40px;
+		height: 40px;
+		flex-shrink: 0;
+		display: grid;
+		place-items: center;
 		border: 1px solid var(--border);
+		background: var(--surface);
 		color: var(--text-muted);
-		width: 36px;
-		height: 36px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: var(--radius-sm);
+		border-radius: 50%;
 		cursor: pointer;
-		transition: all 0.15s ease;
+		transition: all 0.25s var(--ease);
 	}
 
-	.icon-button:hover {
-		border-color: var(--border-strong);
+	.icon-btn:hover {
 		color: var(--text);
+		background: var(--surface-hover);
+		transform: rotate(-8deg);
+	}
+
+	.menu-btn {
+		display: none;
 	}
 
 	@media (max-width: 860px) {
-		.mobile-toggle {
-			display: block;
+		.menu-btn {
+			display: grid;
 		}
-		.firmware-tag,
+		.search {
+			min-width: 0;
+			width: 40px;
+			padding: 0;
+			justify-content: center;
+		}
 		.search-text,
-		.search-kbd {
+		kbd {
 			display: none;
 		}
-		.search-trigger {
-			padding: 0.5rem;
+	}
+
+	@media (max-width: 480px) {
+		.bar {
+			gap: 6px;
+			padding: 0 8px;
+		}
+		.brand-sub {
+			display: none;
+		}
+		.right {
+			gap: 6px;
 		}
 	}
 </style>

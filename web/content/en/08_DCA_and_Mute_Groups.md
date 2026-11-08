@@ -96,7 +96,7 @@ In firmware 4.x, the X32 introduced **DCA Spill**, eliminating the need to scrol
 ┌─────────────────────────────────────────────────────────────┐
 │                      DCA SPILL WORKFLOW                     │
 ├─────────────────────────────────────────────────────────────┤
-│ 1. DOUBLE-PRESS the SELECT button on any DCA (e.g., DCA 1). │
+│ 1. PRESS the SELECT button on any DCA (e.g., DCA 1).        │
 │                                                             │
 │ 2. The Left 16 Faders INSTANTLY SPILL:                      │
 │    Fader 1 = Kick In                                        │
@@ -109,6 +109,8 @@ In firmware 4.x, the X32 introduced **DCA Spill**, eliminating the need to scrol
 │    Fader 8 = Overheads                                      │
 │                                                             │
 │ 3. Make quick surgical tweaks to snare or kick faders.      │
+│    (Buses assigned to the DCA, e.g. drum subgroups, spill   │
+│    out alongside the channels.)                             │
 │                                                             │
 │ 4. PRESS the DCA SELECT button again to UN-SPILL.           │
 │    The left faders immediately return to their normal bank! │

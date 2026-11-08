@@ -28,6 +28,6 @@ Ein vollständiges, praxisnahes und detailliertes Referenzhandbuch für Konfigur
 
 ## Hinweise zur Nutzung dieses Handbuchs
 
-- **Pult-Architektur**: Das X32 verarbeitet **40 Eingangskanäle** (32 Mikrofon-/Line-Kanäle + 6 Aux-Eingänge + 2 USB/FX-Returns), **25 Mix-Busse** (16 Mix-Busse + 6 Matrizen + Main LCR) sowie **8 virtuelle Stereo-Effektprozessoren**.
+- **Pult-Architektur**: Das X32 verarbeitet **40 Eingangskanäle** (32 Mikrofon-/Line-Kanäle + 8 Aux-Kanäle: Aux In 1–6 plus die 2 Kanäle des USB-Players; die 8 Stereo-FX-Returns kommen hinzu), **25 Mix-Busse** (16 Mix-Busse + 6 Matrizen + Main LCR) sowie **8 virtuelle Stereo-Effektprozessoren**.
 - **Kompatibilität**: Sämtliche Parameterwerte, Signalpfade und Workflows in diesem Leitfaden gelten gleichermaßen für das **Behringer X32 (Full Console)**, **X32 Compact**, **X32 Producer**, **X32 Rack**, **X32 Core** sowie die gesamte **Midas M32 / M32R**-Serie ab Firmware 4.0.
 - **Grundregel des Signalflusses**: Der Preamp-Gain gehört zum **physikalischen Anschluss**, während digitaler Trim, Bearbeitungsstufen und Faderpegel zum **Kanalzug** gehören.

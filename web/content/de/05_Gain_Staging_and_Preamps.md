@@ -58,14 +58,14 @@ Im Gegensatz zu analogen Mischpulten, bei denen der Arbeitspegel bei `0 VU` (+4 
 ```
   0 dBFS ─── [CLIP]  ◄── Hartes digitales Clipping! (Verzerrung)
  -6 dBFS ─── [-6]    ◄── Maximal empfohlene Sicherheitsgrenze für Transienten
--12 dBFS ─── [-12]   ◄── Normaler Spitzenpegelbereich (Gelbe LED)
--18 dBFS ─── [-18]   ◄── Nenn-Zielpegel (= 0 VU / +4 dBu) (Oberkante der grünen LEDs)
+-12 dBFS ─── [-12]   ◄── Normaler Spitzenpegelbereich
+-18 dBFS ─── [-18]   ◄── Nenn-Zielpegel (= 0 VU / +4 dBu) (erste gelbe LED)
 -30 dBFS ─── [-30]   ◄── Normaler Arbeitsbereich bei Dauertönen
 -60 dBFS ─── [-60]   ◄── Signalpräsenz-Schwelle
 ```
 
 ### Die Goldenen Einpegel-Regeln:
-1. **Effektivwert (RMS)**: Pegeln Sie den Vorverstärker so ein, dass Gesang oder Instrumente bei normalem Spiel durchschnittlich bei **-18 dBFS** liegen (die -18-dB-LED leuchtet grün).
+1. **Effektivwert (RMS)**: Pegeln Sie den Vorverstärker so ein, dass Gesang oder Instrumente bei normalem Spiel durchschnittlich bei **-18 dBFS** liegen (die -18-dB-LED, die erste gelbe LED, leuchtet).
 2. **Dynamische Spitzen (Transienten)**: Kurze Pegelspitzen (Kick-Drum-Kick, Snare-Schläge, laute Schreie) dürfen kurzzeitig zwischen **-12 dBFS und -6 dBFS** aufblinken.
 3. **Niemals die rote CLIP-LED erreichen**: Leuchtet die rote Clip-LED auch nur einmal kurz auf, reduzieren Sie den analogen Gain sofort um 4 bis 6 dB.
 
@@ -123,12 +123,14 @@ Die Polaritätstaste (`Ø`) dreht die elektrische Phasenlage des Signals um 180 
    - Zwei Mikrofone in und vor der Basstrommel weisen oft Phasenauslöschungen im Bereich von 60–100 Hz auf. Hören Sie beide zusammen ab und drehen Sie an einem die Phase – behalten Sie die Einstellung mit dem druckvolleren Bassfundament.
 3. **Bass-DI & Bass-Verstärkermikrofon**:
    - Das DI-Signal kommt ohne Verzögerung am Pult an, während das Mikrofon vor der Box die Schall-Laufzeit durch die Luft erfährt. Ein Phasendreh oder ein kurzes Input-Delay schafft saubere Summierung.
+4. **Akustikgitarre mit Tonabnehmer und Mikrofon**:
+   - Die Kombination eines internen Piezo-Tonabnehmers (unter dem Steg) mit einem externen Kondensatormikrofon erzeugt häufig Kammfiltereffekte. Das Umkehren der Polarität eines Kanals stellt oft die akustische Wärme wieder her.
 
 ---
 
 ## 6. Gain-Sharing über AES50 bei mehreren Konsolen
 
-Wird eine digitale Stagebox (z. B. Behringer S32 oder Midas DL32) von zwei Mischpulten (FOH und Monitor) gleichzeitig genutzt:
+In modernen Produktionen wird ein Satz Stageboxen (z. B. Behringer S32 oder Midas DL32) routinemäßig von zwei oder drei Mischpulten (FOH, Monitor und Broadcast) gleichzeitig genutzt:
 
 ```
 ┌──────────────┐          AES50 (Port A)          ┌───────────────────┐
@@ -148,10 +150,10 @@ Wird eine digitale Stagebox (z. B. Behringer S32 oder Midas DL32) von zwei Misch
 ### Das Gain-Konflikt-Problem:
 Dreht der FOH-Mischer mitten im Song den Vorverstärker eines Gesangsmikrofons um 6 dB nach oben, wird dieses Signal auf der Monitor-Konsole augenblicklich ebenfalls um 6 dB lauter – die Musiker erschrecken im In-Ear und es drohen gefährliche Rückkopplungen auf der Bühne.
 
-### Die Lösung: Preamp-Menü & HA Remote:
-1. Öffnen Sie **SETUP → PREAMPS**.
+### Die Lösung: Remote-HA-Steuerung (SETUP → GLOBAL):
+1. Öffnen Sie **SETUP → GLOBAL**.
 2. Bestimmen Sie eine Konsole als **Preamp-Master** (meist das Monitorpult, das direkt an der Stagebox hängt).
-3. Unter **HA Remote** wird geregelt, welcher AES50-Port die analogen Vorverstärker fernsteuern darf.
+3. Die andere Konsole empfängt den digitalen Datenstrom ohne Zugriff auf die Vorverstärker. Wählen Sie in den globalen Optionen den AES50-Port, dessen Pult die analogen Vorverstärker steuern darf (z. B. **AES50 Port A**), und bestätigen Sie **Enable HA** – die lokalen Preamp-Einstellungen werden dabei vom steuernden Pult überschrieben.
 
 ---
 
@@ -161,12 +163,12 @@ Firmware 4.x bietet mit **HA Gain Split** vollständige Pegelunabhängigkeit fü
 
 ### So aktivieren Sie HA Gain Split:
 1. Führen Sie den Soundcheck durch und stellen Sie saubere analoge Headamp-Pegel auf allen Eingängen ein.
-2. Drücken Sie **SETUP** und blättern Sie zum Reiter **Preamps**.
-3. Schalten Sie mit dem ersten Encoder die Option **HA Gain Split** auf **ON**.
+2. Drücken Sie **SETUP** und öffnen Sie den Reiter **Global** (dieselbe Seite, auf der auch die Remote-HA-Einstellung liegt).
+3. Schalten Sie **HA Gain Split** auf **ON**.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ SETUP ──► [PREAMPS]                                         │
+│ SETUP ──► [GLOBAL]                                          │
 │                                                             │
 │   [HA Gain Split: ON] ◄── Verriegelt analoge Headamps       │
 │                                                             │

@@ -57,14 +57,14 @@ Unlike analog consoles where nominal operating level sits at `0 VU` (+4 dBu) wit
 ```
   0 dBFS ─── [CLIP]  ◄── Hard Digital Clipping! (Catastrophic distortion)
  -6 dBFS ─── [-6]    ◄── Maximum Safe Transient Peak Ceiling
--12 dBFS ─── [-12]   ◄── Normal Peak Operating Range (Yellow LED)
--18 dBFS ─── [-18]   ◄── Nominal Target Level (= 0 VU / +4 dBu) (Top of Green)
+-12 dBFS ─── [-12]   ◄── Normal Peak Operating Range
+-18 dBFS ─── [-18]   ◄── Nominal Target Level (= 0 VU / +4 dBu) (First Yellow LED)
 -30 dBFS ─── [-30]   ◄── Normal Sustained Level
 -60 dBFS ─── [-60]   ◄── Signal Present Threshold
 ```
 
 ### The Gain Staging Golden Rules:
-1. **Nominal RMS Level**: Calibrate the preamp so sustained singing or playing averages around **-18 dBFS** (solid green lighting up the -18 dB LED).
+1. **Nominal RMS Level**: Calibrate the preamp so sustained singing or playing averages around **-18 dBFS** (lighting up the -18 dB LED, the first yellow LED).
 2. **Dynamic Peak Transients**: Allow peak transients (kick beater snap, snare hits, vocal screams) to bounce between **-12 dBFS and -6 dBFS**.
 3. **Never Touch the Red CLIP Indicator**: If the red Clip LED flashes even once, immediately reduce analog headamp gain by 4 to 6 dB.
 
@@ -150,10 +150,10 @@ In modern production environments, a single set of stageboxes (e.g., Behringer S
 ### The Gain Conflict Problem:
 If the Front of House engineer turns up a microphone's analog headamp by 6 dB during the middle of the concert, that same microphone will immediately jump by 6 dB in the monitor engineer's in-ear mixes, potentially deafening the performer and causing catastrophic monitor feedback.
 
-### The Solution: Preamps Menu & HA Remote:
-1. Navigate to **SETUP → PREAMPS**.
+### The Solution: Remote HA Control (SETUP → GLOBAL):
+1. Navigate to **SETUP → GLOBAL**.
 2. Designate one console as the **Preamps Master** (typically the Monitor console, or FOH).
-3. The other console is set to receive the digital stream without headamp ownership. Under **HA Remote**, designate which AES50 port is permitted to manipulate analog headamps.
+3. The other console is set to receive the digital stream without headamp ownership. In the global options, select the AES50 port whose console is permitted to manipulate the analog headamps (e.g. **AES50 Port A**) and confirm **Enable HA** — local preamp settings are overwritten by the controlling console.
 
 ---
 
@@ -163,12 +163,12 @@ Firmware 4.x introduces the **HA Gain Split** mode, providing complete digital g
 
 ### How to Configure HA Gain Split:
 1. Complete soundcheck line checks and establish healthy analog headamp levels on all physical inputs.
-2. Press the **SETUP** button and page right to the **Preamps** tab.
-3. Use the first encoder to toggle **HA Gain Split** to **ON**.
+2. Press the **SETUP** button and open the **Global** tab (the same page that holds the remote HA setting).
+3. Switch **HA Gain Split** to **ON**.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ SETUP ──► [PREAMPS]                                         │
+│ SETUP ──► [GLOBAL]                                          │
 │                                                             │
 │   [HA Gain Split: ON] ◄── Lock Analog Headamps              │
 │                                                             │

@@ -34,6 +34,14 @@ Der proprietäre **Ultranet**-Digitalbus überträgt bis zu 16 unkomprimierte Au
 
 Öffnen Sie **ROUTING → ULTRANET**, um die 16 P16-Kanäle zu belegen:
 
+```
+┌─────────────────────────────────────────────────────────────┐
+│ ULTRANET-PATCHING-REGELN:                                   │
+│ - Quelle: Kanal, Mix-Bus, Matrix, Direct Out oder Main      │
+│ - Tap Point: ZWINGEND [POST-EQ] oder [PRE-FADER]!           │
+└─────────────────────────────────────────────────────────────┘
+```
+
 > [!IMPORTANT]
 > **Zwingende Abgriff-Regel für Personal-Mixer:**
 > Stellen Sie den Tap Point auf **POST-EQ** oder **PRE-FADER**!
@@ -90,6 +98,8 @@ Das **Midas DP48** stellt eine neue Generation dar und arbeitet direkt über **A
 ```
 
 ### Anschluss des DP48 am Mischpult:
-1. Schließen Sie ein geschirmtes Cat5e-Kabel an den **AES50 Port B** des Mischpults an.
-2. Weisen Sie unter **ROUTING → AES50 B OUT** die gewünschten 48 Kanäle zu.
-3. Am DP48 weisen Sie die Signale den **12 Gruppen** zu (Gruppe 1: Drums, Gruppe 2: Bass, Gruppe 3: Gitarren, Gruppe 4: Gesang).
+1. Verbinden Sie den **AES50 Port B** des Mischpults über ein geschirmtes Cat5e-Kabel mit dem Eingang des DP48 (oder schleifen Sie es über die Stageboxen durch).
+2. Öffnen Sie am Pult **ROUTING → AES50 B OUT**.
+3. Senden Sie die gewünschten Kanalblöcke (Kanäle 1–32 und Busse 1–16) auf AES50 B 1–48.
+4. Am DP48 weisen Sie die Signale den **12 Gruppen** zu (z. B. Gruppe 1 = Drums, Gruppe 2 = Bass, Gruppe 3 = Gitarren, Gruppe 4 = Gesang).
+5. Die Musiker stellen ihre In-Ear-Mischung mit den Drehreglern und dem kontrastreichen Farbdisplay ein – mit vollem Stereo-Panorama, EQ, Hall und Limiter pro Gruppe.

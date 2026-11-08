@@ -1,10 +1,10 @@
 {
-  "name": "X32 / M32 Technical Manual & Field Guide",
-  "short_name": "X32 Manual",
+  "name": "X32 / M32 Field Guide",
+  "short_name": "X32 Guide",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#090c10",
-  "theme_color": "#f59e0b",
+  "background_color": "#0a0d1c",
+  "theme_color": "#0a0d1c",
   "icons": [
     {
       "src": "/favicon.svg",

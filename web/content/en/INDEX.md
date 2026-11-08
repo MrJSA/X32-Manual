@@ -28,14 +28,7 @@ A complete, practical, and in-depth reference manual for configuring, routing, p
 
 ## How to Use This Guide
 
-- **Console Architecture**: The X32 processes **40 total input channels** (32 mic/line channels + 6 aux inputs + 2 USB/FX returns), **25 mix buses** (16 mix buses + 6 matrix buses + Main LCR), and **8 stereo virtual FX processors**.
+- **Console Architecture**: The X32 processes **40 total input channels** (32 mic/line channels + 8 aux channels: Aux In 1–6 plus the 2 USB player channels; the 8 stereo FX returns come on top), **25 mix buses** (16 mix buses + 6 matrix buses + Main LCR), and **8 stereo virtual FX processors**.
 - **Cross-Platform Compatibility**: All parameter values, routing paths, and workflows in this guide apply equally to the **Behringer X32 (Full Console)**, **X32 Compact**, **X32 Producer**, **X32 Rack**, **X32 Core**, and the **Midas M32 / M32R** series running firmware 4.0 or newer.
 - **Signal Flow Rule of Thumb**: Preamp Gain belongs to the **physical input connector**, while digital trim, processing, and fader levels belong to the **console channel strip**. Keep physical source assignments clean and structured to avoid confusion during live events.
 
----
-
-## How to Use This Guide
-
-- **Console Architecture**: The X32 processes **40 total input channels** (32 mic/line channels + 6 aux inputs + 2 USB/FX returns), **25 mix buses** (16 mix buses + 6 matrix buses + Main LCR), and **8 stereo virtual FX processors**.
-- **Cross-Platform Compatibility**: All parameter values, routing paths, and workflows in this guide apply equally to the **Behringer X32 (Full Console)**, **X32 Compact**, **X32 Producer**, **X32 Rack**, **X32 Core**, and the **Midas M32 / M32R** series running firmware 4.0 or newer.
-- **Signal Flow Rule of Thumb**: Preamp Gain belongs to the **physical input connector**, while digital trim, processing, and fader levels belong to the **console channel strip**. Keep physical source assignments clean and structured to avoid confusion during live events.

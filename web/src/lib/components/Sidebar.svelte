@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { getChapters } from '#lib/content.js';
 	import { page } from '$app/state';
-	import { langOf, localize, unlocalize, texts } from '#lib/i18n/index.js';
+	import { langOf, localize, samePage, texts } from '#lib/i18n/index.js';
 
 	interface Props {
 		isOpen?: boolean;
@@ -13,7 +12,8 @@
 	let activeSectionId = $state<string>('');
 
 	const currentLang = $derived(langOf(page.url.pathname));
-	const currentChapters = $derived(getChapters(currentLang));
+	// Built at prerender time by +layout.server.ts.
+	const currentChapters = $derived(page.data.nav ?? []);
 	const t = $derived(texts[currentLang]);
 
 	// Group chapters by category in strict sequential order
@@ -92,14 +92,14 @@
 
 <aside class="sidebar" class:open={isOpen}>
 	<div class="sidebar-inner">
-		<nav class="nav-tree" aria-label="Manual Navigation">
+		<nav class="nav-tree" aria-label={t.navLabel}>
 			<a
 				href={localize('/', currentLang)}
 				class="nav-item home-link"
-				class:active={unlocalize(page.url.pathname) === '/'}
+				class:active={samePage(page.url.pathname, '/')}
 				onclick={handleChapterClick}
 			>
-				<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
 					<polyline points="9 22 9 12 15 12 15 22"></polyline>
 				</svg>
@@ -110,7 +110,7 @@
 				<div class="category-block">
 					<div class="category-title">{categoryName}</div>
 					{#each items as item}
-						{@const isChapterActive = unlocalize(page.url.pathname) === `/${item.slug}`}
+						{@const isChapterActive = samePage(page.url.pathname, `/${item.slug}`)}
 						<div class="chapter-entry" class:expanded={isChapterActive}>
 							<a
 								href={localize(`/${item.slug}`, currentLang)}
@@ -155,39 +155,37 @@
 	.sidebar {
 		width: var(--sidebar-w);
 		flex-shrink: 0;
-		border-right: 1px solid var(--border);
-		background: var(--bg);
 		height: calc(100vh - var(--header-h));
 		position: sticky;
 		top: var(--header-h);
 		overflow-y: auto;
+		overscroll-behavior: contain;
 		z-index: 30;
+		padding: 24px 8px 40px 0;
 	}
 
 	.sidebar-inner {
-		padding: 1.5rem 1rem 3rem 1.15rem;
+		padding: 0 6px 0 4px;
 	}
 
 	.nav-tree {
 		display: flex;
 		flex-direction: column;
-		gap: 1.25rem;
+		gap: 22px;
 	}
 
 	.category-block {
 		display: flex;
 		flex-direction: column;
-		gap: 0.2rem;
+		gap: 2px;
 	}
 
 	.category-title {
 		font-family: var(--font-display);
 		font-size: 0.74rem;
 		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
 		color: var(--text-faint);
-		padding: 0.35rem 0.6rem 0.25rem;
+		padding: 0 14px 6px;
 	}
 
 	.chapter-entry {
@@ -198,25 +196,29 @@
 	.nav-item {
 		display: flex;
 		align-items: center;
-		gap: 0.65rem;
-		padding: 0.45rem 0.65rem;
-		border-radius: var(--radius-sm);
+		gap: 10px;
+		padding: 8px 14px;
+		border-radius: var(--radius-pill);
 		color: var(--text-muted);
-		text-decoration: none;
-		font-size: 0.88rem;
+		font-size: 0.9rem;
 		font-weight: 500;
-		transition: all 0.12s ease;
+		transition:
+			background 0.25s var(--ease),
+			color 0.25s var(--ease),
+			transform 0.25s var(--ease);
 	}
 
 	.nav-item:hover {
 		background: var(--surface-hover);
 		color: var(--text);
+		transform: translateX(2px);
 	}
 
 	.nav-item.active {
-		background: var(--surface-active);
-		color: var(--accent);
-		font-weight: 600;
+		background: var(--grad-soft);
+		color: var(--text);
+		font-weight: 650;
+		box-shadow: inset 0 0 0 1px var(--border);
 	}
 
 	.chapter-title {
@@ -228,82 +230,71 @@
 	.home-link {
 		font-weight: 600;
 		color: var(--text);
-		border: 1px solid var(--border);
 		background: var(--surface);
-		margin-bottom: 0.5rem;
+		border: 1px solid var(--border);
+		padding: 11px 16px;
 	}
 
-	.home-link.active {
-		border-color: var(--accent);
+	.home-link svg {
 		color: var(--accent);
 	}
 
-	/* Subsections Tree (Expanded only for active chapter) */
 	.subsections-tree {
-		margin: 0.25rem 0 0.5rem 0.65rem;
-		padding-left: 0.75rem;
-		border-left: 1px solid var(--border-strong);
+		margin: 6px 0 10px 22px;
+		padding-left: 12px;
+		border-left: 2px solid var(--border);
 		display: flex;
 		flex-direction: column;
-		gap: 0.15rem;
+		gap: 1px;
 	}
 
 	.sub-item {
 		display: flex;
 		align-items: flex-start;
-		gap: 0.5rem;
-		padding: 0.28rem 0.45rem;
+		gap: 9px;
+		padding: 5px 10px;
 		font-size: 0.8rem;
-		line-height: 1.35;
+		line-height: 1.4;
 		color: var(--text-muted);
-		text-decoration: none;
 		border-radius: var(--radius-sm);
-		transition: all 0.12s ease;
-		position: relative;
+		transition: all 0.2s var(--ease);
 	}
 
 	.sub-item:hover {
 		color: var(--text);
-		background: var(--surface-hover);
+		background: var(--surface);
 	}
 
 	.sub-item.active {
 		color: var(--accent);
 		font-weight: 600;
-		background: var(--accent-soft);
 	}
 
 	.sub-item.depth-3 {
-		padding-left: 1rem;
-		font-size: 0.76rem;
+		padding-left: 22px;
+		font-size: 0.77rem;
 		color: var(--text-faint);
 	}
 
-	.sub-item.depth-3:hover {
+	.sub-item.depth-3:hover,
+	.sub-item.depth-3.active {
 		color: var(--text);
 	}
 
-	.sub-item.depth-3.active {
-		color: var(--accent);
-	}
-
 	.sub-dot {
-		width: 4px;
-		height: 4px;
+		width: 6px;
+		height: 6px;
 		border-radius: 50%;
-		background: var(--text-faint);
-		margin-top: 0.45rem;
+		background: var(--border-strong);
+		margin-top: 0.42rem;
 		flex-shrink: 0;
-		transition: all 0.15s ease;
-	}
-
-	.sub-item:hover .sub-dot {
-		background: var(--text);
+		transition: all 0.25s var(--ease);
 	}
 
 	.sub-item.active .sub-dot {
-		background: var(--accent);
-		transform: scale(1.4);
+		background: var(--grad);
+		box-shadow: 0 0 10px rgb(251 113 133 / 0.7);
+		transform: scale(1.3);
 	}
 
 	.sub-text {
@@ -322,14 +313,19 @@
 	@media (max-width: 860px) {
 		.sidebar {
 			position: fixed;
-			top: var(--header-h);
-			left: 0;
-			bottom: 0;
-			height: calc(100vh - var(--header-h));
-			transform: translateX(-100%);
-			transition: transform 0.25s var(--ease);
+			top: calc(var(--header-h) + 8px);
+			left: 12px;
+			bottom: 12px;
+			height: auto;
+			width: min(var(--sidebar-w), calc(100vw - 24px));
+			padding: 18px 8px 24px;
+			transform: translateX(calc(-100% - 24px));
+			transition: transform 0.4s var(--ease);
+			background: var(--surface-solid);
+			border: 1px solid var(--border);
+			border-radius: var(--radius-lg);
 			box-shadow: var(--shadow-lg);
-			background: var(--bg-elev);
+			z-index: 45;
 		}
 
 		.sidebar.open {
@@ -340,10 +336,9 @@
 			display: block;
 			position: fixed;
 			inset: 0;
-			top: var(--header-h);
-			background: rgba(0, 0, 0, 0.6);
-			z-index: 25;
-			backdrop-filter: blur(2px);
+			background: rgb(5 6 15 / 0.45);
+			z-index: 35;
+			backdrop-filter: blur(4px);
 		}
 	}
 </style>

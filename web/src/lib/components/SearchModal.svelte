@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { buildSearchIndex } from '#lib/content.js';
+	import type { SearchEntry } from '#lib/content.js';
 	import { page } from '$app/state';
-	import { langOf, localize, texts } from '#lib/i18n/index.js';
+	import { langOf, localize, texts, type Lang } from '#lib/i18n/index.js';
 
 	interface Props {
 		isOpen?: boolean;
@@ -14,7 +14,20 @@
 
 	const currentLang = $derived(langOf(page.url.pathname));
 	const t = $derived(texts[currentLang]);
-	const searchIndex = $derived(buildSearchIndex(currentLang));
+
+	// The index (prerendered /search.json) is only downloaded the first time search opens.
+	let indexByLang = $state<Record<Lang, SearchEntry[]> | null>(null);
+	let loading = false;
+	$effect(() => {
+		if (!isOpen || indexByLang || loading) return;
+		loading = true;
+		fetch('/search.json')
+			.then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+			.then((data) => (indexByLang = data))
+			.catch(() => {})
+			.finally(() => (loading = false));
+	});
+	const searchIndex = $derived(indexByLang?.[currentLang] ?? []);
 
 	let results = $derived.by(() => {
 		const q = query.trim().toLowerCase();
@@ -59,13 +72,15 @@
 				</svg>
 				<!-- svelte-ignore a11y_autofocus -->
 				<input
-					type="text"
+					type="search"
+					autocomplete="off"
+					spellcheck="false"
 					bind:value={query}
 					placeholder={t.searchPlaceholder}
 					class="search-input"
 					autofocus
 				/>
-				<button class="close-btn" onclick={onClose} aria-label="Close search">
+				<button class="close-btn" onclick={onClose} aria-label={t.closeSearch}>
 					<kbd>Esc</kbd>
 				</button>
 			</div>
@@ -87,7 +102,7 @@
 					</div>
 				{:else}
 					<div class="search-hints">
-						<span class="hint-title">{currentLang === 'de' ? 'BELIEBTE THEMEN:' : 'POPULAR TOPICS:'}</span>
+						<span class="hint-title">{t.popularTopics}</span>
 						<div class="hint-tags">
 							{#if currentLang === 'de'}
 								<button class="hint-tag" onclick={() => (query = 'User Routing')}>User Routing</button>
@@ -116,44 +131,65 @@
 	.search-overlay {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.7);
-		backdrop-filter: blur(6px);
-		z-index: 50;
+		z-index: 60;
 		display: flex;
 		align-items: flex-start;
 		justify-content: center;
-		padding: 5rem 1rem 2rem;
+		padding: 12vh 16px 24px;
+		background: rgb(5 6 15 / 0.5);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		animation: fade 0.25s var(--ease);
 	}
 
 	.search-dialog {
 		width: 100%;
-		max-width: 620px;
-		background: var(--bg-elev);
+		max-width: 640px;
+		background: var(--surface-solid);
 		border: 1px solid var(--border-strong);
 		border-radius: var(--radius-lg);
 		box-shadow: var(--shadow-lg);
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
+		animation: pop 0.35s var(--ease);
+	}
+
+	@keyframes fade {
+		from {
+			opacity: 0;
+		}
+	}
+
+	@keyframes pop {
+		from {
+			opacity: 0;
+			transform: translateY(12px) scale(0.98);
+		}
 	}
 
 	.search-input-wrap {
 		display: flex;
 		align-items: center;
-		gap: 0.85rem;
-		padding: 1.1rem 1.4rem;
+		gap: 12px;
+		padding: 16px 18px 16px 22px;
 		border-bottom: 1px solid var(--border);
-		color: var(--text-muted);
+		color: var(--accent);
 	}
 
 	.search-input {
 		flex: 1;
+		min-width: 0;
 		background: transparent;
 		border: none;
 		outline: none;
-		font-size: 1.05rem;
+		font-size: 1.08rem;
 		color: var(--text);
 		font-family: inherit;
+	}
+
+	.search-input::-webkit-search-cancel-button {
+		display: none;
 	}
 
 	.search-input::placeholder {
@@ -167,19 +203,19 @@
 	}
 
 	.close-btn kbd {
-		font-family: var(--font-mono);
-		font-size: 0.75rem;
-		background: var(--surface);
-		border: 1px solid var(--border);
-		padding: 0.15rem 0.4rem;
-		border-radius: 4px;
-		color: var(--text-faint);
+		font-family: var(--font-sans);
+		font-size: 0.72rem;
+		font-weight: 600;
+		background: var(--surface-active);
+		padding: 4px 10px;
+		border-radius: var(--radius-pill);
+		color: var(--text-muted);
 	}
 
 	.search-results {
-		max-height: 420px;
+		max-height: min(460px, 60vh);
 		overflow-y: auto;
-		padding: 1rem;
+		padding: 10px;
 	}
 
 	.empty-state {
@@ -192,84 +228,94 @@
 	.results-list {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 4px;
 	}
 
 	.result-card {
 		display: flex;
 		flex-direction: column;
-		gap: 0.35rem;
-		padding: 0.9rem 1.1rem;
-		background: var(--surface);
-		border: 1px solid var(--border);
+		gap: 4px;
+		padding: 14px 16px;
 		border-radius: var(--radius);
-		text-decoration: none;
-		transition: all 0.12s ease;
+		color: var(--text);
+		transition: background 0.2s var(--ease);
 	}
 
-	.result-card:hover {
-		border-color: var(--accent);
-		background: var(--surface-hover);
-		text-decoration: none;
+	.result-card:hover,
+	.result-card:focus-visible {
+		background: var(--grad-soft);
+		color: var(--text);
 	}
 
 	.result-header {
 		display: flex;
 		align-items: center;
-		gap: 0.6rem;
+		gap: 10px;
 	}
 
 	.title {
-		font-size: 0.95rem;
-		font-weight: 600;
-		color: var(--text);
+		font-family: var(--font-display);
+		font-size: 0.98rem;
+		font-weight: 700;
 		flex: 1;
 	}
 
 	.cat {
-		font-size: 0.75rem;
-		color: var(--text-faint);
+		font-size: 0.72rem;
+		font-weight: 600;
+		color: var(--text-muted);
+		padding: 3px 10px;
+		border-radius: var(--radius-pill);
+		background: var(--surface);
+		border: 1px solid var(--border);
+		white-space: nowrap;
 	}
 
 	.excerpt {
-		font-size: 0.82rem;
+		font-size: 0.83rem;
 		color: var(--text-muted);
-		line-height: 1.4;
+		line-height: 1.45;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 	.search-hints {
-		padding: 1.5rem 0.5rem;
+		padding: 18px 12px 14px;
 	}
 
 	.hint-title {
 		font-family: var(--font-display);
-		font-size: 0.72rem;
+		font-size: 0.8rem;
 		font-weight: 700;
-		letter-spacing: 0.08em;
 		color: var(--text-faint);
 		display: block;
-		margin-bottom: 0.75rem;
+		margin-bottom: 12px;
 	}
 
 	.hint-tags {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.5rem;
+		gap: 8px;
 	}
 
 	.hint-tag {
 		background: var(--surface);
 		border: 1px solid var(--border);
 		color: var(--text-muted);
-		padding: 0.35rem 0.7rem;
-		border-radius: 9999px;
-		font-size: 0.82rem;
+		padding: 7px 14px;
+		border-radius: var(--radius-pill);
+		font-size: 0.84rem;
 		cursor: pointer;
-		transition: all 0.12s ease;
+		transition: all 0.25s var(--ease);
 	}
 
 	.hint-tag:hover {
-		border-color: var(--accent);
+		background: var(--grad-soft);
+		border-color: rgb(251 113 133 / 0.35);
 		color: var(--text);
+		transform: translateY(-1px);
 	}
 </style>

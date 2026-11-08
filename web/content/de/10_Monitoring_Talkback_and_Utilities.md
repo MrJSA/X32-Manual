@@ -69,7 +69,7 @@ Das Pult besitzt zwei voneinander unabhängige Talkback-Signalwege: **Talkback A
 
 ### Taster vs. Schalter (Push-to-Talk vs. Latch):
 - **Tastbetrieb (Momentary)**: Halten Sie `TALK A` gedrückt, während Sie sprechen. Loslassen trennt die Verbindung sofort.
-- **Dauerbetrieb (Latch)**: Ein kurzer Druck schaltet Talkback dauerhaft ein; erneuter Druck schaltet es aus.
+- **Dauerbetrieb (Latch)**: Ein kurzer Druck schaltet Talkback dauerhaft ein; erneuter Druck schaltet es aus. (Das Latch-Verhalten wird unter **Monitor → Talkback** eingestellt.)
 
 ### Best Practice im Live-Betrieb:
 - **Talkback A**: Exklusiv auf **Busse 1–8 (Bühnenmonitore & IEM)** geroutet, um während der Probe direkt mit der Band zu kommunizieren.
@@ -79,10 +79,19 @@ Das Pult besitzt zwei voneinander unabhängige Talkback-Signalwege: **Talkback A
 
 ## 3. Testsignal-Generator (Oszillator)
 
-Der integrierte Oszillator erzeugt präzise Testsignale zur Überprüfung von Verkabelungen, Lautsprecherphasen und Raumresonanzen:
-- **Rosa Rauschen (Pink Noise)**: Gleiche Energie pro Oktave. Der weltweite Standard für Raumakustik-Messungen und Subwoofer-Phasenanpassung.
-- **Weißes Rauschen (White Noise)**: Höhengeprägtes Rauschen zur Überprüfung von Hochtontreibern.
-- **Sinusgenerator (Sine Wave)**: Reiner Einzelton von **20 Hz bis 20 kHz** in präzisen 1-Hz-Schritten einstellbar.
+Der integrierte Oszillator erzeugt präzise Testsignale zur Überprüfung von Verkabelung, Signalwegen, Lautsprecherphasen und zur akustischen Raumabstimmung.
+
+### Signalarten:
+1. **Rosa Rauschen (Pink Noise)**: Gleiche Energie pro Oktave. Der akustische Standard für Raum-Entzerrung, RTA-Messungen und die Phasenanpassung der Subwoofer-Trennung.
+2. **Weißes Rauschen (White Noise)**: Gleiche Energie pro Hertz. Höhenbetontes Rauschen zur Überprüfung von Hochtontreibern.
+3. **Sinuston (Sine Wave)**: Reiner Einzelton, einstellbar von **20 Hz bis 20 kHz** in feinen 1-Hz-Schritten.
+
+### Ablauf der Systemprüfung:
+1. **Monitor → Oscillator** aufrufen.
+2. **Sine Wave** mit **1000 Hz** (oder **Pink Noise**) wählen.
+3. Pegel auf **-20 dBFS** einstellen.
+4. Als Ziel **Main L/R** (oder einzelne Mix-Busse) wählen.
+5. Generator aktivieren. Hören und prüfen Sie, ob alle Lautsprecher, Endstufen-Racks und Rückleitungen sauber ohne Brummen, Verzerrung oder Aussetzer arbeiten – bevor die Musiker eintreffen.
 
 ---
 
@@ -111,7 +120,19 @@ Auf den **Kanälen 1 bis 8** steht ein lizenzierter **Dan Dugan Sprach-Automixer
 ```
 
 ### Einrichtung des Automixers:
-1. Sprachmikrofone auf die **Kanäle 1 bis 8** patchen.
-2. Im Menü **Channel → Config** den Reiter **Automix** öffnen.
-3. Automixer für die gewünschten Kanäle einschalten und Gruppe **X** oder **Y** zuweisen.
-4. **Weight (Priorität)**: Moderator auf **+3 dB**, Gäste auf **0 dB** einstellen. Spricht der Moderator, priorisiert das System dessen Stimme automatisch.
+1. Sprach- und Dialogmikrofone auf die **Kanäle 1 bis 8** patchen.
+2. **Channel → Config** aufrufen (oder im Home-Menü den Reiter **Automix** wählen).
+3. Den Automixer für die gewünschten Kanäle einschalten.
+4. Die Kanäle **Gruppe X** oder **Gruppe Y** zuweisen (so lassen sich zwei unabhängige Diskussionsrunden gleichzeitig betreiben).
+5. **Weight (Priorität)**:
+   - Legt die relative Empfindlichkeit jedes Mikrofons fest (-12 dB bis +12 dB).
+   - Moderator bzw. Hauptredner auf **+3 dB Weight**, Gäste der Runde auf **0 dB** stellen. Spricht der Moderator, bevorzugt das System automatisch seine Stimme gegenüber Teilnehmern, die dazwischenreden.
+
+---
+
+## 5. 100-Band-Echtzeit-Analyzer (RTA)
+
+Das Pult enthält einen hochauflösenden 100-Band-RTA, der in jede Bildschirmebene integriert ist:
+- **Balkenanzeige**: Kontrastreiche Frequenzverteilung mit 100 Balken und Peak-Hold-Anzeige.
+- **Spektrogramm-Modus**: Fortlaufend scrollende Wasserfall-Anzeige, die dauerhafte Rückkopplungsfrequenzen über die Zeit sichtbar macht.
+- **EQ-Kurven-Overlay**: Zeigt das Echtzeit-Spektrum direkt hinter dem Kanal-PEQ und den grafischen 31-Band-Equalizern an, sodass Sie Rückkopplungen während der Show sofort sehen und herausfiltern können.

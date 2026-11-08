@@ -2,7 +2,7 @@ import type { I18nTexts } from './en.js';
 
 export const de: I18nTexts = {
 	brandBadge: 'X32 / M32',
-	brandTitle: 'TECHNISCHES HANDBUCH',
+	brandTitle: 'Praxis-Handbuch',
 	firmwareTag: 'FW 4.x',
 	searchPlaceholder: 'Handbuch durchsuchen...',
 	searchKbd: 'Strg K',
@@ -10,8 +10,9 @@ export const de: I18nTexts = {
 	searchNoResults: 'Keine Kapitel oder Themen gefunden für',
 	searchHelp: 'Suchbegriff eingeben, um alle Kapitel und Abschnitte zu durchsuchen',
 	overviewAndIndex: 'Übersicht & Index',
-	heroBadge: 'BEHRINGER X32 & MIDAS M32',
-	heroTitle: 'Technisches Handbuch & Praxisführer',
+	heroBadge: 'Behringer X32 & Midas M32',
+	heroTitle: 'Souverän mischen',
+	heroTitleAccent: 'am X32 & M32',
 	heroSubtitle:
 		'Ein vollständiges, praxisnahes und detailliertes Referenzhandbuch für Routing, Vorverstärker-Einpegelung, Signalbearbeitung, Mix-Busse, virtuelle Effekt-Plugins und Live-Show-Automation.',
 	statChannels: 'Bearbeitungskanäle',
@@ -25,5 +26,16 @@ export const de: I18nTexts = {
 	prevChapter: 'Vorheriges Kapitel',
 	nextChapter: 'Nächstes Kapitel',
 	toggleTheme: 'Hell-/Dunkelmodus umschalten',
-	switchLang: 'Sprache'
+	switchLang: 'Sprache',
+	heroCta: 'Jetzt lesen',
+	footerNote: 'Unabhängiges Praxis-Handbuch. X32 ist eine Marke von Behringer / Music Tribe, M32 von Midas.',
+	heroCtaSearch: 'Handbuch durchsuchen',
+	manualWord: 'Handbuch',
+	navLabel: 'Handbuch-Navigation',
+	toggleMenu: 'Navigationsmenü ein-/ausblenden',
+	closeSearch: 'Suche schließen',
+	popularTopics: 'Beliebte Themen',
+	notFoundTitle: 'Thema oder Kapitel nicht gefunden',
+	notFoundText: 'Das gesuchte Kapitel oder der Abschnitt existiert nicht oder wurde verschoben.',
+	backHome: 'Zurück zur Handbuch-Übersicht'
 };

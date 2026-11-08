@@ -72,10 +72,12 @@ Models the 65-pound, 20-tube stereo mastering compressor renowned for adding ana
 - **Operating Modes**: Dual Mono, Stereo Linked, or **Mid-Side (M/S)** processing.
 - **Best For**: Master stereo bus glue, drum subgroups, and acoustic string ensembles.
 
-### D. Combinator (5-Band Linear-Phase Multiband Compressor)
-A high-precision 5-band mastering compressor with linear-phase crossover filters that eliminate phase distortion.
-- **Controls**: 5 independent frequency bands (Sub, Low, Mid, Hi-Mid, High) with individual Threshold, Ratio, Gain, and Fast/Slow release curves.
-- **Spectral Balancing**: Dynamically balances uneven frequency content across dense mixes.
+### D. Combinator (5-Band Multiband Compressor)
+Modeled after the Behringer **MDX8000** two-rack-unit multiband compressor; on the X32 it is a stereo (dual-channel) processor with five bands: **Low, Low-Mid, Mid, High-Mid and High**.
+- **Global Controls**: Mix (0–100 % wet), dual-step Attack (0–19; initial attack ~0.5 ms at 19 to ~1.5 ms at 0, full compression within ~8 ms), Release (20 ms – 3 s, or Auto), Ratio, Crossover position and Crossover slope (**12 or 48 dB/oct** — adds ~0.7 ms of latency, keep this in mind on time-aligned inserts), and global output Gain.
+- **Per-Band Controls**: Threshold and Band Gain for each band; the Peak meter display helps set thresholds.
+- **Spectral Balance Control (SBC)**: Applies up to **10 dB** of automatic make-up gain independently per band, so heavy compression in one band doesn't change the overall tone.
+- **Band Solo Caution**: Band solo is *destructive* — it changes the actual output of the processor, not just your headphones. Never use it on a live PA insert during the show.
 - **Best For**: Master Main LR bus, live stream/broadcast matrix feeds, and smoothing erratic multi-singer backing groups.
 
 ---
@@ -143,7 +145,7 @@ The console provides two distinct 31-band 1/3-octave graphic equalizer models:
 
 | Effect Processor | Character & Architecture | Optimal Use Case |
 |---|---|---|
-| **Vintage Reverb** | Emulation of the legendary **EMT 250** electronic plate. Warm, velvety, open diffusion. | Lead vocals, snare drum, acoustic guitars. |
+| **Vintage Reverb** | Emulation of the legendary **EMT 250** (1976), the first fully electronic (digital) reverb. Warm, velvety, open diffusion; decay 0.4–4.5 s. | Lead vocals, snare drum, acoustic guitars. |
 | **Plate Reverb / Rich Plate** | Bright, dense mechanical plate with rapid build-up and shimmering high-end tail. | Rock drums, modern pop vocals, brass. |
 | **Hall Reverb** | Expansive concert hall acoustic simulation with adjustable pre-delay and room dimensions. | Orchestral strings, choirs, ballads. |
 | **Room Reverb / Ambience** | Tight acoustic room reflection without a long wash. | Adding natural drum booth room tone to dry direct inputs. |

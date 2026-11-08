@@ -58,7 +58,7 @@ Eine praxiserprobte 8-DCA-Konfiguration für Konzerte und Veranstaltungen:
    - Drücken Sie bei gehaltener DCA-Select-Taste die blau leuchtenden **SELECT**-Tasten aller gewünschten Kanäle.
    - Lassen Sie die DCA-Select-Taste los. Alle gewählten Kanäle sind nun mit diesem DCA verknüpft.
 2. **Kanal-Home-Bildschirm**:
-   - Wählen Sie den Kanal an, öffnen Sie **HOME** und blättern Sie zur Spalte **DCA Groups**.
+   - Wählen Sie den Kanal an, öffnen Sie **HOME** und blättern Sie zur Spalte **DCA Groups**. Mit dem Drehregler schalten Sie DCA 1 bis 8 ein oder aus.
 
 ---
 
@@ -82,6 +82,9 @@ Dies ist einer der folgenschwersten Bedienfehler an Digitalpulten:
 └─────────────────────────────────────────────────────────────┘
 ```
 
+### Das Katastrophen-Szenario aus der Praxis:
+Ein Lead-Sänger signalisiert von der Bühne, dass ihm sein Gesangsmikrofon in den Ohren dröhnt. Der FOH-Techniker zieht DCA 5 (Lead Vox) um 10 dB herunter. Das Publikum hört den Sänger nun kaum noch – aber **die Lautstärke im In-Ear des Sängers hat sich um kein einziges Dezibel verändert**.
+
 > [!WARNING]
 > Benutzen Sie **niemals** DCA-Fader, um Monitormischungen auf der Bühne anzupassen! Bühnenmonitore und In-Ears werden pre-fader gespeist. Um Monitorpegel zu ändern, nutzen Sie **Sends on Faders** auf dem Mix-Bus des jeweiligen Musikers.
 
@@ -95,7 +98,7 @@ Ab Firmware 4.0 bietet das X32 **DCA Spill**. Damit entfällt das manuelle Suche
 ┌─────────────────────────────────────────────────────────────┐
 │                      DCA-SPILL-WORKFLOW                     │
 ├─────────────────────────────────────────────────────────────┤
-│ 1. DOPPELKLICKEN Sie auf die SELECT-Taste eines DCAs        │
+│ 1. DRÜCKEN Sie die SELECT-Taste eines DCAs                  │
 │    (z. B. DCA 1 für Drums).                                 │
 │                                                             │
 │ 2. Die linken 16 Fader klappen SOFORT AUF (Spill):          │
@@ -109,6 +112,8 @@ Ab Firmware 4.0 bietet das X32 **DCA Spill**. Damit entfällt das manuelle Suche
 │    Fader 8 = Overheads                                      │
 │                                                             │
 │ 3. Schnelle Korrekturen an Snare- oder Tom-Fadern vornehmen.│
+│    (Dem DCA zugewiesene Busse, z. B. Drum-Subgruppen,       │
+│    werden zusammen mit den Kanälen ausgeklappt.)            │
 │                                                             │
 │ 4. DRÜCKEN Sie die DCA-SELECT-Taste erneut.                 │
 │    Die linken Fader kehren augenblicklich zu ihrer normalen │
@@ -137,3 +142,21 @@ Fängt ein Sänger oder Redner zwischen zwei Stücken an zu sprechen, wirkt eine
 - Weisen Sie die Rückwege FX 1 bis FX 4 der Gruppe **MUTE GRP 3 (FX MUTE)** zu.
 - Drücken Sie `MUTE GRP 3` in der Sekunde, in der das Lied endet: Die Sprache ist sofort trocken und klar.
 - Drücken Sie `MUTE GRP 3` beim Auftakt des nächsten Songs erneut, um den satten Gesangshall wieder zu aktivieren.
+
+### So weisen Sie Kanäle einer Mute-Gruppe zu:
+1. Die Menütaste **MUTE GRP** neben dem Display drücken.
+2. Die physische **Mute-Group-Taste (1–6)** auf der Oberfläche gedrückt halten.
+3. Währenddessen die **MUTE**-Tasten aller Kanäle, Busse oder FX-Returns drücken, die zugewiesen werden sollen.
+4. Die Taste loslassen. Die roten Mute-LEDs blinken nun synchron, sobald diese Mute-Gruppe aktiviert wird.
+
+---
+
+## 6. Mute-Einstellungen im System (Setup-Menü)
+
+Unter **SETUP → CONFIG** legen Sie das Mute-Verhalten fest:
+- **Mute Pre-Fader Sends (Yes / No)**:
+  - Bei **NO**: Das Stummschalten eines Kanals betrifft nur die Saal-PA; der Musiker hört sich weiterhin auf seinem Bühnenmonitor.
+  - Bei **YES**: Das Stummschalten eines Kanals schaltet das Mikrofon überall stumm, auch auf allen Bühnenmonitoren und In-Ears. (Für Live-Beschallung empfohlen, um Rückkopplungen offener Mikrofone im Stativ zu vermeiden.)
+- **Harter Mute vs. weicher DCA-Mute**:
+  - Wird ein Kanal über einen DCA stummgeschaltet, blinkt seine Mute-Taste.
+  - Wird ein Kanal direkt in seinem eigenen Kanalzug stummgeschaltet, leuchtet seine Mute-Taste dauerhaft rot. Das Aufheben des DCA-Mutes hebt einen manuell im Kanalzug gesetzten Mute nicht auf!

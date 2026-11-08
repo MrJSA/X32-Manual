@@ -65,7 +65,7 @@ User Out dient der flexiblen Bereitstellung von Signalströmen für **externe Ge
 2. Der **erste Dreh-Encoder** schaltet zwischen *User In* (Eingänge) und *User Out* (Ausgänge) um.
 3. Wählen Sie den gewünschten Slot (z. B. User In 1) und stellen Sie mit den weiteren Encodern die physische Quelle ein.
 4. Wechseln Sie zurück zum Reiter **Home** und stellen Sie die benötigten Eingangsblöcke auf **User In 1-8 / 9-16 / 17-24 / 25-32**.
-5. Für Mehrspuraufnahmen öffnen Sie den Reiter **Card Out** (oder *AES50 A/B Out*) und wählen dort ebenfalls die passenden User-Blöcke.
+5. Für Mehrspuraufnahmen öffnen Sie den Reiter **Card Out** (oder *AES50 A/B Out*) und wählen dort ebenfalls die passenden User-Blöcke. Mit dem sechsten Encoder blättern Sie durch die 32 Card-Kanäle und prüfen, welches Signal auf jedem liegt.
 
 ---
 
@@ -82,7 +82,7 @@ User Out dient der flexiblen Bereitstellung von Signalströmen für **externe Ge
 Eingangsblöcke: 1–8, 9–16, 17–24 und 25–32 auf *User In*. Kein Eingang wird verschenkt, und alle Funkstrecken stehen direkt am Mischplatz zur Verfügung.
 
 ### Szenario 2: Zwei Stageboxen und lokale Zuspielungen
-12 Schlagzeug-Kanäle an Stagebox A, 16 Band-Kanäle an Stagebox B und 2 Zuspieler am Pult.
+Das Schlagzeug belegt 12 Eingänge an Stagebox A, der Rest der Band liegt an Stagebox B, und zwei Ansage-Mikrofone sind lokal angeschlossen.
 
 | User In Slot | Physische Signalquelle |
 |---|---|
@@ -90,7 +90,7 @@ Eingangsblöcke: 1–8, 9–16, 17–24 und 25–32 auf *User In*. Kein Eingang 
 | 13–28 | AES50 B 1–16 |
 | 29–30 | Aux In 1–2 |
 
-Das Patching muss nicht sequentiell sein. Ein Bass-Signal an Stagebox B kann problemlos auf Slot 17 gelegt werden, während die umliegenden Kanäle von Stagebox A stammen.
+Das Patching muss nicht sequentiell sein. Ein Bass-Rig mit zwei Ausgängen an Stagebox B kann auf die Kanäle 17/18 (*AES50 B 1-2*) gelegt werden, während die umliegenden Kanäle weiterhin von Stagebox A kommen.
 
 ### Szenario 3: Mehrspuraufnahme mit identischem Kanalabgriff
 Stellen Sie die Card-Ausgänge auf **User In 1–32**. Die Aufnahmesoftware zeichnet exakt die den Kanälen zugeordneten Eingangssignale auf (Spur 1 = Kanal 1). Für den **Virtual Soundcheck** schalten Sie die Eingangsblöcke einfach auf **Card 1–8 … 25–32** um – alle Kanäle spielen sofort ihre aufgezeichneten Spuren ab.
@@ -103,7 +103,10 @@ Card-Ausgänge auf **User Out 1–32**:
 | 1–30 | Local In 1–30 (Bühneneingänge) |
 | 31–32 | Summenausgänge (z. B. *Out 15 / Out 16* oder *Aux Out 5 / 6* mit Matrix) |
 
-Die DAW oder Streaming-Software empfängt auf den Spuren 31/32 die fertige Stereomischung und auf 1–30 die Einzelkanäle.
+Die DAW oder Streaming-Software empfängt die Mischung auf den Card-Eingängen 31/32. Erwartet Ihre Streaming-Software die Mischung auf den ersten beiden Kanälen, legen Sie sie stattdessen auf User Out 1/2 und die 30 Eingänge auf 3–32.
+
+### Szenario 5: Ein zweites Mischpult über AES50 B speisen
+Stellen Sie die AES50-B-Ausgänge auf **User Out 1-8 … 41-48**. Damit wählen Sie bis zu 48 Signale für das andere Pult aus: Eingänge beider Stageboxen, Card-Rückwege, beliebige Ausgänge, P16-Feeds oder den Monitorbus.
 
 ---
 
@@ -111,5 +114,9 @@ Die DAW oder Streaming-Software empfängt auf den Spuren 31/32 die fertige Stere
 
 - **Ein Eingang auf zwei Kanälen:** Wurde eine Kanalquelle manuell verstellt, kann ein Mikrofon auf zwei Fadern liegen. Das Stummschalten eines Kanals schaltet das Mikrofon dann nicht stumm. Belassen Sie die Kanalquellen auf 1:1 und nutzen Sie stets das User Patching.
 - **Eingangsblock nicht auf User In gestellt:** Das Konfigurieren der User-Slots bewirkt nichts, solange der entsprechende 8er-Block im Home-Menü nicht auf *User In* steht.
-- **Kein Umpatchen während des Live-Konzerts:** Jedes Umpatchen trennt die bisherige Signalverbindung augenblicklich. Speichern Sie vor Änderungen stets eine Szene in der LIBRARY.
+- **Kein Umpatchen während des Live-Konzerts:** Jedes Umpatchen trennt die bisherige Signalverbindung augenblicklich. Speichern Sie vor Änderungen stets eine Szene (oder ein Routing-Preset in der LIBRARY).
 - **Vorverstärker-Gain folgt dem physischen Eingang:** Nach dem Umpatchen regelt Kanalzug 2 möglicherweise den Gain der Stagebox-Buchse A2 statt des lokalen Eingangs 2. Der Gain gehört zur Buchse, nicht zum Fader.
+
+---
+
+*X32 ist eine Marke von Behringer / Music Tribe, M32 von Midas. Die praktischen Setup-Abläufe in diesem Handbuch orientieren sich an bewährter Praxis der Mischpulttechnik und an Routing-Anleitungen.*

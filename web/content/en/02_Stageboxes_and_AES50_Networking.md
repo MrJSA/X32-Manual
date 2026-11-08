@@ -148,5 +148,5 @@ Connecting Front of House, Monitor, and Broadcast desks to share stage inputs:
    - *Result*: The FOH console receives the untouched stagebox streams transparently!
 2. **Gain Sharing Protection**:
    - The Monitor Desk controls physical preamps.
-   - On the FOH and Broadcast desks, navigate to **SETUP → PREAMPS** and engage **HA Gain Split**.
+   - On the FOH and Broadcast desks, navigate to **SETUP → GLOBAL** and engage **HA Gain Split**.
    - FOH and Broadcast adjust independent digital trim (-18 dB to +18 dB) without disturbing the stage monitor mix.

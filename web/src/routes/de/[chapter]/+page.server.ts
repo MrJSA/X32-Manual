@@ -12,7 +12,7 @@ export function load({ params }) {
 		throw error(404, `Kapitel "${params.chapter}" wurde im Handbuch nicht gefunden`);
 	}
 
-	const html = renderMarkdown(chapter.rawContent);
+	const html = renderMarkdown(chapter.rawContent, 'de');
 	const toc = chapter.toc ?? extractToc(chapter.rawContent);
 
 	return {

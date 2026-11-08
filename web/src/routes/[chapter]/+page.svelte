@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ChapterNav from '#lib/components/ChapterNav.svelte';
+	import Seo from '#lib/components/Seo.svelte';
 	import type { ChapterMeta } from '#lib/content.js';
 	import type { TocItem } from '#lib/markdown.js';
 	import { page } from '$app/state';
@@ -27,18 +28,18 @@
 	const t = $derived(texts[currentLang]);
 </script>
 
-<svelte:head>
-	<title>{t.breadcrumbChapter} {data.chapter.number}: {data.chapter.title} | {t.brandBadge} Manual</title>
-	<meta name="description" content={data.chapter.summary} />
-</svelte:head>
+<Seo
+	title="{t.breadcrumbChapter} {data.chapter.number}: {data.chapter.title} | {t.brandBadge} {t.manualWord}"
+	description={data.chapter.summary}
+/>
 
 <div class="chapter-view">
-	<nav class="breadcrumbs" aria-label="Breadcrumb">
-		<a href={localize('/', currentLang)} class="crumb-link">{t.breadcrumbManual}</a>
-		<span class="crumb-sep">/</span>
-		<span class="crumb-category">{data.chapter.category}</span>
-		<span class="crumb-sep">/</span>
-		<span class="crumb-current">{t.breadcrumbChapter} {data.chapter.number}</span>
+	<nav class="crumbs" aria-label="Breadcrumb">
+		<a href={localize('/', currentLang)}>{t.breadcrumbManual}</a>
+		<span class="sep" aria-hidden="true"></span>
+		<span>{data.chapter.category}</span>
+		<span class="sep" aria-hidden="true"></span>
+		<span class="current">{t.breadcrumbChapter} {data.chapter.number}</span>
 	</nav>
 
 	<article class="markdown-body">
@@ -56,35 +57,38 @@
 		width: 100%;
 	}
 
-	.breadcrumbs {
-		display: flex;
+	.crumbs {
+		display: inline-flex;
+		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.84rem;
-		color: var(--text-muted);
+		gap: 10px;
+		padding: 7px 16px;
 		margin-bottom: 2rem;
+		font-size: 0.82rem;
+		color: var(--text-faint);
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-pill);
 	}
 
-	.crumb-link {
+	.crumbs a {
 		color: var(--text-muted);
-		text-decoration: none;
-		transition: color 0.12s ease;
+		font-weight: 600;
 	}
 
-	.crumb-link:hover {
+	.crumbs a:hover {
 		color: var(--accent);
 	}
 
-	.crumb-sep {
-		color: var(--border-strong);
+	.sep {
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: var(--border-strong);
 	}
 
-	.crumb-category {
-		color: var(--text-faint);
-	}
-
-	.crumb-current {
-		color: var(--accent-cyan);
-		font-weight: 500;
+	.current {
+		color: var(--accent);
+		font-weight: 650;
 	}
 </style>
