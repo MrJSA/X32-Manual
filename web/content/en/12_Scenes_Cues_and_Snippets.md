@@ -10,28 +10,12 @@ This chapter details the show control hierarchy, surgical snippet creation, glob
 
 The console organizes automation into three descending layers indexed by a master cue list:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ MASTER SHOW FILE (*.shw)                                                    │
-│ Complete backup file stored on USB containing all Cues, Scenes & Snippets   │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 1. CUES (000 to 499 ── 500 Total Entries)                                   │
-│    The master live timeline. Each individual Cue can trigger:               │
-│    ├── A Scene (Loads a full console state)                                 │
-│    ├── A Snippet (Executes surgical parameter tweaks)                       │
-│    └── A MIDI Command (Fires external program change, CC, or lighting cue) │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 2. SCENES (00 to 99 ── 100 Total Entries)                                   │
-│    A complete, heavy snapshot of the ENTIRE console state:                  │
-│    All 32 channels, 16 buses, 6 matrices, preamps, routing, FX rack,        │
-│    fader positions, mutes, scribble strips, and system preferences.        │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 3. SNIPPETS (00 to 99 ── 100 Total Entries)                                 │
-│    Surgical, targeted partial recalls:                                      │
-│    Recalls ONLY the specific channels, buses, or processing blocks selected │
-│    (e.g., changes only the Lead Vocal EQ without touching faders or gains). │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Level | Range | What it stores / does |
+|---|---|---|
+| **Show file** (`*.shw`) | One per show | The complete backup on USB, containing all cues, scenes and snippets |
+| **Cues** | 000–499 (500 entries) | The live timeline. Each cue can trigger a **scene** (full console state), a **snippet** (targeted changes) and/or a **MIDI command** (program change, CC or lighting cue) |
+| **Scenes** | 00–99 (100 entries) | A full snapshot of the **entire** console: all 32 channels, 16 buses, 6 matrices, preamps, routing, FX rack, faders, mutes, scribble strips and preferences |
+| **Snippets** | 00–99 (100 entries) | Targeted partial recalls: **only** the selected channels, buses or processing blocks (e.g. only the lead vocal EQ, without touching faders or gains) |
 
 ---
 
@@ -51,17 +35,12 @@ The console organizes automation into three descending layers indexed by a maste
 
 Snippets allow live sound engineers to make changes without the fear of blowing away the entire mix:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   SNIPPET CREATION MATRIX                   │
-├─────────────────────────────────────────────────────────────┤
-│ TARGET CHANNELS:       PARAMETERS TO RECALL:                │
-│ [X] Channel 1 (Lead)   [ ] Config / Preamp   [X] Equalizer  │
-│ [ ] Channel 2 (Guitar) [ ] Gate              [X] Dynamics   │
-│ [ ] Channel 3 (Bass)   [ ] Inserts           [ ] Fader/Mute │
-│ [ ] Channels 4-32      [ ] Sends             [ ] Scribble   │
-└─────────────────────────────────────────────────────────────┘
-```
+Example: a snippet that only changes the lead vocal's EQ and dynamics.
+
+| | Included | Not included |
+|---|---|---|
+| **Channels** | Channel 1 (lead vocal) | Channel 2 (guitar), Channel 3 (bass), Channels 4–32 |
+| **Parameters** | Equalizer, Dynamics | Config / Preamp, Gate, Inserts, Sends, Fader / Mute, Scribble strip |
 
 ### Practical Snippet Examples:
 1. **Guest Vocalist EQ & Compression**:
@@ -79,22 +58,12 @@ Snippets allow live sound engineers to make changes without the fear of blowing 
 
 Safes prevent specified channels or processing blocks from being overwritten when a new Scene is recalled.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ 1. PARAMETER SAFES (GLOBAL):                                                │
-│    Protects entire subsystems across ALL scenes:                            │
-│    - ROUTING SAFE: Prevents scenes from changing input/output patching.     │
-│    - PREAMP SAFE: Prevents scenes from overwriting analog headamp gains.    │
-│    - FX RACK SAFE: Prevents scenes from reloading effect plugin slots.      │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 2. CHANNEL SAFES (PER-CHANNEL):                                             │
-│    Protects individual channels from ANY scene recall:                      │
-│    - Example: Channel 32 is the Pastor / MC / Host microphone.              │
-│    - Place a Channel Safe on Channel 32.                                    │
-│    - You can now recall 20 different musical song scenes for the band, and  │
-│      the Pastor's microphone fader, EQ, and preamp will NEVER change!       │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Safe | Scope | Protects | Example |
+|---|---|---|---|
+| **Routing safe** | Global (all scenes) | Input / output patching | Scenes never re-patch the stage |
+| **Preamp safe** | Global (all scenes) | Analog headamp gains | Scenes never change gain |
+| **FX rack safe** | Global (all scenes) | Effect slots | Scenes never reload plugins |
+| **Channel safe** | Per channel | Everything on that channel | Put a channel safe on Ch 32 (pastor / MC / host): recall 20 band scenes and that mic's fader, EQ and preamp **never** change |
 
 ### The "Safe on Recall" Principle:
 > **Crucial Rule:** Parameter and Channel Safes operate at the **time of recall**, not the time of saving.
@@ -106,17 +75,13 @@ Safes prevent specified channels or processing blocks from being overwritten whe
 
 The **CUES** tab unites Scenes, Snippets, and external MIDI automation into a single sequential list:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ CUE LIST (Theater / Concert Run-Sheet):                                     │
-│                                                                             │
-│ Cue 01: "Intro / Walk-In" ──► Loads Scene 01 (Walk-in Music / Preset)       │
-│ Cue 02: "Song 1 - Rock"   ──► Loads Scene 02 + MIDI: Program Change 1 (Keys)│
-│ Cue 03: "Guitar Solo"     ──► Loads Snippet 12 (Guitar Boost +4 dB)         │
-│ Cue 04: "Acoustic Ballad" ──► Loads Scene 03 + MIDI: Program Change 2       │
-│ Cue 05: "Pastor Speech"   ──► Loads Snippet 08 (Band Mute + FX Mute ON)     │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Cue | Name | Triggers |
+|---|---|---|
+| **01** | Intro / walk-in | Scene 01 (walk-in music preset) |
+| **02** | Song 1 – Rock | Scene 02 + MIDI program change 1 (keys) |
+| **03** | Guitar solo | Snippet 12 (guitar +4 dB) |
+| **04** | Acoustic ballad | Scene 03 + MIDI program change 2 |
+| **05** | Pastor speech | Snippet 08 (band mute + FX mute on) |
 
 ### Assigning Console Buttons for Cue Stepping:
 To step through Cues seamlessly during a show without touching the screen:

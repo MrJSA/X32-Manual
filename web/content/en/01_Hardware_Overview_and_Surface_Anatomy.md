@@ -10,20 +10,15 @@ This chapter details the physical surface, control topography, screen navigation
 
 The X32 surface is divided into four primary functional zones:
 
-```
-┌──────────────────────────────────────────────────────────────────────────────────┐
-│  CHANNEL STRIP HARDWARE           7" TFT COLOR DISPLAY & ENCODERS  ASSIGNABLE    │
-│  [Preamp] [Gate] [EQ] [Dyn] [Sends]     [HOME] [CONFIG] [GATE] [EQ]   [A] [B] [C]│
-│                                         [DYN]  [MAIN]   [TAPE] [UTIL] (Knobs 1-4)│
-│                                         (Rotary Encoders 1 to 6)      (Keys 5-12)│
-├────────────────────────────────────────┬─────────────────────────────────────────┤
-│  INPUT FADER BANK (16 Faders)          │  OUTPUT FADER BANK (8 Faders) + MAIN LR │
-│  - Ch 1-16       - Bus 1-8             │  - DCA 1-8       - Matrix 1-6 / Main C  │
-│  - Ch 17-32      - Bus 9-16            │  - Bus 1-8       - MAIN LR Fader (1)    │
-│  - Aux In / FX   - User Layers         │  - Bus 9-16                             │
-│  (Scribble Strip, Select, Solo, Mute)  │  (Scribble Strip, Select, Solo, Mute)   │
-└────────────────────────────────────────┴─────────────────────────────────────────┘
-```
+| Zone | Position | What it contains |
+|---|---|---|
+| **Channel strip** | Top left | Dedicated hardware controls for Preamp, Gate, EQ, Dynamics and Sends of the selected channel |
+| **7" color display** | Top center | 10 menu buttons (HOME, METERS, ROUTING, LIBRARY, EFFECTS, SETUP, MONITOR, SCENES, MUTE GRP, UTILITY) and rotary encoders 1–6 |
+| **Assignable controls** | Top right | Knobs 1–4 and keys 5–12, in sets A / B / C |
+| **Input fader bank** | Bottom left, 16 faders | Layers Ch 1–16, Ch 17–32, Aux In / FX returns, Bus 1–8, Bus 9–16 and user layers |
+| **Output fader bank** | Bottom right, 8 faders + Main LR | Layers DCA 1–8, Bus 1–8, Bus 9–16, Matrix 1–6 / Main C, plus the dedicated Main LR fader |
+
+Every fader strip has a scribble strip, plus **Select**, **Solo** and **Mute** buttons.
 
 ### A. Left Fader Bank (16 Motorized Faders)
 The left fader bank controls input channels, auxiliary returns, and bus masters depending on the selected layer:
@@ -57,14 +52,12 @@ The separate far-right fader is permanently dedicated to the **Main Left/Right M
 
 Located on the upper-left of the console, the channel strip offers instant tactile control over the currently selected channel without needing screen navigation:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│ CONFIG/PREAMP        GATE             EQUALIZER (4-BAND)       DYNAMICS         │
-│ [48V] [POL]          [GATE IN]        [EQ IN] [MODE]           [COMP IN]        │
-│ (GAIN) (LOW CUT)     (THRESH) (RANGE) (LOW) (L-MID) (H-MID)(HI)(THRESH) (RATIO) │
-│ [LOW CUT ON] [VIEW]  [VIEW]           (FREQ) (Q) (GAIN) [VIEW] (ATT) (REL)[VIEW]│
-└─────────────────────────────────────────────────────────────────────────────────┘
-```
+| Section | Buttons | Knobs |
+|---|---|---|
+| **Config / Preamp** | 48V, Polarity (Ø), Low Cut on, View | Gain, Low Cut frequency |
+| **Gate** | Gate in, View | Threshold, Range |
+| **Equalizer (4-band)** | EQ in, Mode, band select (Low, Lo-Mid, Hi-Mid, High), View | Frequency, Q, Gain |
+| **Dynamics** | Comp in, View | Threshold, Ratio, Attack, Release |
 
 1. **Config & Preamp Section**:
    - `48V`: Toggles +48V phantom power for condenser mics and active DIs.
@@ -100,19 +93,10 @@ Located on the upper-left of the console, the channel strip offers instant tacti
 
 The 800x480 color TFT screen provides in-depth telemetry and system routing. Navigation is driven by eight dedicated menu buttons and six push-rotary encoders:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  [HOME]    [METERS]   [ROUTING]   [LIBRARY]   [EFFECTS]     │
-│  [SETUP]   [MONITOR]  [SCENES]    [MUTE GRP]  [UTILITY]     │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│                    MAIN 7" TFT SCREEN                       │
-│                                                             │
-├─────────────────────────────────────────────────────────────┤
-│   (1)         (2)         (3)         (4)         (5)   (6) │
-│ [Encoder]  [Encoder]  [Encoder]  [Encoder]  [Encoder] [Push]│
-└─────────────────────────────────────────────────────────────┘
-```
+| Row | Controls |
+|---|---|
+| **Menu buttons (left of the screen)** | HOME · METERS · ROUTING · LIBRARY · EFFECTS · SETUP · MONITOR · SCENES · MUTE GRP · UTILITY |
+| **Below the screen** | Six push-rotary encoders, one per parameter column shown at the bottom of the active page |
 
 ### The VIEW Principle
 Every physical section on the console features a dedicated **VIEW button**. Pressing `VIEW` instantly flips the main screen to the parameters for that specific section. This eliminates deep menu diving during live mixing.
@@ -146,14 +130,13 @@ Hold the channel's `SELECT` button and press the `UTILITY` button. The screen im
 
 ## 5. Rear Panel Connectivity
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│  [ XLR INPUTS 1-16 ]            [ XLR INPUTS 17-32 ]             [ XLR OUTPUTS 1-8 ]        │
-│  [ XLR OUTPUTS 9-16 ]           [ AUX IN 1-6 (TRS) + RCA 5-6 ]   [ AUX OUT 1-6 + RCA 5-6 ]  │
-│  [ AES50 PORT A ] [ AES50 PORT B ]   [ ULTRANET P16 ]   [ REMOTE ETHERNET ]  [ MIDI IN/OUT] │
-│  [ POWER SWITCH & IEC ]         [ X-USB / X-LIVE EXPANSION CARD INTERFACE (32x32) ]         │
-└─────────────────────────────────────────────────────────────────────────────────────────────┘
-```
+| Panel row | Connectors |
+|---|---|
+| **Analog inputs** | XLR inputs 1–16 and 17–32 |
+| **Analog outputs** | XLR outputs 1–16, Aux Out 1–6 (TRS) + RCA 5–6 |
+| **Aux inputs** | Aux In 1–6 (TRS) + RCA 5–6 |
+| **Digital & control** | AES50 Port A and B, Ultranet P16, Remote Ethernet, MIDI In / Out |
+| **Card & power** | X-USB / X-LIVE expansion card slot (32×32), power switch and IEC inlet |
 
 | Port / Interface | Connector Type | Description & Purpose |
 |---|---|---|

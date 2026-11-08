@@ -10,58 +10,21 @@ This chapter details the channel signal flow, each processing block's controls, 
 
 Understanding the internal signal order is critical when diagnosing why a filter or compressor responds in a particular manner:
 
-```
-[Input Source] (Local XLR, AES50, Card, or Aux)
-      │
-      ▼
-┌──────────────┐
-│ ANALOG GAIN  │  (Or Digital Trim if Gain Split is active)
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ POLARITY (Ø) │  180° electrical phase invert
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ LOW CUT      │  20 Hz - 400 Hz (12 dB/oct HPF)
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ GATE / DUCK  │  Expander 2/3/4, Gate, Ducker (Sidechain Key Filter)
-└──────┬───────┘
-      │
-      ├──────────────────────► [INSERT TAP: PRE] (Internal FX Rack or Aux)
-      ▼
-┌──────────────┐
-│ 4-BAND PEQ   │  Low, Lo-Mid, Hi-Mid, High (Low Cut, Shelving, PEQ, High Cut)
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ DYNAMICS     │  Compressor / Limiter / Expander (RMS/Peak, Parallel Mix %)
-└──────┬───────┘
-      │
-      ├──────────────────────► [INSERT TAP: POST] (Internal FX Rack or Aux)
-      ▼
-┌──────────────┐
-│ CHANNEL MUTE │  Mutes channel audio (Pre/Post fader sends configurable)
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ 100mm FADER  │  Level control (-∞ to +10 dB)
-└──────┬───────┘
-      │
-      ├──────────────────────► [PAN / BALANCE] ──► MAIN STEREO BUS (L/R)
-      │                                       ──► MONO / CENTER BUS
-      ▼
-┌──────────────┐
-│ BUS SENDS    │  Mix Buses 1-16 (Tap points: In/LC, Pre-EQ, Post-EQ, Pre-Fade, Post-Fade, Subgroup)
-└──────────────┘
-```
+| # | Block | Range / options | Notes |
+|---|---|---|---|
+| 1 | **Input source** | Local XLR, AES50, Card or Aux | |
+| 2 | **Analog gain** | -12 to +60 dB | Digital trim instead when Gain Split is active |
+| 3 | **Polarity (Ø)** | On / off | 180° electrical phase invert |
+| 4 | **Low Cut** | 20–400 Hz, 12 dB/oct | High-pass filter |
+| 5 | **Gate / Duck** | Expander 2/3/4, Gate, Ducker | With sidechain key filter |
+| — | *Insert point PRE* | Internal FX rack or Aux | Optional |
+| 6 | **4-band PEQ** | Low, Lo-Mid, Hi-Mid, High | Low Cut, shelving, PEQ, High Cut |
+| 7 | **Dynamics** | Compressor / Limiter / Expander | RMS/Peak, parallel Mix % |
+| — | *Insert point POST* | Internal FX rack or Aux | Optional |
+| 8 | **Channel mute** | On / off | Effect on pre/post-fader sends is configurable |
+| 9 | **100 mm fader** | -∞ to +10 dB | |
+| 10 | **Pan / Balance** | | → Main stereo bus (L/R) and Mono / Center bus |
+| 11 | **Bus sends** | Mix buses 1–16 | Tap points: In/LC, Pre-EQ, Post-EQ, Pre-Fade, Post-Fade, Subgroup |
 
 > **Note on EQ & Dynamics Order:** The order of the EQ and Dynamics blocks can be swapped. On the **Channel → Config** screen, toggle the **EQ Pre/Post Dyn** setting. Setting Dynamics *before* EQ prevents EQ boosts from pushing the compressor into excessive gain reduction.
 
@@ -97,16 +60,13 @@ The Low Cut filter is an active 12 dB/octave Butterworth high-pass filter adjust
 
 The X32 dynamics processor provides five dedicated modes:
 
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ GATE MODES:                                                                  │
-│ 1. EXPANDER 2 (1:2 ratio)  - Gentle downward attenuation below threshold     │
-│ 2. EXPANDER 3 (1:3 ratio)  - Moderate attenuation                            │
-│ 3. EXPANDER 4 (1:4 ratio)  - Aggressive attenuation                          │
-│ 4. GATE                    - Complete hard mute below threshold              │
-│ 5. DUCK                    - Attenuates signal when key input EXCEEDS thresh │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+| Mode | Ratio | Behavior |
+|---|---|---|
+| **Expander 2** | 1:2 | Gentle attenuation below the threshold |
+| **Expander 3** | 1:3 | Moderate attenuation |
+| **Expander 4** | 1:4 | Aggressive attenuation |
+| **Gate** | — | Hard mute below the threshold |
+| **Duck** | — | Attenuates the signal when the **key input exceeds** the threshold |
 
 ### Controls & Parameters:
 - **Threshold** (-80 dB to 0 dB): Level at which the processor opens or triggers.
@@ -141,18 +101,18 @@ The gate includes a tunable sidechain filter:
 
 Each input channel features a 4-band fully parametric equalizer. Band 1 (Low) and Band 4 (High) can also morph into Shelving or Cut filters.
 
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  BAND 1 (LOW)     : Low Cut (12 dB/oct), Low Shelving, or Parametric (PEQ)   │
-│  BAND 2 (LO MID)  : Parametric (PEQ)                                         │
-│  BAND 3 (HI MID)  : Parametric (PEQ)                                         │
-│  BAND 4 (HIGH)    : High Cut (12 dB/oct), High Shelving, or Parametric (PEQ)  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Frequency Range  : 20 Hz to 20 kHz (1/3-octave fine increments)             │
-│  Gain Range       : -15.0 dB to +15.0 dB (0.5 dB steps)                      │
-│  Q (Bandwidth)    : 0.3 (broad 2.5 octaves) to 10.0 (surgical 1/10th octave) │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+| Band | Filter types |
+|---|---|
+| **1 – Low** | Low Cut (12 dB/oct), Low Shelving or Parametric |
+| **2 – Lo Mid** | Parametric |
+| **3 – Hi Mid** | Parametric |
+| **4 – High** | High Cut (12 dB/oct), High Shelving or Parametric |
+
+| Parameter | Range |
+|---|---|
+| **Frequency** | 20 Hz to 20 kHz (fine 1/3-octave steps) |
+| **Gain** | -15.0 dB to +15.0 dB (0.5 dB steps) |
+| **Q (bandwidth)** | 0.3 (broad, 2.5 octaves) to 10.0 (surgical, 1/10 octave) |
 
 ### Real-Time Analyzer (RTA) Integration:
 Press the `VIEW` button on the EQ section. The screen renders a 100-band RTA directly behind the equalizer curve:
@@ -169,33 +129,26 @@ To eliminate ringing resonances, feedback frequencies, or nasal tones:
 
 ### Instrument EQ Cheat Sheet:
 
-```
-VOCALS:
-  80-140 Hz  : Low Cut (Eliminate plosives and stage rumble)
-  200-300 Hz : Cut 2-3 dB (Reduces muddy chest buildup / proximity effect)
-  1.0-1.5 kHz: Cut narrow (Removes cheap "megaphone" honk)
-  3.0-4.0 kHz: Gentle boost (Adds vocal intelligibility and articulation)
-  10-12 kHz  : High shelf boost 2 dB (Adds smooth airy sheen)
-
-SNARE DRUM:
-  80 Hz      : Low Cut
-  200-240 Hz : Boost 2-4 dB (Snare "meat" and body)
-  600-900 Hz : Surgical notch -4 dB (Removes hollow cardboard ring)
-  2.5-3.5 kHz: Boost 2-3 dB (Stick snap and attack)
-  8.0 kHz    : High shelf (Snare wire sizzle)
-
-KICK DRUM:
-  30 Hz      : Low Cut
-  50-70 Hz   : Boost 3 dB (Sub-bass chest thump)
-  250-400 Hz : Deep cut 4-8 dB (Cleans out muddy boxiness)
-  3.5-5.0 kHz: Boost 3-5 dB (Beater click to cut through dense guitars)
-
-ELECTRIC GUITAR:
-  80 Hz      : Low Cut
-  400-500 Hz : Cut 2-3 dB (Removes mud allowing bass guitar room)
-  2.0-3.5 kHz: Gentle boost (Brings guitar forward in the mix)
-  6.5 kHz    : High Cut (Removes digital amp modeler fizz)
-```
+| Instrument | Frequency | Move | Why |
+|---|---|---|---|
+| **Vocals** | 80–140 Hz | Low Cut | Removes plosives and stage rumble |
+| | 200–300 Hz | Cut 2–3 dB | Less muddy chest buildup / proximity effect |
+| | 1.0–1.5 kHz | Narrow cut | Removes the cheap "megaphone" honk |
+| | 3.0–4.0 kHz | Gentle boost | Intelligibility and articulation |
+| | 10–12 kHz | High shelf +2 dB | Smooth, airy sheen |
+| **Snare** | 80 Hz | Low Cut | |
+| | 200–240 Hz | Boost 2–4 dB | Snare "meat" and body |
+| | 600–900 Hz | Narrow notch -4 dB | Removes the hollow cardboard ring |
+| | 2.5–3.5 kHz | Boost 2–3 dB | Stick snap and attack |
+| | 8 kHz | High shelf | Snare wire sizzle |
+| **Kick drum** | 30 Hz | Low Cut | |
+| | 50–70 Hz | Boost 3 dB | Sub-bass chest thump |
+| | 250–400 Hz | Deep cut 4–8 dB | Cleans out muddy boxiness |
+| | 3.5–5.0 kHz | Boost 3–5 dB | Beater click that cuts through dense guitars |
+| **Electric guitar** | 80 Hz | Low Cut | |
+| | 400–500 Hz | Cut 2–3 dB | Removes mud, leaves room for the bass |
+| | 2.0–3.5 kHz | Gentle boost | Brings the guitar forward |
+| | 6.5 kHz | High Cut | Removes digital amp-modeler fizz |
 
 ---
 

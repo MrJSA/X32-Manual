@@ -10,40 +10,13 @@ Dieses Kapitel bietet eine praxiserprobte Soundcheck-Checkliste, PA-Systemabstim
 
 Dieser Ablaufplan hat sich in unzähligen Konzerten, Gottesdiensten und Events bewährt:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                      LIVE-SOUNDCHECK-PROTOKOLL                              │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 1. EINSCHALT-REIHENFOLGE:                                                   │
-│    Mischpult & digitale Stageboxen ZUERST AN ──► Endstufen & Subs ZULETZT!  │
-│    (Ausschalten exakt umgekehrt: Endstufen ZUERST AUS, dann Pult).          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 2. LEITUNGSTEST (LINE CHECK) & GAIN-STAGING:                                │
-│    - Kanal-Fader zunächst ganz unten lassen (-∞).                           │
-│    - Kanal auf PFL (Pre-Fader Listen) vorhören.                             │
-│    - Musiker spielt/singt mit maximaler Live-Lautstärke.                    │
-│    - Gain so einpegeln: Durchschnitt bei -18 dBFS, Spitzen bei -12 bis -8.  │
-│    - Sofort LOW CUT (HPF) aktivieren: 80–140 Hz für Gesang, 80 Hz Gitarren. │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 3. BÜHNENMONITORE PFEIFREI MACHEN (RING OUT ── BEVOR DIE BAND KOMMT):       │
-│    - Gesangsmikrofone auf den Wedges langsam aufziehen, bis Kanten koppeln. │
-│    - Pfeiffrequenzen auf dem RTA (Echtzeit-Analysator) ablesen.             │
-│    - Rückkopplungen mit 6-Band-PEQ oder TruEQ schmalbandig absenken.        │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 4. MUSIKER-MONITORE EINSTELLEN (SENDS ON FADERS):                           │
-│    - Sends on Faders auf Bus 1 (Monitor 1) aktivieren.                      │
-│    - Musiker fragen, was benötigt wird: Grundstimmung, Tonhöhe, Rhythmus.   │
-│    - Für alle weiteren Wedges und In-Ear-Mixe wiederholen.                  │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 5. SAALMISCHUNG (FRONT OF HOUSE) AUFBAUEN:                                  │
-│    - Drums & Bass zuerst (Kick-Anschlag und Bass-Grundton verzahnen).       │
-│    - Akustik- & E-Gitarren (Bereich um 400 Hz aufräumen für Transparenz).   │
-│    - Keyboards & Zuspieler.                                                 │
-│    - Lead-Vocals obenauf: Kompression 3:1 bis 4:1, Präsenz bei 3,5 kHz.     │
-│    - Backing-Vocals: Dezent unter die Hauptstimme betten.                   │
-│    - Zeitbasierte Effekte: Subtiler Hall (Hall/Vintage Plate) und Delay.    │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Schritt | Was zu tun ist |
+|---|---|
+| **1. Einschaltreihenfolge** | Pult und digitale Stageboxen **zuerst** einschalten, Endstufen und Subs **zuletzt**. Ausschalten umgekehrt: erst die Endstufen, dann das Pult. |
+| **2. Line-Check & Gain** | Fader unten (-∞), Kanal in **PFL** auf Solo, Musiker mit voller realistischer Lautstärke spielen lassen, analogen Gain auf durchschnittlich **-18 dBFS** mit Spitzen bei -12 bis -8 dBFS einstellen, dann **Low Cut** aktivieren (80–140 Hz Gesang, 80 Hz Gitarren). |
+| **3. Monitore einpfeifen** *(bevor die Musiker kommen)* | Gesangsmikrofone auf den Monitoren hochziehen, bis es leicht zu klingeln beginnt, die Frequenz im **RTA** finden und mit dem 6-Band-PEQ des Busses oder einem TruEQ absenken. |
+| **4. Monitore der Musiker** | Mit **Sends on Faders** auf Bus 1 (Monitor 1) fragen, was der Musiker braucht (eigene Stimme, Tonreferenz, Beat), und für jeden Monitor und In-Ear-Mix wiederholen. |
+| **5. FOH-Mix ausbalancieren** | Erst Drums & Bass (Bassdrum-Klick und Bass-Grundton) → Akustik- & E-Gitarren (Platz um 400 Hz schaffen) → Keys & Zuspieler → Lead-Gesang obenauf (3:1–4:1 komprimieren, Präsenz bei 3,5 kHz) → Backing-Vocals darunter → dezenter Hall / Plate und Stereo-Delay. |
 
 ---
 
@@ -51,14 +24,12 @@ Dieser Ablaufplan hat sich in unzähligen Konzerten, Gottesdiensten und Events b
 
 Die Saal-Endstufen sollten niemals direkt vom Main LR Bus angesteuert werden. Stattdessen wird der Main LR Bus über die **Matrizen 1–4** ausgespielt, um Zugriff auf unabhängige Entzerrung, Frequenzweichen-Filter und Laufzeitverzögerungen (Delay) zu erhalten.
 
-```
-Main Left/Right Bus
-        │
-        ├──► [MATRIX 1: Haupt-PA Links]   ──► 6-Band PEQ + Limiter ──► XLR Out 15
-        ├──► [MATRIX 2: Haupt-PA Rechts]  ──► 6-Band PEQ + Limiter ──► XLR Out 16
-        ├──► [MATRIX 3: Subwoofer (Mono)] ──► Low-Pass 80 Hz + Delay ──► XLR Out 14
-        └──► [MATRIX 4: Frontfills]       ──► High-Pass 100 Hz + Delay ──► XLR Out 13
-```
+| Matrix | Zone | Gespeist von | Bearbeitung | Ausgang |
+|---|---|---|---|---|
+| **1** | Main PA links | Main L | 6-Band-PEQ + Limiter | XLR Out 15 |
+| **2** | Main PA rechts | Main R | 6-Band-PEQ + Limiter | XLR Out 16 |
+| **3** | Frontfills | Main L/R | Delay ~18 ms + HPF | XLR Out 13 |
+| **4** | Balkon / Delayline | Main L/R | Delay ~44 ms + PEQ | XLR Out 14 |
 
 ### Laufzeitverzögerung (Delay) berechnen:
 Um Frontfills oder Delay-Lines an die Haupt-PA anzupassen, gilt folgende physikalische Faustformel (Schallgeschwindigkeit bei 20 °C ca. 343 m/s):
@@ -73,22 +44,10 @@ $$\text{Verzögerung (ms)} \approx \frac{\text{Distanz (Meter)}}{0{,}343}$$
 
 Rückkopplungen entstehen, wenn der vom Lautsprecher abgestrahlte Schall wieder in das Mikrofon gelangt und sich im Kreis aufschaukelt.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│          RICHTCHARAKTERISTIK & MONITOR-POSITIONIERUNG       │
-├─────────────────────────────────────────────────────────────┤
-│ 1. NIERE (CARDIOID, z. B. Shure SM58):                      │
-│    - Höchste Dämpfung direkt auf der Rückseite (180°).      │
-│    ► POSITION DES MONITORS: DIREKT HINTER DEM MIKROFONSTÄNDER│
-├─────────────────────────────────────────────────────────────┤
-│ 2. SUPER-/HYPERNIERE (z. B. Shure Beta 58A):                │
-│    - Höchste Empfindlichkeit vorne, aber RÜCKWÄRTIGE KEULE! │
-│    - Maximale Auslöschungspunkte liegen bei 120° und 240°   │
-│      (schräg seitlich).                                     │
-│    ► POSITION DER MONITORE: SCHRÄG SEITLICH (DOPPEL-WEDGES) │
-│      Niemals einen Monitor direkt hinter ein Beta 58A legen!│
-└─────────────────────────────────────────────────────────────┘
-```
+| Richtcharakteristik | Beispiel | Am unempfindlichsten bei | Wohin der Monitor gehört |
+|---|---|---|---|
+| **Niere** | Shure SM58 | 180° (direkt hinten) | **Direkt hinter** das Mikrofonstativ |
+| **Super- / Hyperniere** | Shure Beta 58A | 120° und 240° (hat eine rückwärtige Keule bei 180°) | **Seitlich** — zwei Monitore etwa 60° links und rechts der Rückseite. Niemals direkt hinter ein Beta 58A! |
 
 ### Einpfeifen (Ringing Out) von Monitoren mit dem RTA:
 1. Den Monitor-Verstärker einschalten und den Monitor-Bus auf Solo abhören.
@@ -107,23 +66,14 @@ Ein hervorragender Saal-Mix klingt im Live-Stream oft dünn und unausgewogen:
 - Im Raum füllt der natürliche akustische Schalldruck von Schlagzeug und Gitarrenverstärkern den Saal. Der Saaltechniker zieht die Stimmen laut auf und lässt Instrumente leiser.
 - Im direkten Stream auf YouTube oder Facebook hört das Publikum kaum Schlagzeug oder Gitarren, während die Stimme unangenehm laut und trocken über allem liegt.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                 BROADCAST-MATRIX-LÖSUNG                     │
-├─────────────────────────────────────────────────────────────┤
-│ 1. Einen eigenen BROADCAST-MIX auf Matrix 5–6 anlegen.      │
-│ 2. Matrix 5–6 von einem dedizierten Pre-Fader Mix-Bus oder  │
-│    über User-Outputs speisen.                               │
-│ 3. Schlagzeug und Rhythmusgitarren um +4 bis +6 dB anheben, │
-│    um den fehlenden akustischen Raumschall auszugleichen.   │
-│ 4. Atmo-Mikrofone für den Saal-Applaus zumischen.           │
-│ 5. MASTERING-PROZESSOR auf Matrix 5–6 einschleifen:         │
-│    - Combinator (5-Band-Multiband-Kompressor) ODER          │
-│    - Fair Compressor + Precision Limiter.                   │
-│ 6. ZIEL-LAUTHEIT: -14 LUFS (YouTube) bzw. -16 LUFS          │
-│    (Facebook Live) mit einem True-Peak-Limit von -1 dB.     │
-└─────────────────────────────────────────────────────────────┘
-```
+| Schritt | Was zu tun ist |
+|---|---|
+| **1. Eigene Mischung** | Eine eigene Broadcast-Mischung auf **Matrix 5–6** anlegen |
+| **2. Speisen** | Von einem eigenen Broadcast-Mix-Bus (z. B. Bus 15–16, pre-fader), bei Bedarf plus Main LR |
+| **3. Neu ausbalancieren** | Drums und Rhythmusgitarren um +4 bis +6 dB anheben, um die akustische Bühnenenergie zu ersetzen, die im Stream fehlt |
+| **4. Raumklang** | Atmo- bzw. Publikumsmikrofone dazumischen |
+| **5. Mastern** | **Combinator** oder **Fair Compressor + Precision Limiter** in Matrix 5–6 einschleifen |
+| **6. Lautheit** | Ziel **-14 LUFS** (YouTube) oder **-16 LUFS** (Facebook Live), True-Peak-Obergrenze **-1 dB** |
 
 ---
 

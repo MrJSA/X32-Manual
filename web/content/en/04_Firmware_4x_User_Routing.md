@@ -29,16 +29,12 @@ outputs, can be fed individually from any source.
 
 ## How the signal gets to a channel
 
-```
-physical input           user patch                 input block (Routing → Home)        channel
-──────────────           ──────────                 ───────────────────────────         ───────
-Local 1-32       ┐
-AES50 A 1-48     │       User In  1 … 32   ──►      inputs 1-8   = "User In 1-8"   ──►   source IN 1 … 32
-AES50 B 1-48     ├──►    (one source each)          inputs 9-16  = "User In 9-16"        (leave these 1:1!)
-Card 1-32        │                                  inputs 17-24 = "User In 17-24"
-Aux In 1-6       │                                  inputs 25-32 = "User In 25-32"
-Talkback int/ext ┘
-```
+| Step | Where | What it does |
+|---|---|---|
+| **1. Physical input** | — | Local 1–32, AES50 A 1–48, AES50 B 1–48, Card 1–32, Aux In 1–6, Talkback int/ext |
+| **2. User patch** | Routing → User | User In 1 … 32, each picking one of the sources above |
+| **3. Input block** | Routing → Home | Inputs 1–8 = *User In 1-8*, 9–16 = *User In 9-16*, 17–24 = *User In 17-24*, 25–32 = *User In 25-32* |
+| **4. Channel** | Channel → Config | Source IN 1 … 32 — **leave these 1:1** |
 
 Three things have to line up:
 

@@ -10,33 +10,18 @@ This chapter details the rack architecture, send-versus-insert signal flow, in-d
 
 The 8 FX slots operate under specific architectural rules:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ FX SLOTS 1 TO 4 (DUAL PURPOSE):                                             │
-│ - Mode A: SIDECHAIN / SEND-RETURN (Reverbs, Delays, Modulations)            │
-│   Fed from Mix Buses 13–16 ──► Processed in FX 1–4 ──► FX 1–4 Return Faders │
-│ - Mode B: INSERT PROCESSOR                                                  │
-│   Inserted directly on Channels, Mix Buses, Matrices, or Main LR            │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ FX SLOTS 5 TO 8 (STRICTLY INSERT ONLY):                                     │
-│ - Dedicated exclusively to channel, bus, matrix, or Main LR inserts.        │
-│   (Graphic EQs, Vintage Compressors, Pultec EQs, De-Essers, Enhancers)     │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| FX slots | Can be used as | Typical processors |
+|---|---|---|
+| **1–4** (dual purpose) | **Send / return** — fed from mix buses 13–16, returning on the FX 1–4 return faders | Reverbs, delays, modulation |
+| | **Insert** — directly on channels, mix buses, matrices or Main LR | Any insert effect |
+| **5–8** (insert only) | **Insert** on channels, buses, matrices or Main LR | Graphic EQs, vintage compressors, Pultec EQs, de-essers, enhancers |
 
 ### The Two Signal Workflows:
 
-```
-A. SEND / RETURN WORKFLOW (Time-based effects):
-   Channel Fader ──► Mix Bus 13 (Post-Fader Send) ──► FX Slot 1 (Reverb)
-                                                              │
-   FX 1 Return Fader (Aux/FX Layer) ◄─────────────────────────┘
-   (Controls overall wet reverb level in Main LR)
-
-B. INSERT WORKFLOW (Dynamics & Tone Shapers):
-   Channel In ──► Low Cut ──► Gate ──► [INSERT POINT: FX 5 (1176)] ──► EQ ──► Fader
-   (100% of the channel's audio passes through the processor in series)
-```
+| Workflow | Signal path | What you control |
+|---|---|---|
+| **A. Send / return** (time-based effects) | Channel fader → Mix Bus 13 (post-fader send) → FX slot 1 (reverb) → FX 1 return fader (Aux/FX layer) | The return fader sets the overall reverb level in Main LR |
+| **B. Insert** (dynamics & tone shapers) | Channel in → Low Cut → Gate → **insert point: FX 5 (1176)** → EQ → Fader | 100 % of the channel passes through the processor in series |
 
 ---
 
@@ -45,16 +30,13 @@ B. INSERT WORKFLOW (Dynamics & Tone Shapers):
 ### A. Ultimo Compressor (UREI 1176LN Peak Limiter Emulation)
 The fastest, punchiest analog compressor in recording history, modeling an ultra-fast Field Effect Transistor (FET) gain reduction circuit.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ ULTIMO COMPRESSOR CONTROLS:                                                 │
-│ - INPUT: Drives signal into threshold (higher input = heavier compression)  │
-│ - OUTPUT: Make-up output gain control                                       │
-│ - ATTACK: 20 to 800 microseconds (*Note: 7 is fastest, 1 is slowest!*)      │
-│ - RELEASE: 50 to 1100 milliseconds (*Note: 7 is fastest, 1 is slowest!*)   │
-│ - RATIO: 4:1 (gentle), 8:1, 12:1, 20:1, and "ALL" (British 4-button slam)   │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Control | Range | Notes |
+|---|---|---|
+| **Input** | — | Drives the signal into the threshold: more input = more compression |
+| **Output** | — | Make-up gain |
+| **Attack** | 20–800 µs | **7 is fastest, 1 is slowest** |
+| **Release** | 50–1100 ms | **7 is fastest, 1 is slowest** |
+| **Ratio** | 4:1, 8:1, 12:1, 20:1, **ALL** | 4:1 is gentle; ALL is the British "all-buttons-in" slam |
 - **Best For**: Snare drums (adds crack and body), aggressive rock vocals, bass guitar bite, and parallel drum subgroups.
 - **The "All-Buttons-In" Mode**: Click the `ALL` ratio button. The compressor circuit distorts musically, drastically increasing room tone and creating the classic aggressive drum crush sound.
 

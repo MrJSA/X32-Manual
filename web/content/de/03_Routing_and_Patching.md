@@ -10,35 +10,12 @@ Dieses Kapitel erläutert die Routing-Architektur, Signalabgriffpunkte (Tap Poin
 
 Das Mischpult unterscheidet zwischen drei getrennten Ebenen: **Physische Anschlüsse**, die **Patch-Matrix** und der **Kanalzug (Channel Strip)**:
 
-```
-[PHYSISCHE ANSCHLÜSSE]
-Lokale XLRs (1-32)
-AES50 A (1-48)
-AES50 B (1-48)
-Card Out/In (1-32)
-Aux In (1-6)
-       │
-       ▼
-┌─────────────────────────┐
-│ USER INPUT PATCH        │  Ab Firmware 4.x: Weist beliebige Buchsen den Slots User In 1–32 zu
-│ (Routing → User-Tab)    │
-└────────────┬────────────┘
-             │
-             ▼
-┌─────────────────────────┐
-│ EINGANGSBLÖCKE (Home)   │  Weist 4 Blöcke zu je 8 Kanälen zu:
-│ Inputs 1-8, 9-16,       │  - Local 1-8, 9-16, 17-24, 25-32
-│ Inputs 17-24, 25-32     │  - AES50 A/B 1-8 ... 41-48
-│                         │  - Card 1-8 ... 25-32
-│                         │  - User In 1-8, 9-16, 17-24, 25-32
-└────────────┬────────────┘
-             │
-             ▼
-┌─────────────────────────┐
-│ KANAL-QUELLE            │  Channel → Config → Source
-│ (Kanäle 1–32)           │  (Unbedingt 1:1 belassen: Ch 1 = In 1, Ch 2 = In 2!)
-└─────────────────────────┘
-```
+| Stufe | Wo am Pult | Was Sie wählen |
+|---|---|---|
+| **1. Physische Anschlüsse** | — | Local XLR 1–32, AES50 A 1–48, AES50 B 1–48, Card 1–32, Aux In 1–6 |
+| **2. User-Input-Patch** *(Firmware 4.x)* | Routing → Reiter **User** | Eine beliebige physische Buchse für jeden der User In 1–32 |
+| **3. Eingangsblöcke** | Routing → Reiter **Home** | Für die Eingänge 1–8, 9–16, 17–24 und 25–32 jeweils: Local, AES50 A/B (1–8 … 41–48), Card (1–8 … 25–32) oder User In |
+| **4. Kanalquelle** | Channel → Config → **Source** | Auf 1:1 lassen (Kanal 1 = In 1, Kanal 2 = In 2, …) |
 
 > [!TIP]
 > **Grundregel:** Verändern Sie die individuelle Kanalquelle im Menü **Channel → Config** nur bei speziellem Channel-Splitting. Belassen Sie die Kanalquellen immer auf 1:1 (`In 1` bis `In 32`) und führen Sie alle Patch-Änderungen zentral im Menü **ROUTING** durch. Dies verhindert unübersichtliche Fehlzuweisungen und stumme Kanäle bei der Fehlersuche.
@@ -67,29 +44,13 @@ User Routing bietet vollständige 1:1-Freiheit:
 
 Wann immer ein Signal auf einen analogen XLR-Ausgang, einen Aux-Ausgang, den Ultranet-Bus (P16) oder eine Spur der USB-Karte geroutet wird, muss der **Abgriffpunkt (Tap Point)** festgelegt werden. Ein falsch gewählter Abgriffpunkt ist die häufigste Ursache für Probleme beim Monitoring oder Recording.
 
-```
-[Eingangs-Vorverstärker (Preamp)]
-      │
-      ├──► [IN / LC] (Direktabgriff nach Gain & Low-Cut; vor Gate, EQ und Kompressor)
-      ▼
-   [Gate]
-      │
-      ├──► [PRE EQ] (Nach Gate, vor EQ und Kompressor)
-      ▼
-    [EQ]
-      │
-      ├──► [POST EQ] (Nach EQ, vor Kompressor)
-      ▼
-  [Dynamik]
-      │
-      ├──► [PRE FADER] (Nach EQ & Dynamik; VOR Fader und Mute)
-      ▼
-   [Mute]
-      │
-   [Fader]
-      │
-      └──► [POST FADER] (Nach Fader, Panorama und Mute)
-```
+| Abgriffpunkt | Greift das Signal ab … | Typischer Einsatz |
+|---|---|---|
+| **In / LC** | Direkt nach Vorverstärker und Low Cut; vor Gate, EQ und Dynamik | Mehrspuraufnahme, Direct Outs |
+| **Pre EQ** | Nach dem Gate, vor EQ und Kompressor | Feeds mit Rohklang |
+| **Post EQ** | Nach dem EQ, vor dem Kompressor | Monitormischungen ohne Kompressorpumpen |
+| **Pre Fader** | Nach EQ und Dynamik, **vor** Mute und Fader | Bühnenmonitore und In-Ear-Mischungen |
+| **Post Fader** | Nach Fader, Panorama und Mute | Effekt-Sends, Broadcast- und Aufnahmemischungen, die dem FOH folgen |
 
 | Abgriffpunkt | Signalcharakteristik | Empfohlener Einsatzzweck |
 |---|---|---|

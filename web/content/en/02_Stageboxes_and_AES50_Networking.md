@@ -13,15 +13,11 @@ Each AES50 port (Port A and Port B) transmits and receives:
 - **Ultra-Low Latency**: Latency across the link is deterministic: exactly 3 samples (~62.5 microseconds at 48 kHz).
 - **Control Data**: Carries headamp remote commands (gain, +48V phantom power, stagebox status) multiplexed directly inside the audio stream.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ CONSOLE REAR PANEL:                                         │
-│ [ AES50 PORT A ] ──► 48 In / 48 Out (Neutrik EtherCON)      │
-│ [ AES50 PORT B ] ──► 48 In / 48 Out (Neutrik EtherCON)      │
-│                                                             │
-│ Total Network Capacity: 96 Channels In / 96 Channels Out!   │
-└─────────────────────────────────────────────────────────────┘
-```
+| Port | Channels | Connector |
+|---|---|---|
+| **AES50 Port A** | 48 in / 48 out | Neutrik EtherCON |
+| **AES50 Port B** | 48 in / 48 out | Neutrik EtherCON |
+| **Total** | **96 in / 96 out** | |
 
 ---
 
@@ -42,24 +38,11 @@ Each AES50 port (Port A and Port B) transmits and receives:
 
 > **CRITICAL WARNING:** You **MUST NEVER** use standard unshielded (UTP) computer network cable for AES50 connections!
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│              THE ELECTROSTATIC DISCHARGE THREAT             │
-├─────────────────────────────────────────────────────────────┤
-│ 1. As audio snakes are pulled across stages or uncoiled,     │
-│    massive static electricity (up to 15,000 volts) builds   │
-│    up along the PVC outer cable jacket.                     │
-├─────────────────────────────────────────────────────────────┤
-│ 2. If the cable is UNSHIELDED (UTP), this static charge     │
-│    sparks directly into the data pins of the console port.   │
-├─────────────────────────────────────────────────────────────┤
-│ 3. THE DISASTER:                                            │
-│    - Instant digital clock sync loss (a deafening loud POP) │
-│    - Complete audio muting on stage                         │
-│    - Permanent hardware destruction of the AES50 transceiver│
-│      chips (Cirrus Logic / Klark Teknik)!                   │
-└─────────────────────────────────────────────────────────────┘
-```
+| Step | What happens |
+|---|---|
+| **1. Static builds up** | When snakes are pulled across a stage or uncoiled, static electricity of up to 15,000 volts builds up on the PVC cable jacket. |
+| **2. It discharges into the port** | With **unshielded (UTP)** cable, the charge sparks straight into the data pins of the console port. |
+| **3. The damage** | Instant clock sync loss (a loud pop), audio muting on stage, and possibly permanent destruction of the AES50 transceiver chips. |
 
 ### Mandatory Cable Specifications:
 1. **Shielded Twisted Pair**: **STP, FTP, or SF/UTP** Cat5e or Cat6 cable with foil or braided shield.
@@ -73,20 +56,11 @@ Each AES50 port (Port A and Port B) transmits and receives:
 
 In digital audio networking, **exactly one device can serve as the Clock Master**. All other devices must operate as Clock Slaves.
 
-```
-┌───────────────────────────┐         AES50 Cat5e         ┌───────────────────────────┐
-│ FRONT OF HOUSE CONSOLE    ├────────────────────────────►│ MONITOR CONSOLE           │
-│ Synchronization: INTERNAL │                             │ Synchronization: AES50 A  │
-│ (CLOCK MASTER: 48 kHz)    │                             │ (CLOCK SLAVE: 48 kHz)     │
-└─────────────┬─────────────┘                             └───────────────────────────┘
-              │ AES50 Cat5e
-              ▼
-┌───────────────────────────┐
-│ STAGEBOX (S32 / DL32)     │
-│ (Automatically Slaves to  │
-│  incoming AES50 stream)   │
-└───────────────────────────┘
-```
+| Device | Connection | Synchronization setting | Clock role |
+|---|---|---|---|
+| **FOH console** | Feeds the stagebox and the monitor console | **Internal**, 48 kHz | **Master** |
+| **Monitor console** | AES50 A from the FOH console | **AES50 A** | Slave |
+| **Stagebox (S32 / DL32)** | AES50 from the FOH console | Automatic (follows the incoming AES50 stream) | Slave |
 
 ### How to Configure Clocking:
 1. **Front of House (Master Console)**:
@@ -104,20 +78,13 @@ In digital audio networking, **exactly one device can serve as the Clock Master*
 
 You can chain two 16-channel stageboxes (e.g., two Behringer S16s or Midas DL16s) to create a 32-input / 16-output digital snake over a single run of cable back to the console:
 
-```
-[CONSOLE] (AES50 Port A)
-    │
-    ▼ (Shielded Cat5e Cable)
-[STAGEBOX 1: S16 #1]
-  - Port A: Connected to Console
-  - Port B: Connected to Stagebox 2
-  - Mode Switch: Standard Mode (Inputs 1–16, Outputs 1–8)
-    │
-    ▼ (Shielded Cat5e Jumper Cable)
-[STAGEBOX 2: S16 #2]
-  - Port A: Connected to Stagebox 1 Port B
-  - Mode Switch: Mode "+8" (Inputs 17–32, Outputs 9–16)
-```
+| Device | Port A | Port B | Mode switch | Channels |
+|---|---|---|---|---|
+| **Console** | → Stagebox 1 (Port A) | — | — | — |
+| **Stagebox 1 (S16 #1)** | ← Console | → Stagebox 2 (Port A) | Standard | Inputs 1–16, outputs 1–8 |
+| **Stagebox 2 (S16 #2)** | ← Stagebox 1 (Port B) | — | **+8** | Inputs 17–32, outputs 9–16 |
+
+All links use shielded Cat5e cable (a short shielded jumper between the two stageboxes).
 
 ### On the Mixing Console:
 - Navigate to **ROUTING → HOME**:
@@ -135,11 +102,11 @@ You can chain two 16-channel stageboxes (e.g., two Behringer S16s or Midas DL16s
 
 Connecting Front of House, Monitor, and Broadcast desks to share stage inputs:
 
-```
-[STAGEBOX S32] ──► (Port A) ──► [MONITOR DESK] (Port A)
-                                [MONITOR DESK] (Port B) ──► [FOH DESK] (Port A)
-                                                            [FOH DESK] (Port B) ──► [BROADCAST]
-```
+| Link | From | To |
+|---|---|---|
+| **1** | Stagebox S32 | Monitor desk, **Port A** |
+| **2** | Monitor desk, **Port B** | FOH desk, **Port A** |
+| **3** | FOH desk, **Port B** | Broadcast desk |
 
 1. **Monitor Console Pass-Through Routing**:
    - The Monitor Desk receives the stagebox on **AES50 Port A**.

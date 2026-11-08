@@ -13,17 +13,13 @@ Die 16 Mix-Busse erfüllen in Live- und Studio-Umgebungen drei zentrale Aufgaben
 - **Effekt-Sends**: Zuspielung an interne Hall-, Delay- und Modulationseffekte (traditionell Busse 13–16).
 - **Audio-Subgruppen**: Zusammenfassung von Schlagzeug, Chor oder Bläsern für gemeinsame Gruppenbearbeitung.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ DIE 16 MIX-BUSSE KÖNNEN WIE FOLGT ABGEGRIFFEN WERDEN:                       │
-│                                                                             │
-│ [Pre-EQ]    ──► Vor dem Kanal-EQ/Dynamikblock (reines Rohsignal)            │
-│ [Post-EQ]   ──► Nach EQ, vor dem Kompressor (kein Kompressorpumpen im Monitor)│
-│ [Pre-Fader] ──► Nach EQ & Dynamik; VÖLLIG UNABHÄNGIG vom Fader des Kanals   │
-│ [Post-Fader]──► Nach Fader, Pan & Mute (folgt den Faderbewegungen der Front)│
-│ [Subgroup]  ──► Feste 0-dB-Summierung; Bus-Fader steuert die Gesamtlautstärke│
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Abgriff | Greift das Signal ab … | Ergebnis |
+|---|---|---|
+| **Pre-EQ** | Vor Kanal-EQ und Dynamik | Unbearbeiteter Rohklang |
+| **Post-EQ** | Nach dem EQ, vor dem Kompressor | Kein Kompressorpumpen im Monitor |
+| **Pre-Fader** | Nach EQ und Dynamik | **Unabhängig** vom Kanalfader |
+| **Post-Fader** | Nach Fader, Panorama und Mute | Folgt den Faderbewegungen am FOH |
+| **Subgroup** | Feste 0 dB auf den Bus | Der Bus-Fader regelt die Gesamtlautstärke der Gruppe |
 
 ### Bearbeitungsfunktionen jedes einzelnen Mix-Busses:
 Jeder der 16 Mix-Busse verfügt über eine vollwertige eigene Bearbeitungskette:
@@ -39,22 +35,12 @@ Jeder der 16 Mix-Busse verfügt über eine vollwertige eigene Bearbeitungskette:
 
 Das Einstellen von Monitormischungen über kleine Drehknöpfe ist unübersichtlich. Der Modus **Sends on Fader** verwandelt die Motorfader des Pultes auf Knopfdruck in echte Monitor-Send-Regler.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                     [SENDS ON FADER] (Blinkt rot)                           │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ METHODE 1: EINEN BUS WÄHLEN (z. B. Bus 1 - Gesangsmonitor)                  │
-│ - Taste SENDS ON FADER drücken (blinkt rot).                                │
-│ - Die linken 16 Fader zeigen nun die SEND-ANTEILE jedes Kanals auf Bus 1!   │
-│   (Fader 1 = Kick auf Bus 1, Fader 2 = Snare auf Bus 1 usw.)                │
-│ - Der rechte Bus-Masterfader steuert die Gesamtlautstärke von Bus 1.        │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ METHODE 2: EINEN KANAL WÄHLEN (z. B. Kanal 1 - Lead-Gesang)                 │
-│ - Taste SENDS ON FADER drücken (blinkt rot).                                │
-│ - Die rechten 8 Fader zeigen, wie laut DIESER KANAL auf jeden Bus geht!     │
-│   (Fader 1 = Gesang auf Bus 1, Fader 2 = Gesang auf Bus 2 usw.)             │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+Taste **SENDS ON FADER** drücken (blinkt rot), dann:
+
+| Methode | Sie wählen … | Die Fader zeigen dann … | Beispiel |
+|---|---|---|---|
+| **1 – Bus-Ansicht** | Einen Bus (z. B. Bus 1, Gesangsmonitor) | Linke 16 Fader = **Send jedes Kanals auf diesen Bus**; der Bus-Fader = Bus-Master | Fader 1 = Kick auf Bus 1, Fader 2 = Snare auf Bus 1 |
+| **2 – Kanal-Ansicht** | Einen Kanal (z. B. Kanal 1, Lead-Gesang) | Rechte 8 Fader = **Send dieses Kanals auf jeden Mix-Bus** | Fader 1 = Gesang auf Bus 1, Fader 2 = Gesang auf Bus 2 |
 
 ### So beenden Sie den Modus:
 Drücken Sie die rot blinkende Taste **SENDS ON FADER** erneut. Die Motorfader fahren augenblicklich auf ihre regulären FOH-Positionen zurück.
@@ -102,22 +88,10 @@ Viele Techniker verwechseln Subgruppen und DCAs. Beide steuern mehrere Kanäle m
 
 Parallele Kompression kombiniert ein dynamisches, knackiges Schlagzeug mit einer extrem stark komprimierten Kopie:
 
-```
-[DRUM-KANÄLE 1-8]
-        │
-        ├──► Direkt auf [MAIN STEREO LR] ──► (Knackiger, dynamischer Drumsound)
-        │
-        └──► Gesendet auf [BUS 1-2 (SUBGRUPPE)]
-                     │
-                     ▼
-             [EXTREM-KOMPRESSOR]
-             - Fair Compressor oder Ultimo 1176 (All-Buttons-Modus)
-             - 10 bis 15 dB massive Pegelreduktion
-             - Sehr schneller Attack, schneller Release
-                     │
-                     ▼
-             [BUS 1-2 FADER] ───────────────► Unter Main LR dazumischen (-10 bis -6 dB)
-```
+| Weg | Routing | Bearbeitung | Ergebnis |
+|---|---|---|---|
+| **Trocken** | Drum-Kanäle 1–8 → Main Stereo LR | Keine zusätzliche | Dynamischer, knackiger Drumsound |
+| **Gequetscht** | Drum-Kanäle 1–8 → Bus 1–2 (Subgruppe) → Main LR | Fair Compressor oder Ultimo 1176 (All-Buttons-Modus), 10–15 dB Gain-Reduction, schneller Attack, schneller Release | Mit dem Bus-1–2-Fader bei etwa -10 bis -6 dB unter die trockenen Drums mischen |
 
 *Ergebnis:* Die trockenen Drums behalten Transienten-Knack und Stick-Anschlag, während der parallel gequetschte Bus massiven Raumklang, Körper und Sustain hinzufügt, ohne den Mix zu verschmieren.
 
@@ -127,15 +101,9 @@ Parallele Kompression kombiniert ein dynamisches, knackiges Schlagzeug mit einer
 
 Ein Matrix-Mischer empfängt keine einzelnen Kanalzüge, sondern speist sich ausschließlich aus **Mix-Bussen 1–16, Main Left/Right und Mono/Center**:
 
-```
-┌─────────────────┐
-│ Mix-Busse 1-16  │ ──┐
-├─────────────────┤   │      ┌──────────────┐
-│ Main Left/Right │ ──┼─────►│ MATRIX 1 - 6 │ ──► [Analoge XLR-Ausgänge]
-├─────────────────┤   │      └──────────────┘
-│ Mono / Center   │ ──┘
-└─────────────────┘
-```
+| Matrix-Eingänge | Matrix | Ausgänge |
+|---|---|---|
+| Mix-Busse 1–16, Main Left/Right, Mono / Center | **Matrix 1–6** | Analoge XLR-Ausgänge (oder jeder andere Ausgang) |
 
 ### Warum Matrizen für die PA-Verteilung?
 Wird die PA (Endstufen oder aktive Lautsprecher) direkt vom Main-LR-Fader gespeist, ist das riskant: Stößt jemand gegen den Masterfader, geraten Lautsprecherabstimmung und Delays durcheinander. Laufen die PA-Zonen über Matrizen, mischt der Main-LR-Fader die Show, während die Matrizen das Lautsprecher-Processing übernehmen.
@@ -146,14 +114,14 @@ Wird die PA (Endstufen oder aktive Lautsprecher) direkt vom Main-LR-Fader gespei
 - **Ausgangs-Delay (0 bis 500 ms)**: Unverzichtbar für die Laufzeitkorrektur nach Entfernung.
 
 ### Typische Matrix-Verteilung in Beschallungssystemen:
-```
-MATRIX 1 (Main PA Links)     ◄── Gespeist von Main L (Post-Fader)
-MATRIX 2 (Main PA Rechts)    ◄── Gespeist von Main R (Post-Fader)
-MATRIX 3 (Frontfills Bühne)  ◄── Gespeist von Main L/R (verzögert um ~18 ms, HPF bei 120 Hz)
-MATRIX 4 (Balkon / Delayline)◄── Gespeist von Main L/R (verzögert um ~45 ms)
-MATRIX 5 (Livestream / Web)  ◄── Gespeist von Main L/R + Atmo-Mikrofone (Limiter auf -14 LUFS)
-MATRIX 6 (Foyer / Nebenraum) ◄── Gespeist von Main L/R (Mono-Summe)
-```
+| Matrix | Zone | Gespeist von | Bearbeitung |
+|---|---|---|---|
+| **1** | Main PA links | Main L, post-fader | |
+| **2** | Main PA rechts | Main R, post-fader | |
+| **3** | Frontfills Bühne | Main L/R, post-fader | Delay ~18 ms, HPF 120 Hz |
+| **4** | Balkon / Delayline | Main L/R, post-fader | Delay ~45 ms |
+| **5** | Livestream / Web | Main L/R + Atmo-Mikrofone | Limiter, -14 LUFS |
+| **6** | Foyer / Nebenraum | Main L/R | Mono-Summe |
 
 ### Laufzeitverzögerung (Delay) berechnen:
 Schall legt in der Luft bei 20°C etwa **0,343 Meter pro Millisekunde (1 Meter in ~2,9 ms)** zurück.

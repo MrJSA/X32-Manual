@@ -13,15 +13,11 @@ Jeder AES50-Port (Port A und Port B) überträgt und empfängt gleichzeitig:
 - **Ultra-niedrige Latenz**: Die Latenz über die Netzwerkstrecke ist deterministisch: exakt 3 Samples (~62,5 Mikrosekunden bei 48 kHz).
 - **Steuerdaten**: Überträgt Vorverstärker-Steuerbefehle (Gain, +48V Phantomspeisung, Statusmeldungen) gemultiplext direkt im Datenstrom.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ PULTRÜCKSEITE:                                              │
-│ [ AES50 PORT A ] ──► 48 In / 48 Out (Neutrik EtherCON)      │
-│ [ AES50 PORT B ] ──► 48 In / 48 Out (Neutrik EtherCON)      │
-│                                                             │
-│ Gesamte Netzwerkkapazität: 96 Kanäle In / 96 Kanäle Out!    │
-└─────────────────────────────────────────────────────────────┘
-```
+| Port | Kanäle | Stecker |
+|---|---|---|
+| **AES50 Port A** | 48 In / 48 Out | Neutrik EtherCON |
+| **AES50 Port B** | 48 In / 48 Out | Neutrik EtherCON |
+| **Gesamt** | **96 In / 96 Out** | |
 
 ---
 
@@ -43,24 +39,11 @@ Jeder AES50-Port (Port A und Port B) überträgt und empfängt gleichzeitig:
 > [!WARNING]
 > Verwenden Sie für AES50-Verbindungen **unter keinen Umständen** ungeschirmte (UTP) Standard-Computer-Netzwerkkabel!
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│          DIE GEFAHR DURCH ELEKTROSTATISCHE ENTLADUNG        │
-├─────────────────────────────────────────────────────────────┤
-│ 1. Beim Ziehen oder Abrollen von Netzwerkkabeln über Teppiche│
-│    oder Bühnenböden bauen sich enorme statische Spannungen  │
-│    (bis zu 15.000 Volt) auf dem PVC-Kabelmantel auf.        │
-├─────────────────────────────────────────────────────────────┤
-│ 2. Bei einem UNGESCHIRMTEN (UTP) Kabel entlädt sich dieser   │
-│    Funke direkt in die Datenpins der Pultbuchse.            │
-├─────────────────────────────────────────────────────────────┤
-│ 3. DIE FOLGEN:                                              │
-│    - Sofortiger Verlust der Taktsynchronisation (lauter KNALL)│
-│    - Vollständige Stummschaltung der gesamten PA             │
-│    - Dauerhafte Zerstörung der AES50-Transceiver-Bausteine   │
-│      (Cirrus Logic / Klark Teknik) auf der Pultplatine!     │
-└─────────────────────────────────────────────────────────────┘
-```
+| Schritt | Was passiert |
+|---|---|
+| **1. Statische Aufladung** | Beim Ziehen über die Bühne oder Abrollen lädt sich der PVC-Mantel des Kabels mit bis zu 15.000 Volt auf. |
+| **2. Entladung in den Port** | Bei **ungeschirmtem (UTP)** Kabel springt die Ladung direkt auf die Datenpins der Pultbuchse über. |
+| **3. Der Schaden** | Sofortiger Verlust der Clock-Synchronisation (lauter Knall), stummes Audio auf der Bühne und im schlimmsten Fall dauerhaft zerstörte AES50-Transceiver-Chips. |
 
 ### Technische Mindestanforderungen an AES50-Kabel:
 1. **Geschirmtes Twisted-Pair-Kabel**: **STP, FTP oder SF/UTP** Cat5e- oder Cat6-Kabel mit Folien- oder Geflechtschirm.
@@ -74,20 +57,11 @@ Jeder AES50-Port (Port A und Port B) überträgt und empfängt gleichzeitig:
 
 In jedem digitalen Audionetzwerk darf **genau ein Gerät als Taktgeber (Clock Master)** fungieren. Alle anderen Geräte müssen als Empfänger (Clock Slaves) arbeiten.
 
-```
-┌───────────────────────────┐         AES50 Cat5e         ┌───────────────────────────┐
-│ FRONT-OF-HOUSE-PULT       ├────────────────────────────►│ MONITOR-PULT              │
-│ Synchronisation: INTERNAL │                             │ Synchronisation: AES50 A  │
-│ (CLOCK MASTER: 48 kHz)    │                             │ (CLOCK SLAVE: 48 kHz)     │
-└─────────────┬─────────────┘                             └───────────────────────────┘
-              │ AES50 Cat5e
-              ▼
-┌───────────────────────────┐
-│ STAGEBOX (S32 / DL32)     │
-│ (Synchronisiert sich      │
-│  automatisch auf AES50)   │
-└───────────────────────────┘
-```
+| Gerät | Verbindung | Synchronisation | Clock-Rolle |
+|---|---|---|---|
+| **FOH-Pult** | Speist Stagebox und Monitorpult | **Internal**, 48 kHz | **Master** |
+| **Monitorpult** | AES50 A vom FOH-Pult | **AES50 A** | Slave |
+| **Stagebox (S32 / DL32)** | AES50 vom FOH-Pult | Automatisch (folgt dem eingehenden AES50-Strom) | Slave |
 
 ### Konfigurationsschritte für die Taktsynchronisation:
 1. **Front-of-House (Master-Pult)**:
@@ -105,20 +79,13 @@ In jedem digitalen Audionetzwerk darf **genau ein Gerät als Taktgeber (Clock Ma
 
 Zwei 16-Kanal-Stageboxen (z. B. zwei Behringer S16 oder Midas DL16) lassen sich in Reihe schalten, um 32 Eingänge und 16 Ausgänge über ein einziges Kabel zum Mischpult zu übertragen:
 
-```
-[MISCHPULT] (AES50 Port A)
-    │
-    ▼ (Geschirmtes Cat5e-Kabel)
-[STAGEBOX 1: S16 #1]
-  - Port A: Verbunden mit Pult
-  - Port B: Verbunden mit Stagebox 2
-  - Betriebsmodus: Standard-Modus (Eingänge 1–16, Ausgänge 1–8)
-    │
-    ▼ (Kurzes geschirmtes Cat5e-Patchkabel)
-[STAGEBOX 2: S16 #2]
-  - Port A: Verbunden mit Stagebox 1 Port B
-  - Betriebsmodus: Modus "+8" (Eingänge 17–32, Ausgänge 9–16)
-```
+| Gerät | Port A | Port B | Modus-Schalter | Kanäle |
+|---|---|---|---|---|
+| **Mischpult** | → Stagebox 1 (Port A) | — | — | — |
+| **Stagebox 1 (S16 #1)** | ← Mischpult | → Stagebox 2 (Port A) | Standard | Eingänge 1–16, Ausgänge 1–8 |
+| **Stagebox 2 (S16 #2)** | ← Stagebox 1 (Port B) | — | **+8** | Eingänge 17–32, Ausgänge 9–16 |
+
+Alle Verbindungen mit geschirmtem Cat5e-Kabel (zwischen den Stageboxen ein kurzes geschirmtes Verbindungskabel).
 
 ### Routing-Einstellungen am Mischpult:
 - Öffnen Sie **ROUTING → HOME**:
@@ -136,11 +103,11 @@ Zwei 16-Kanal-Stageboxen (z. B. zwei Behringer S16 oder Midas DL16) lassen sich 
 
 Verbindung von FOH-, Monitor- und Broadcast-Pulten zum gemeinsamen Zugriff auf dieselben Bühneneingänge:
 
-```
-[STAGEBOX S32] ──► (Port A) ──► [MONITOR-PULT] (Port A)
-                                [MONITOR-PULT] (Port B) ──► [FOH-PULT] (Port A)
-                                                            [FOH-PULT] (Port B) ──► [BROADCAST]
-```
+| Verbindung | Von | Nach |
+|---|---|---|
+| **1** | Stagebox S32 | Monitorpult, **Port A** |
+| **2** | Monitorpult, **Port B** | FOH-Pult, **Port A** |
+| **3** | FOH-Pult, **Port B** | Broadcast-Pult |
 
 1. **Durchschleifen am Monitorpult**:
    - Das Monitorpult empfängt die Stagebox auf **AES50 Port A**.

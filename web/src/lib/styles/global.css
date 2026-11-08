@@ -28,7 +28,7 @@
 
 	/* Dark (default) */
 	--bg: #0a0d1c;
-	--bg-elev: rgb(19 23 44 / 0.72);
+	--bg-elev: rgb(16 20 40 / 0.9);
 	--surface: rgb(255 255 255 / 0.045);
 	--surface-solid: #141933;
 	--surface-hover: rgb(255 255 255 / 0.08);
@@ -65,7 +65,7 @@
 
 [data-theme='light'] {
 	--bg: #f8f6fc;
-	--bg-elev: rgb(255 255 255 / 0.78);
+	--bg-elev: rgb(255 255 255 / 0.9);
 	--surface: rgb(255 255 255 / 0.75);
 	--surface-solid: #ffffff;
 	--surface-hover: rgb(255 255 255 / 0.95);

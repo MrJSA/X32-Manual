@@ -10,40 +10,23 @@ This chapter details solo modes, talkback routing, system calibration with the o
 
 Located on the upper right of the console surface is the dedicated **MONITOR** section. This hardware drives both the physical rear-panel Control Room outputs (for studio monitors or booth speakers) and the dual 1/4" headphone jacks located on the front underside cheeks of the mixer.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ MONITOR / HEADPHONE CONTROLS:                               │
-│ - LEVEL KNOB: Independent analog volume control             │
-│ - MONO BUTTON: Collapses monitor feed to mono               │
-│ - DIM BUTTON: Attenuates monitor output level (-20 dB)      │
-│ - TALK A & TALK B BUTTONS: Talkback activation              │
-│ - TALK LEVEL KNOB: Preamp gain for talkback microphone      │
-└─────────────────────────────────────────────────────────────┘
-```
+| Control | Function |
+|---|---|
+| **Level knob** | Independent analog volume for the monitor / headphone outputs |
+| **Mono** | Collapses the monitor feed to mono |
+| **Dim** | Lowers the monitor output by 20 dB |
+| **Talk A / Talk B** | Activate talkback |
+| **Talk level knob** | Preamp gain of the talkback microphone |
 
 ### Solo Modes & Logic:
 Press the **MONITOR** screen button to access the configuration tab:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 1. PFL (PRE-FADER LISTEN):                                  │
-│    Listens to raw audio directly after preamp and low cut.  │
-│    Fader position and mutes have zero effect.               │
-│    *Essential for*: Checking input gain and line hum.       │
-├─────────────────────────────────────────────────────────────┤
-│ 2. AFL (AFTER-FADER LISTEN):                                │
-│    Listens to signal after fader, pan, and mute.            │
-│    *Essential for*: Checking stereo IEM mixes and subgroups.│
-├─────────────────────────────────────────────────────────────┤
-│ 3. EXCLUSIVE SOLO (Solo In Place Toggle):                    │
-│    - Active: Pressing any Solo button releases all others.  │
-│    - Inactive: Solos accumulate, allowing group listening.  │
-├─────────────────────────────────────────────────────────────┤
-│ 4. SOLO DIMS:                                               │
-│    Automatically lowers monitor level by 20 dB whenever a   │
-│    channel is soloed, preventing sudden acoustic ear blast. │
-└─────────────────────────────────────────────────────────────┘
-```
+| Setting | What you hear | Use it for |
+|---|---|---|
+| **PFL** (pre-fader listen) | The raw signal right after preamp and low cut; fader and mute have no effect | Checking input gain and hum |
+| **AFL** (after-fader listen) | The signal after fader, pan and mute | Checking stereo in-ear mixes and subgroups |
+| **Exclusive solo** | On: pressing a solo releases all others. Off: solos add up | Off for listening to a group of channels |
+| **Solo dims** | The monitor level drops by 20 dB while a solo is active | Avoiding a sudden blast in your ears |
 
 ---
 
@@ -51,19 +34,19 @@ Press the **MONITOR** screen button to access the configuration tab:
 
 The console features two completely independent talkback paths: **Talkback A** and **Talkback B**.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ TALKBACK SOURCES:                                           │
-│ 1. INTERNAL MIC: Built-in omnidirectional condenser capsule │
-│ 2. EXTERNAL MIC: Dedicated rear XLR talkback input (+48V)   │
-├─────────────────────────────────────────────────────────────┤
-│ DESTINATION MATRIX (Assign independently for Talk A & B):   │
-│ [X] Mix Buses 1-8  (Stage Floor Wedges)                     │
-│ [X] Mix Buses 9-16 (Musician In-Ear Monitors)               │
-│ [ ] Matrices 1-6   (Green Room / Backstage Foyer)           │
-│ [ ] Main LR        (House PA ── Leave OFF during show!)     │
-└─────────────────────────────────────────────────────────────┘
-```
+| Talkback source | Description |
+|---|---|
+| **Internal mic** | Built-in omnidirectional condenser capsule |
+| **External mic** | Dedicated rear XLR talkback input (+48V available) |
+
+Destinations are set separately for Talk A and Talk B; a typical setup:
+
+| Destination | Typical use | Talk to it? |
+|---|---|---|
+| **Mix buses 1–8** | Stage wedges | ✔ |
+| **Mix buses 9–16** | Musicians' in-ear monitors | ✔ |
+| **Matrices 1–6** | Green room / backstage | Optional |
+| **Main LR** | House PA | ✘ **Leave off during the show** |
 
 ### Push-to-Talk vs. Latch Mode:
 - **Momentary (Push-to-Talk)**: Hold the `TALK A` button while speaking; releasing it immediately cuts communication.
@@ -97,25 +80,12 @@ The onboard oscillator generates precision test tones for verifying cabling, sys
 
 Available on **Channels 1 through 8**, the onboard automixer employs a licensed implementation of the industry-standard **Dan Dugan speech gain-sharing algorithm**.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    HOW THE AUTOMIXER WORKS                  │
-├─────────────────────────────────────────────────────────────┤
-│ Problem with multiple open speech mics:                     │
-│ 4 panel members speaking into 4 open mics results in:       │
-│ - Comb filtering (hollow acoustic phase cancellation)       │
-│ - Multiplied room reverberation and HVAC noise              │
-│ - Extreme risk of acoustic feedback                         │
-├─────────────────────────────────────────────────────────────┤
-│ Dugan Gain-Sharing Solution:                                │
-│ The total system gain is held constant at Unity (0 dB).     │
-│ - When Speaker A speaks: Mic A gets 100% gain;              │
-│   Mics B, C, and D are instantly attenuated by -15 dB!      │
-│ - When Speaker A & B converse: Gain splits 50/50.           │
-│ - All adjustments occur seamlessly in milliseconds with     │
-│   zero audible gating artifacts or lost word syllables!     │
-└─────────────────────────────────────────────────────────────┘
-```
+| | Without the automixer | With Dugan gain sharing |
+|---|---|---|
+| **4 open speech mics** | Comb filtering (hollow sound), four times the room reverb and HVAC noise, high feedback risk | Total gain is held constant at unity (0 dB) |
+| **One person speaks** | All four mics stay fully open | That mic gets full gain, the other three drop by about 15 dB |
+| **Two people talk** | — | Gain is shared 50/50 |
+| **Sound** | — | Changes happen within milliseconds — no gating artifacts, no clipped syllables |
 
 ### Setting Up the Automixer:
 1. Patch your speech and dialogue microphones into **Channels 1 through 8**.

@@ -24,16 +24,12 @@ Das mit Firmware 4.0 eingeführte **User Routing** bietet ein echtes, zentrales 
 
 ## 2. Der Signalweg zum Kanalzug
 
-```
-Physischer Eingang       User Patch                 Eingangsblock (Routing → Home)      Kanalquelle
-──────────────────       ──────────                 ──────────────────────────────      ───────────
-Local 1-32       ┐
-AES50 A 1-48     │       User In  1 … 32   ──►      Inputs 1-8   = "User In 1-8"   ──►  Source IN 1 … 32
-AES50 B 1-48     ├──►    (frei wählbar)             Inputs 9-16  = "User In 9-16"       (unbedingt 1:1 lassen!)
-Card 1-32        │                                  Inputs 17-24 = "User In 17-24"
-Aux In 1-6       │                                  Inputs 25-32 = "User In 25-32"
-Talkback int/ext ┘
-```
+| Schritt | Wo | Was passiert |
+|---|---|---|
+| **1. Physischer Eingang** | — | Local 1–32, AES50 A 1–48, AES50 B 1–48, Card 1–32, Aux In 1–6, Talkback int/ext |
+| **2. User-Patch** | Routing → User | User In 1 … 32, jeder wählt eine der Quellen oben |
+| **3. Eingangsblock** | Routing → Home | Eingänge 1–8 = *User In 1-8*, 9–16 = *User In 9-16*, 17–24 = *User In 17-24*, 25–32 = *User In 25-32* |
+| **4. Kanal** | Channel → Config | Quelle IN 1 … 32 — **auf 1:1 lassen** |
 
 Drei Einstellungen müssen ineinandergreifen:
 

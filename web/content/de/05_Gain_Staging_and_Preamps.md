@@ -10,29 +10,13 @@ Dieses Kapitel erläutert analoge Vorverstärker im Vergleich zu digitalem Trim,
 
 Das X32 besitzt zwei getrennte Pegelstufen in seinem Eingangssignalfluss:
 
-```
-[Physischer XLR-Eingang]
-        │
-        ▼
-┌─────────────────────────┐
-│   ANALOGER VORVERSTÄRKER│  -12 dB bis +60 dB (0,5-dB-Schritte)
-│   (Midas-Design)        │  Verstärkt die analoge Mikrofonspannung vor dem A/D-Wandler
-└───────────┬─────────────┘
-            │
-            ▼
-┌─────────────────────────┐
-│   A/D-WANDLER (Cirrus)  │  24 Bit, 114 dB Dynamikumfang
-└───────────┬─────────────┘
-            │
-            ▼
-┌─────────────────────────┐
-│   DIGITALER TRIM        │  -18 dB bis +18 dB (0,25-dB-Schritte)
-│   (DSP-Bearbeitung)     │  Digitale Signalmultiplikation in der 40-Bit-Fließkomma-DSP
-└───────────┬─────────────┘
-            │
-            ▼
-   [Low-Cut / Gate / EQ / Kompressor / Fader]
-```
+| Stufe | Bereich | Funktion |
+|---|---|---|
+| **1. Physischer XLR-Eingang** | — | Mikrofon- oder Line-Signal kommt an |
+| **2. Analoger Vorverstärker** (Midas-Design) | -12 dB bis +60 dB, 0,5-dB-Schritte | Stellt den analogen Pegel **vor** dem A/D-Wandler ein |
+| **3. A/D-Wandler** (Cirrus) | 24 Bit, 114 dB Dynamikumfang | Wandelt ins Digitale |
+| **4. Digitaler Trim** | -18 dB bis +18 dB, 0,25-dB-Schritte | Digitale Verstärkung in der 40-Bit-DSP |
+| **5. Bearbeitung** | — | Low Cut → Gate → EQ → Dynamik → Fader |
 
 ### Die wesentlichen Unterschiede:
 
@@ -55,14 +39,14 @@ Im Gegensatz zu analogen Mischpulten, bei denen der Arbeitspegel bei `0 VU` (+4 
 
 ### Die digitale Pegelskala des X32:
 
-```
-  0 dBFS ─── [CLIP]  ◄── Hartes digitales Clipping! (Verzerrung)
- -6 dBFS ─── [-6]    ◄── Maximal empfohlene Sicherheitsgrenze für Transienten
--12 dBFS ─── [-12]   ◄── Normaler Spitzenpegelbereich
--18 dBFS ─── [-18]   ◄── Nenn-Zielpegel (= 0 VU / +4 dBu) (erste gelbe LED)
--30 dBFS ─── [-30]   ◄── Normaler Arbeitsbereich bei Dauertönen
--60 dBFS ─── [-60]   ◄── Signalpräsenz-Schwelle
-```
+| Pegel-LED | Pegel | Bedeutung |
+|---|---|---|
+| **CLIP** | 0 dBFS | Hartes digitales Clipping — Verzerrung, niemals erreichen |
+| **-6** | -6 dBFS | Höchster sicherer Pegel für Transienten-Spitzen |
+| **-12** | -12 dBFS | Normaler Spitzenpegelbereich |
+| **-18** | -18 dBFS | **Nenn-Zielpegel** (= 0 VU / +4 dBu), die erste gelbe LED |
+| **-30** | -30 dBFS | Normaler Dauerpegel |
+| **-60** | -60 dBFS | Signal vorhanden |
 
 ### Die Goldenen Einpegel-Regeln:
 1. **Effektivwert (RMS)**: Pegeln Sie den Vorverstärker so ein, dass Gesang oder Instrumente bei normalem Spiel durchschnittlich bei **-18 dBFS** liegen (die -18-dB-LED, die erste gelbe LED, leuchtet).
@@ -106,14 +90,10 @@ Das Pult kann jede der 32 XLR-Buchsen und angeschlossene AES50-Stageboxen separa
 
 Die Polaritätstaste (`Ø`) dreht die elektrische Phasenlage des Signals um 180 Grad. Dies ist essenziell, wenn zwei Mikrofone dieselbe Schallquelle aus unterschiedlichen Richtungen oder Abständen aufnehmen.
 
-```
-[Snare Top-Mikrofon] ──► Abwärtsbewegung des Fells erzeugt positive (+) Spannung
-        │
-    [Snare-Fell]
-        │
-[Snare Bottom-Mikrofon] ◄── Abwärtsbewegung des Fells erzeugt negative (-) Spannung
-                            ► POLARITÄT INVERTIEREN (Ø EIN), um beide Signale phasengleich zu machen!
-```
+| Mikrofon | Wenn sich das Fell nach unten bewegt | Polarität |
+|---|---|---|
+| **Snare oben** | Membran wird hineingedrückt → **positive** Spannung | Normal |
+| **Snare unten** | Membran wird herausgezogen → **negative** Spannung | **Umkehren (Ø ein)**, damit beide Mikrofone phasengleich sind |
 
 1. **Snare Top & Snare Bottom**:
    - Das obere Mikrofon wird von oben angestrahlt (positive Halbwelle).
@@ -132,20 +112,11 @@ Die Polaritätstaste (`Ø`) dreht die elektrische Phasenlage des Signals um 180 
 
 In modernen Produktionen wird ein Satz Stageboxen (z. B. Behringer S32 oder Midas DL32) routinemäßig von zwei oder drei Mischpulten (FOH, Monitor und Broadcast) gleichzeitig genutzt:
 
-```
-┌──────────────┐          AES50 (Port A)          ┌───────────────────┐
-│ STAGEBOX     ├─────────────────────────────────►│ FOH-PULT          │
-│ S32 / DL32   │                                  │ (Clock: MASTER)   │
-│              │                                  │ (HA Remote: Aktiv)│
-└──────────────┘                                  └─────────┬─────────┘
-                                                            │ AES50 (Port B)
-                                                            ▼
-                                                  ┌───────────────────┐
-                                                  │ MONITOR-PULT      │
-                                                  │ (Clock: SLAVE)    │
-                                                  │ (Digital Trim)    │
-                                                  └───────────────────┘
-```
+| Gerät | Verbunden mit | Clock | Preamp-Steuerung |
+|---|---|---|---|
+| **Stagebox (S32 / DL32)** | FOH-Pult, AES50 Port A | — | Wird ferngesteuert |
+| **FOH-Pult** | Stagebox (Port A), Monitorpult (Port B) | **Master** | **HA Remote aktiv** — steuert die analogen Vorverstärker |
+| **Monitorpult** | FOH-Pult, AES50 | Slave | Nur digitaler Trim |
 
 ### Das Gain-Konflikt-Problem:
 Dreht der FOH-Mischer mitten im Song den Vorverstärker eines Gesangsmikrofons um 6 dB nach oben, wird dieses Signal auf der Monitor-Konsole augenblicklich ebenfalls um 6 dB lauter – die Musiker erschrecken im In-Ear und es drohen gefährliche Rückkopplungen auf der Bühne.
@@ -166,16 +137,10 @@ Firmware 4.x bietet mit **HA Gain Split** vollständige Pegelunabhängigkeit fü
 2. Drücken Sie **SETUP** und öffnen Sie den Reiter **Global** (dieselbe Seite, auf der auch die Remote-HA-Einstellung liegt).
 3. Schalten Sie **HA Gain Split** auf **ON**.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ SETUP ──► [GLOBAL]                                          │
-│                                                             │
-│   [HA Gain Split: ON] ◄── Verriegelt analoge Headamps       │
-│                                                             │
-│   Alle Kanalzüge schalten um auf:                           │
-│   DIGITAL TRIM: -18.0 dB ... +18.0 dB (0,25-dB-Schritte)    │
-└─────────────────────────────────────────────────────────────┘
-```
+| Einstellung | Wo | Ergebnis |
+|---|---|---|
+| **HA Gain Split: ON** | SETUP → **Global** | Die analogen Vorverstärker sind verriegelt |
+| **Gain-Regler der Kanäle** | Jeder Kanalzug | Steuern nun den **digitalen Trim**, -18,0 dB bis +18,0 dB in 0,25-dB-Schritten |
 
 ### Die Wirkung von Gain Split:
 - Der physische `GAIN`-Drehregler jedes Kanalzugs steuert nun automatisch den **digitalen Trim (-18 dB bis +18 dB)**.

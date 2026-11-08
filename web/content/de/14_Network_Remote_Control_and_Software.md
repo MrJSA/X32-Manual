@@ -10,16 +10,12 @@ Dieses Kapitel beschreibt die Netzwerkkonfiguration, WLAN-Optimierung im Live-Be
 
 Das Mischpult wird über die 100-Mbit/s-RJ45-Ethernet-Buchse auf der Rückseite in das Netzwerk eingebunden:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ SETUP ──► [NETWORK]                                         │
-│                                                             │
-│   DHCP: OFF (Dringend empfohlen für zuverlässigen Live-Ton) │
-│   IP ADDRESS:   192.168.1.50                                │
-│   SUBNET MASK:  255.255.255.0                               │
-│   GATEWAY:      192.168.1.1                                 │
-└─────────────────────────────────────────────────────────────┘
-```
+| Einstellung (SETUP → Network) | Beispielwert |
+|---|---|
+| **DHCP** | **Aus** (für Live-Shows empfohlen) |
+| **IP-Adresse** | 192.168.1.50 |
+| **Subnetzmaske** | 255.255.255.0 |
+| **Gateway** | 192.168.1.1 |
 
 ### Warum eine statische IP-Adresse unverzichtbar ist:
 DHCP weist Adressen zwar automatisch zu, doch **DHCP-Leases können mitten im Konzert ablaufen oder erneuert werden**, wodurch Tablets und Laptops im entscheidenden Moment die Verbindung verlieren. Eine fest vergebene, statische IP-Adresse stellt eine dauerhaft stabile Kommunikation sicher.
@@ -30,26 +26,11 @@ DHCP weist Adressen zwar automatisch zu, doch **DHCP-Leases können mitten im Ko
 
 Im leeren Saal während des Nachmittags-Soundchecks per iPad zu mischen ist einfach; die Verbindung stabil zu halten, wenn 800 Besucher mit Smartphones den Saal füllen, ist eine handfeste netzwerktechnische Herausforderung.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│            WLAN-BEST-PRACTICES FÜR VERANSTALTUNGEN          │
-├─────────────────────────────────────────────────────────────┤
-│ 1. AUSSCHLIESSLICH 5 GHz (ODER 6 GHz WI-FI 6) NUTZEN!       │
-│    Das 2,4-GHz-Band am Router komplett deaktivieren.        │
-│    2,4 GHz ist durch Besucher-Smartphones, Bluetooth und    │
-│    Funkstrecken extrem überlastet (hohe Paketverluste).     │
-├─────────────────────────────────────────────────────────────┤
-│ 2. ANTENNEN AUF SICHTLINIE HOCH POSITIONIEREN:              │
-│    Der menschliche Körper besteht zu 70 % aus Wasser, das   │
-│    5-GHz-Mikrowellensignale stark dämpft. Den WLAN-Router   │
-│    auf einem Mikrofonstativ MINDESTENS 2,5 BIS 3 METER ÜBER │
-│    DEN KÖPFEN DES PUBLIKUMS montieren!                      │
-├─────────────────────────────────────────────────────────────┤
-│ 3. SSID VERSTECKEN & WPA2/WPA3-VERSCHLÜSSELUNG NUTZEN:      │
-│    Verhindert, dass hunderte Smartphones den Router mit     │
-│    automatischen Suchanfragen nach freiem WLAN überfluten.  │
-└─────────────────────────────────────────────────────────────┘
-```
+| Regel | Warum |
+|---|---|
+| **Nur 5 GHz (oder 6 GHz / Wi-Fi 6) nutzen — 2,4-GHz-Funk abschalten** | 2,4 GHz ist überfüllt mit Handys des Publikums, Bluetooth und Gitarren-Funkstrecken; das führt zu Aussetzern |
+| **Router hoch und mit Sichtverbindung montieren** | Menschen absorbieren 5-GHz-Signale. Den Router auf einem Stativ mindestens 2,5–3 m über den Köpfen des Publikums anbringen |
+| **WPA2/WPA3 mit starkem Passwort verwenden** | Hält alle anderen aus dem Netz des Mischpults fern. Das Verstecken der SSID hilft nicht: Handys suchen trotzdem weiter, und manche Tablets verbinden sich mit versteckten Netzen schlechter |
 
 ---
 
@@ -79,25 +60,17 @@ Ermöglicht Bandmitgliedern, ihren eigenen Monitormix per Smartphone abzumischen
 
 Das X32 kommuniziert über standardmäßige Ethernet-UDP-Pakete unter Verwendung des **Open Sound Control (OSC)** Protokolls auf Port **10023**.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     OSC-PROTOKOLL-AUFBAU                    │
-├─────────────────────────────────────────────────────────────┤
-│ UDP-PORT: 10023                                             │
-│ ADRESS-SYNTAX: Hierarchische Text-Befehle                   │
-│                                                             │
-│ BEISPIELE:                                                  │
-│ /ch/01/mix/fader       ,f   0.75   (Kanal 1 Fader auf 0 dB) │
-│ /ch/01/mix/on          ,i   1      (Kanal 1 Mute aufheben)  │
-│ /bus/01/mix/fader      ,f   0.75   (Bus 1 Master-Fader)     │
-│ /main/st/mix/fader     ,f   0.75   (Main LR Master-Fader)   │
-│ /ch/01/config/name     ,s   "VOCAL"(Kanal-Displaytext)      │
-├─────────────────────────────────────────────────────────────┤
-│ DER /xremote KEEP-ALIVE HEARTBEAT:                          │
-│ Um kontinuierlich Fader-Bewegungen und Pegelanzeigen von der│
-│ Konsole zu empfangen, muss externe Software mindestens alle │
-│ 10 Sekunden den Befehl \"/xremote\" an das Pult senden!       │
-└─────────────────────────────────────────────────────────────┘
-```
+**Port:** UDP **10023**. Adressen sind hierarchische Pfade, gefolgt von Typkennung und Wert:
+
+| Adresse | Typ | Wert | Wirkung |
+|---|---|---|---|
+| `/ch/01/mix/fader` | `,f` | `0.75` | Fader Kanal 1 auf 0 dB |
+| `/ch/01/mix/on` | `,i` | `1` | Hebt das Mute von Kanal 1 auf |
+| `/bus/01/mix/fader` | `,f` | `0.75` | Masterfader Bus 1 auf 0 dB |
+| `/main/st/mix/fader` | `,f` | `0.75` | Masterfader Main LR auf 0 dB |
+| `/ch/01/config/name` | `,s` | `"VOCAL"` | Setzt den Namen im Scribble-Strip |
+
+> [!IMPORTANT]
+> **Der `/xremote`-Heartbeat:** Damit externe Software Faderbewegungen und Pegelanzeigen live vom Pult erhält, muss sie mindestens alle 10 Sekunden `/xremote` senden.
 
 Dieses offene UDP-Protokoll ermöglicht die nahtlose Einbindung von Stream Decks, Theater-Steuerungen, kundenspezifischen Automationen und externen Leitständen.

@@ -10,18 +10,10 @@ Dieses Kapitel beschreibt das Ultranet-Protokoll, Patching-Strategien für 16 Ka
 
 Der proprietäre **Ultranet**-Digitalbus überträgt bis zu 16 unkomprimierte Audiokanäle mit 24 Bit und 48 kHz über Standard-Netzwerkkabel (Cat5e):
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ MISCHPULT: [ULTRANET OUT] (EtherCON RJ45)                   │
-│    │                                                        │
-│    ▼ (Geschirmtes Cat5e-Kabel)                              │
-│ [P16-D VERTEILER-HUB] ──► Liefert Audio & Fernspeisung      │
-│    ├──► Cat5e ──► P16-M Personal Mixer (Schlagzeuger)       │
-│    ├──► Cat5e ──► P16-M Personal Mixer (Bassist)            │
-│    ├──► Cat5e ──► P16-M Personal Mixer (Lead-Sänger)        │
-│    └──► Cat5e ──► P16-M Personal Mixer (Keyboarder)         │
-└─────────────────────────────────────────────────────────────┘
-```
+| Verbindung | Von | Nach | Überträgt |
+|---|---|---|---|
+| **1** | **Ultranet Out** des Pultes (EtherCON / RJ45) | P16-D-Verteiler-Hub | 16 Kanäle, geschirmtes Cat5e |
+| **2** | P16-D-Hub | Ein P16-M Personal Mixer pro Musiker (Schlagzeuger, Bassist, Lead-Sänger, Keyboarder, …) | Audio **und** Stromversorgung über Cat5e |
 
 ### Der P16-M Personal Mixer:
 - **16 Kanalwahltasten**: Eigene Lautstärke, Stereo-Panorama, Solo und Mute pro Kanal.
@@ -34,13 +26,10 @@ Der proprietäre **Ultranet**-Digitalbus überträgt bis zu 16 unkomprimierte Au
 
 Öffnen Sie **ROUTING → ULTRANET**, um die 16 P16-Kanäle zu belegen:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ ULTRANET-PATCHING-REGELN:                                   │
-│ - Quelle: Kanal, Mix-Bus, Matrix, Direct Out oder Main      │
-│ - Tap Point: ZWINGEND [POST-EQ] oder [PRE-FADER]!           │
-└─────────────────────────────────────────────────────────────┘
-```
+| Einstellung | Erlaubte Werte |
+|---|---|
+| **Quelle** | Kanal, Mix-Bus, Matrix, Direct Out oder Main |
+| **Tap Point** | **Post-EQ** oder **Pre-Fader** — niemals Post-Fader |
 
 > [!IMPORTANT]
 > **Zwingende Abgriff-Regel für Personal-Mixer:**
@@ -84,18 +73,13 @@ Werden gut isolierende In-Ear-Ohrhörer getragen, fühlt sich der Musiker akusti
 
 Das **Midas DP48** stellt eine neue Generation dar und arbeitet direkt über **AES50** statt Ultranet:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ MIDAS DP48 BESONDERHEITEN:                                  │
-│ 1. 48 Audiokanäle über AES50 (Cat5e).                       │
-│ 2. ZWEI VÖLLIG UNABHÄNGIGE MISCHUNGEN (Mix A und Mix B):    │
-│    Zwei Musiker (z. B. Drummer & Bassist) teilen sich EIN   │
-│    Gerät mit getrennten Stereokopfhörerausgängen!           │
-│ 3. 12 STEREO-GRUPPEN: Fasst Kanäle auf 12 Fader zusammen.   │
-│ 4. INTEGRIERTES ATMO-MIKROFON: Mischt Raumklang direkt ein. │
-│ 5. EINGEBAUTER SD-CARD-RECORDER: Zeichnet Proben direkt auf.│
-└─────────────────────────────────────────────────────────────┘
-```
+| Merkmal | Details |
+|---|---|
+| **48 Kanäle** | Über AES50 (Cat5e) |
+| **Zwei unabhängige Mischungen** | Mix A und Mix B: zwei Musiker (z. B. Schlagzeuger und Bassist) teilen sich **ein** DP48, jeder mit eigenen 6,35-mm- und 3,5-mm-Stereoausgängen |
+| **12 Stereo-Gruppen** | Kanäle werden auf 12 Fader zusammengefasst |
+| **Eingebautes Stereo-Atmo-Mikrofon** | Mischt den Raumklang direkt ein |
+| **SD-Karten-Recorder** | Zeichnet Proben als Einzelspuren auf |
 
 ### Anschluss des DP48 am Mischpult:
 1. Verbinden Sie den **AES50 Port B** des Mischpults über ein geschirmtes Cat5e-Kabel mit dem Eingang des DP48 (oder schleifen Sie es über die Stageboxen durch).

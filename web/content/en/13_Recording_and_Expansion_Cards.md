@@ -10,14 +10,11 @@ This chapter details the top-panel 2-track USB recorder, the standard X-USB inte
 
 The front-panel USB Type-A port provides instant stereo WAV recording and playback without an external computer.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 2-TRACK USB SPECIFICATIONS:                                 │
-│ - Format: Stereo WAV, 16-bit uncompressed                   │
-│ - Sample Rate: 44.1 kHz or 48 kHz (matches console clock)   │
-│ - Media Formatting: FAT32 MANDATORY (max 32 GB partition)   │
-└─────────────────────────────────────────────────────────────┘
-```
+| Property | Value |
+|---|---|
+| **Format** | Stereo WAV, 16-bit, uncompressed |
+| **Sample rate** | 44.1 kHz or 48 kHz (follows the console clock) |
+| **USB stick** | Must be formatted **FAT32** (max. 32 GB partition) |
 
 ### Recording Setup:
 1. Navigate to **HOME → TAPE (USB REC)** (or press the dedicated screen button).
@@ -37,17 +34,10 @@ The front-panel USB Type-A port provides instant stereo WAV recording and playba
 
 Shipped factory-standard on most X32 consoles, the **X-USB** card transforms the mixer into a 32-input / 32-output USB 2.0 audio interface for digital audio workstations (DAWs) including Reaper, Pro Tools, Logic Pro, Ableton Live, and Studio One.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   X-USB 32x32 ARCHITECTURE                  │
-├─────────────────────────────────────────────────────────────┤
-│ CONSOLE CHANNELS (1–32) ──► Card Out ──► USB Cable ──► DAW │
-│ (Direct Preamp Taps at IN/LC)                               │
-│                                                             │
-│ DAW PLAYBACK TRACKS (1–32) ◄── Inputs ◄── USB Cable ◄── DAW │
-│ (Virtual Soundcheck Playback)                               │
-└─────────────────────────────────────────────────────────────┘
-```
+| Direction | Path | Use |
+|---|---|---|
+| **Recording** | Console channels 1–32 (tapped at In/LC) → Card Out → USB → DAW | Multitrack recording |
+| **Playback** | DAW tracks 1–32 → USB → card inputs → console channels | Virtual soundcheck |
 
 ### Driver & OS Configuration:
 - **Windows**: Requires the official Behringer/Midas ASIO driver. Configure buffer size to **64–128 samples** for low-latency live software monitoring, or **256–512 samples** for stable live recording.
@@ -70,19 +60,13 @@ Shipped factory-standard on most X32 consoles, the **X-USB** card transforms the
 
 The **X-LIVE** expansion card eliminates the need for a laptop during live concerts by recording 32 uncompressed channels directly onto two high-speed SD/SDHC/SDXC memory cards.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ X-LIVE HARDWARE CAPABILITIES:                               │
-│ - 32 Channels of simultaneous 32-bit 48 kHz PCM recording.  │
-│ - Dual SD Card Slots (SD 1 and SD 2).                       │
-│ - AUTOMATIC SEAMLESS FILE SPANNING: Spans seamlessly across │
-│   FAT32 32GB boundaries and switches cards without losing    │
-│   a single audio sample!                                    │
-│ - MARKER INSERTION: Place song markers during live shows    │
-│   to jump instantly between songs during rehearsals.        │
-│ - Simultaneous USB interface operation.                     │
-└─────────────────────────────────────────────────────────────┘
-```
+| Feature | Details |
+|---|---|
+| **Channels** | 32 channels recorded at the same time, 32-bit / 48 kHz |
+| **Media** | Two SD card slots (SD 1 and SD 2) |
+| **File spanning** | Spans the FAT32 file-size limit and switches cards without losing a single sample |
+| **Markers** | Set song markers during the show to jump between songs in rehearsal |
+| **USB** | Works as a USB audio interface at the same time |
 
 ### SD Card Selection:
 Use **Class 10 / UHS-1 / U3** SD cards from reputable brands (SanDisk Extreme, Kingston Canvas). Format cards as **FAT32** directly inside the X32 setup menu.
@@ -102,33 +86,11 @@ The **X-DANTE** card replaces the USB interface with an Audinate Dante IP-based 
 
 A **Virtual Soundcheck** allows the audio engineer to record the band during rehearsal, send the musicians off the stage, and play back the 32 multitrack recordings back through the console channels. You can dial in EQ, compress vocals, tweak reverbs, and balance monitor mixes without fatiguing the performers' voices.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                 VIRTUAL SOUNDCHECK WORKFLOW PHASES                          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ PHASE 1: RECORD THE REHEARSAL                                               │
-│ - Routing → Home: Inputs 1–32 from Local / AES50 stageboxes.                │
-│ - Routing → Card Out: Record channels 1–32 into DAW or X-LIVE SD card.      │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ PHASE 2: SWITCH CONSOLE TO PLAYBACK MODE                                    │
-│ - Navigate to ROUTING → HOME.                                               │
-│ - Set Inputs 1-8   = [Card 1-8]                                             │
-│ - Set Inputs 9-16  = [Card 9-16]                                            │
-│ - Set Inputs 17-24 = [Card 17-24]                                           │
-│ - Set Inputs 25-32 = [Card 25-32]                                           │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ PHASE 3: PLAY BACK & TWEAK MIX                                              │
-│ - Hit Play in DAW or on X-LIVE.                                             │
-│ - Console channels 1–32 now respond to recorded tracks!                     │
-│ - Tweak channel EQs, compressors, gates, and reverb decay times.            │
-│ - Walk the room with an iPad to evaluate PA coverage in all seating zones.  │
-│ - Engage Sends on Faders to refine stage floor wedges and in-ear mixes.     │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ PHASE 4: RETURN TO LIVE PERFORMANCE MODE                                    │
-│ - Navigate to ROUTING → HOME.                                               │
-│ - Return Inputs 1–32 back to [Local 1–32] or [AES50 A 1–32].                │
-│ - The console is now live and tuned for the concert!                        │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Phase | Where | What to do |
+|---|---|---|
+| **1. Record the rehearsal** | Routing → Home, Routing → Card Out | Inputs 1–32 come from Local / AES50 stageboxes; record channels 1–32 to the DAW or the X-LIVE SD card |
+| **2. Switch to playback** | Routing → Home | Set inputs 1–8, 9–16, 17–24 and 25–32 to **Card 1–8 … Card 25–32** |
+| **3. Play back and mix** | DAW or X-LIVE | Press play — channels 1–32 now get the recorded tracks. Tweak EQ, compressors, gates and reverbs, walk the room with a tablet, refine wedges and in-ears with Sends on Faders |
+| **4. Back to live** | Routing → Home | Set inputs 1–32 back to **Local 1–32** or **AES50 A 1–32** — the console is live and tuned for the show |
 
 > **Pro Tip:** Store Phase 2 and Phase 4 into two dedicated **Snippets** (`Snippet 01: VSC PLAYBACK` and `Snippet 02: LIVE INPUTS`) with only the **Routing** parameter box checked. You can now toggle the entire console between virtual soundcheck and live performance with a single button press!

@@ -10,29 +10,13 @@ This chapter details analog headamps versus digital trim, digital metering calib
 
 The X32 features two distinct gain controls in its signal chain:
 
-```
-[Physical XLR Input]
-        │
-        ▼
-┌─────────────────────────┐
-│   ANALOG HEADAMP        │  -12 dB to +60 dB (0.5 dB steps)
-│   (Midas Designed)      │  Controls analog voltage before A/D conversion
-└───────────┬─────────────┘
-            │
-            ▼
-┌─────────────────────────┐
-│   A/D CONVERTER (Cirrus)│  24-bit, 114 dB dynamic range
-└───────────┬─────────────┘
-            │
-            ▼
-┌─────────────────────────┐
-│   DIGITAL TRIM          │  -18 dB to +18 dB (0.25 dB steps)
-│   (DSP Processing)      │  Digital multiplication inside 40-bit DSP engine
-└───────────┬─────────────┘
-            │
-            ▼
-   [Low Cut / Gate / EQ / Dyn / Fader]
-```
+| Stage | Range | What it does |
+|---|---|---|
+| **1. Physical XLR input** | — | The microphone or line signal arrives |
+| **2. Analog headamp** (Midas design) | -12 dB to +60 dB, 0.5 dB steps | Sets the analog level **before** the A/D converter |
+| **3. A/D converter** (Cirrus) | 24-bit, 114 dB dynamic range | Converts to digital |
+| **4. Digital trim** | -18 dB to +18 dB, 0.25 dB steps | Digital gain inside the 40-bit DSP |
+| **5. Processing** | — | Low Cut → Gate → EQ → Dynamics → Fader |
 
 ### Key Distinctions:
 
@@ -54,14 +38,14 @@ Unlike analog consoles where nominal operating level sits at `0 VU` (+4 dBu) wit
 
 ### Digital Metering Reference Scale:
 
-```
-  0 dBFS ─── [CLIP]  ◄── Hard Digital Clipping! (Catastrophic distortion)
- -6 dBFS ─── [-6]    ◄── Maximum Safe Transient Peak Ceiling
--12 dBFS ─── [-12]   ◄── Normal Peak Operating Range
--18 dBFS ─── [-18]   ◄── Nominal Target Level (= 0 VU / +4 dBu) (First Yellow LED)
--30 dBFS ─── [-30]   ◄── Normal Sustained Level
--60 dBFS ─── [-60]   ◄── Signal Present Threshold
-```
+| Meter LED | Level | Meaning |
+|---|---|---|
+| **CLIP** | 0 dBFS | Hard digital clipping — distortion, never go here |
+| **-6** | -6 dBFS | Highest safe level for transient peaks |
+| **-12** | -12 dBFS | Normal peak range |
+| **-18** | -18 dBFS | **Nominal target** (= 0 VU / +4 dBu), the first yellow LED |
+| **-30** | -30 dBFS | Normal sustained level |
+| **-60** | -60 dBFS | Signal present |
 
 ### The Gain Staging Golden Rules:
 1. **Nominal RMS Level**: Calibrate the preamp so sustained singing or playing averages around **-18 dBFS** (lighting up the -18 dB LED, the first yellow LED).
@@ -106,14 +90,10 @@ The polarity toggle button (`Ø`) inverts the electrical phase of the audio sign
 
 ### Standard Polarity Correction Scenarios:
 
-```
-[Snare Top Mic] ──► Downward diaphragm movement creates Positive (+) electrical pulse
-       │
-   [Snare Drum Head]
-       │
-[Snare Bottom Mic] ◄── Downward diaphragm movement creates Negative (-) electrical pulse
-                       ► INVERT POLARITY (Ø ON) to bring both microphones in phase!
-```
+| Microphone | When the drum head moves down | Polarity setting |
+|---|---|---|
+| **Snare top** | Diaphragm is pushed in → **positive** voltage | Normal |
+| **Snare bottom** | Diaphragm is pulled out → **negative** voltage | **Invert (Ø on)** so both mics are in phase |
 
 1. **Snare Top & Snare Bottom**:
    - The top mic diaphragm moves inward when struck, generating positive voltage.
@@ -132,20 +112,11 @@ The polarity toggle button (`Ø`) inverts the electrical phase of the audio sign
 
 In modern production environments, a single set of stageboxes (e.g., Behringer S32 or Midas DL32) is routinely shared between two or three consoles (Front of House, Monitors, and Broadcast):
 
-```
-┌──────────────┐          AES50 (Port A)          ┌───────────────────┐
-│ STAGEBOX     ├─────────────────────────────────►│ FOH CONSOLE       │
-│ S32 / DL32   │                                  │ (Clock: MASTER)   │
-└──────────────┘                                  │ (HA Remote: Active│
-                                                  └─────────┬─────────┘
-                                                            │ AES50 (Port B)
-                                                            ▼
-                                                  ┌───────────────────┐
-                                                  │ MONITOR CONSOLE   │
-                                                  │ (Clock: SLAVE)    │
-                                                  │ (Digital Trim)    │
-                                                  └───────────────────┘
-```
+| Device | Connected to | Clock | Preamp control |
+|---|---|---|---|
+| **Stagebox (S32 / DL32)** | FOH console, AES50 Port A | — | Controlled remotely |
+| **FOH console** | Stagebox (Port A), monitor console (Port B) | **Master** | **HA Remote active** — owns the analog headamps |
+| **Monitor console** | FOH console, AES50 | Slave | Digital trim only |
 
 ### The Gain Conflict Problem:
 If the Front of House engineer turns up a microphone's analog headamp by 6 dB during the middle of the concert, that same microphone will immediately jump by 6 dB in the monitor engineer's in-ear mixes, potentially deafening the performer and causing catastrophic monitor feedback.
@@ -166,16 +137,10 @@ Firmware 4.x introduces the **HA Gain Split** mode, providing complete digital g
 2. Press the **SETUP** button and open the **Global** tab (the same page that holds the remote HA setting).
 3. Switch **HA Gain Split** to **ON**.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ SETUP ──► [GLOBAL]                                          │
-│                                                             │
-│   [HA Gain Split: ON] ◄── Lock Analog Headamps              │
-│                                                             │
-│   All Channel Strips switch to:                             │
-│   DIGITAL TRIM: -18.0 dB ... +18.0 dB (0.25 dB steps)       │
-└─────────────────────────────────────────────────────────────┘
-```
+| Setting | Where | Result |
+|---|---|---|
+| **HA Gain Split: ON** | SETUP → **Global** | The analog headamps are locked |
+| **Channel gain knobs** | Every channel strip | Now control **digital trim**, -18.0 dB to +18.0 dB in 0.25 dB steps |
 
 ### What Happens When Gain Split is Enabled:
 - The standard `GAIN` rotary knob on every channel strip instantly transforms into a **Digital Trim knob (-18 dB to +18 dB)**.

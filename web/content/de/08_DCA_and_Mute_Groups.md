@@ -10,25 +10,15 @@ Dieses Kapitel beschreibt die DCA-Architektur, das unterschiedliche Verhalten be
 
 Ein DCA fungiert als Fernsteuerung für eine Gruppe von Kanal-Fadern. Angelehnt an analoge VCAs (Voltage Controlled Amplifiers) gilt: **Durch einen DCA fließt niemals ein Audiosignal**.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    WIE EIN DCA FUNKTIONIERT                 │
-├─────────────────────────────────────────────────────────────┤
-│ Kanal 1 (Kick)   ──► Fader steht auf   0 dB                 │
-│ Kanal 2 (Snare)  ──► Fader steht auf  -6 dB                 │
-│ Kanal 3 (Toms)   ──► Fader steht auf  -3 dB                 │
-│                                                             │
-│ Alle drei Kanäle sind DCA 1 (Drums) zugewiesen.             │
-│                                                             │
-│ Wird der Fader von DCA 1 um -4 dB nach unten gezogen:       │
-│   Kanal 1 wird rechnerisch zu  -4 dB                        │
-│   Kanal 2 wird rechnerisch zu -10 dB                        │
-│   Kanal 3 wird rechnerisch zu  -7 dB                        │
-│                                                             │
-│ *Das relative Lautstärkeverhältnis zwischen den Instrumenten│
-│  bleibt exakt erhalten!                                     │
-└─────────────────────────────────────────────────────────────┘
-```
+Beispiel: drei Schlagzeug-Kanäle sind **DCA 1 (Drums)** zugewiesen, der DCA-Fader wird um **4 dB** heruntergezogen:
+
+| Kanal | Kanalfader | DCA 1 | Effektiver Pegel |
+|---|---|---|---|
+| **Kanal 1 – Kick** | 0 dB | -4 dB | **-4 dB** |
+| **Kanal 2 – Snare** | -6 dB | -4 dB | **-10 dB** |
+| **Kanal 3 – Toms** | -3 dB | -4 dB | **-7 dB** |
+
+Das Lautstärkeverhältnis zwischen den Kanälen bleibt exakt erhalten.
 
 ### Warum DCAs statt Subgruppen nutzen?
 - **Kein DSP-Verbrauch**: DCAs verbrauchen keine internen Mix-Busse, EQs oder Dynamikblöcke.
@@ -66,21 +56,10 @@ Eine praxiserprobte 8-DCA-Konfiguration für Konzerte und Veranstaltungen:
 
 Dies ist einer der folgenschwersten Bedienfehler an Digitalpulten:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                 WIRKUNG DES DCA-FADERS AUF SENDS            │
-├─────────────────────────────────────────────────────────────┤
-│ 1. POST-FADER SENDS (Hall, Delay, Streaming-Matrizen)       │
-│    ► JA: DCA-Bewegungen wirken auf Post-Fader-Sends!        │
-│      Wird der Drum-DCA leiser gezogen, wird auch der Hall   │
-│      des Schlagzeugs leiser.                                │
-├─────────────────────────────────────────────────────────────┤
-│ 2. PRE-FADER SENDS (Bühnenmonitore & Musiker-In-Ears)       │
-│    ► NEIN: DCA-Bewegungen wirken NICHT auf Pre-Fader-Sends! │
-│      Wird der Gesangs-DCA leiser gezogen, bleibt der Gesang │
-│      im In-Ear-Hörer des Musikers VOLLSTÄNDIG UNVERÄNDERT!  │
-└─────────────────────────────────────────────────────────────┘
-```
+| Send-Art | Typischer Einsatz | Wirkt der DCA darauf? |
+|---|---|---|
+| **Post-Fader-Sends** | Hall, Delay, Streaming-Matrizen | **Ja** — wird der Drum-DCA leiser gezogen, sinkt auch der Hall-Send der Drums |
+| **Pre-Fader-Sends** | Bühnenmonitore, In-Ears | **Nein** — wird der Gesangs-DCA leiser gezogen, bleiben die In-Ears völlig unverändert |
 
 ### Das Katastrophen-Szenario aus der Praxis:
 Ein Lead-Sänger signalisiert von der Bühne, dass ihm sein Gesangsmikrofon in den Ohren dröhnt. Der FOH-Techniker zieht DCA 5 (Lead Vox) um 10 dB herunter. Das Publikum hört den Sänger nun kaum noch – aber **die Lautstärke im In-Ear des Sängers hat sich um kein einziges Dezibel verändert**.
@@ -94,32 +73,11 @@ Ein Lead-Sänger signalisiert von der Bühne, dass ihm sein Gesangsmikrofon in d
 
 Ab Firmware 4.0 bietet das X32 **DCA Spill**. Damit entfällt das manuelle Suchen von Einzelkanälen in verschiedenen Faderbänken vollständig:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      DCA-SPILL-WORKFLOW                     │
-├─────────────────────────────────────────────────────────────┤
-│ 1. DRÜCKEN Sie die SELECT-Taste eines DCAs                  │
-│    (z. B. DCA 1 für Drums).                                 │
-│                                                             │
-│ 2. Die linken 16 Fader klappen SOFORT AUF (Spill):          │
-│    Fader 1 = Kick In                                        │
-│    Fader 2 = Kick Out                                       │
-│    Fader 3 = Snare Top                                      │
-│    Fader 4 = Snare Bottom                                   │
-│    Fader 5 = Rack Tom                                       │
-│    Fader 6 = Floor Tom                                      │
-│    Fader 7 = Hi-Hat                                         │
-│    Fader 8 = Overheads                                      │
-│                                                             │
-│ 3. Schnelle Korrekturen an Snare- oder Tom-Fadern vornehmen.│
-│    (Dem DCA zugewiesene Busse, z. B. Drum-Subgruppen,       │
-│    werden zusammen mit den Kanälen ausgeklappt.)            │
-│                                                             │
-│ 4. DRÜCKEN Sie die DCA-SELECT-Taste erneut.                 │
-│    Die linken Fader kehren augenblicklich zu ihrer normalen │
-│    Eingangsbank zurück!                                     │
-└─────────────────────────────────────────────────────────────┘
-```
+| Schritt | Aktion | Ergebnis |
+|---|---|---|
+| **1** | Die **SELECT**-Taste eines DCAs drücken (z. B. DCA 1) | Die linken 16 Fader zeigen sofort die Mitglieder dieses DCAs |
+| **2** | Die ausgeklappten Fader anpassen | z. B. Kick In, Kick Out, Snare Top, Snare Bottom, Rack Tom, Floor Tom, Hi-Hat, Overheads — dem DCA zugewiesene Busse (etwa Drum-Subgruppen) werden ebenfalls ausgeklappt |
+| **3** | Die **SELECT**-Taste des DCAs erneut drücken | Die linken Fader kehren zu ihrer normalen Bank zurück |
 
 ---
 
@@ -128,14 +86,14 @@ Ab Firmware 4.0 bietet das X32 **DCA Spill**. Damit entfällt das manuelle Suche
 Direkt unterhalb des 7"-Bildschirms befinden sich **6 dedizierte Master-Mute-Tasten**. Ein Druck schaltet alle zugewiesenen Kanäle, Busse oder Effektrückwege synchron stumm.
 
 ### Empfohlene Belegung der Mute-Gruppen:
-```
-[MUTE GRP 1] : GESAMTE BAND (Schaltet alle Instrumente stumm)
-[MUTE GRP 2] : GESANG (Schaltet alle Gesangsmikrofone stumm)
-[MUTE GRP 3] : FX MUTE (ESSENZIELL: Schaltet alle Hall- und Delay-Returns stumm!)
-[MUTE GRP 4] : BÜHNEN-DIs (Schaltet Akustikgitarren, Bass-DI und Keyboards stumm)
-[MUTE GRP 5] : MEDIEN / PAUSENMUSIK (Schaltet Hintergrundmusik stumm)
-[MUTE GRP 6] : GENERAL-MUTE (Notfall-Mute für die gesamte Bühne)
-```
+| Mute-Gruppe | Name | Schaltet stumm |
+|---|---|---|
+| **1** | Gesamte Band | Drum-, Bass-, Gitarren- und Keyboard-Kanäle |
+| **2** | Gesang | Alle Gesangsmikrofone |
+| **3** | FX Mute | Alle Hall- und Delay-Returns — **unverzichtbar** |
+| **4** | Bühnen-DIs | Akustikgitarren, Bass-DI und Keyboards |
+| **5** | Medien / Zuspieler | Einlassmusik und Videowiedergabe |
+| **6** | General-Mute | Notfall-Mute für die gesamte Bühne |
 
 ### Warum „FX MUTE“ unverzichtbar ist:
 Fängt ein Sänger oder Redner zwischen zwei Stücken an zu sprechen, wirkt eine hallige 3,5-Sekunden-Hallfahne auf der Sprache extrem unprofessionell und zerstört die Textverständlichkeit.

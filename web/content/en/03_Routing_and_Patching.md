@@ -10,35 +10,12 @@ This chapter breaks down the routing architecture, tap points, input and output 
 
 The console distinguishes between three separate stages: **Physical Hardware**, the **Patchbay**, and the **Console Channel Strip**:
 
-```
-[PHYSICAL CONNECTORS]
-Local XLR (1-32)
-AES50 A (1-48)
-AES50 B (1-48)
-Card Out/In (1-32)
-Aux In (1-6)
-       │
-       ▼
-┌─────────────────────────┐
-│ USER INPUT PATCH        │  Firmware 4.x: Assigns any physical socket to User In 1–32
-│ (Routing → User Tab)    │
-└────────────┬────────────┘
-             │
-             ▼
-┌─────────────────────────┐
-│ INPUT BLOCKS (Home Tab) │  Assigns 4 blocks of 8:
-│ Inputs 1-8, 9-16,       │  - Local 1-8, 9-16, 17-24, 25-32
-│ Inputs 17-24, 25-32     │  - AES50 A/B 1-8 ... 41-48
-│                         │  - Card 1-8 ... 25-32
-│                         │  - User In 1-8, 9-16, 17-24, 25-32
-└────────────┬────────────┘
-             │
-             ▼
-┌─────────────────────────┐
-│ CHANNEL STRIP SOURCE    │  Channel → Config → Source
-│ (Channels 1–32)         │  (Leave set 1:1: Ch 1 = In 1, Ch 2 = In 2!)
-└─────────────────────────┘
-```
+| Stage | Where on the console | What you choose |
+|---|---|---|
+| **1. Physical connectors** | — | Local XLR 1–32, AES50 A 1–48, AES50 B 1–48, Card 1–32, Aux In 1–6 |
+| **2. User input patch** *(Firmware 4.x)* | Routing → **User** tab | Any physical socket for each of User In 1–32 |
+| **3. Input blocks** | Routing → **Home** tab | For inputs 1–8, 9–16, 17–24 and 25–32 each: Local, AES50 A/B (1–8 … 41–48), Card (1–8 … 25–32) or User In |
+| **4. Channel source** | Channel → Config → **Source** | Leave it 1:1 (Ch 1 = In 1, Ch 2 = In 2, …) |
 
 > **Rule of Thumb:** Never change individual channel sources in the **Channel → Config** screen unless doing complex channel-splitting. Keep channel sources mapped 1:1 (`In 1` through `In 32`) and perform all custom patching in the **ROUTING** menu. This prevents ghost patches and muted-channel troubleshooting headaches.
 
@@ -66,29 +43,13 @@ User Routing provides complete 1:1 freedom:
 
 When routing any signal to an analog XLR output, Aux output, P16 Ultranet bus, or Card track, you must specify its **Tap Point**. Choosing the wrong tap point is the number one cause of monitor and recording issues.
 
-```
-[Input Preamp]
-      │
-      ├──► [IN / LC] (Direct out after Headamp & Low Cut; pre-gate, pre-EQ, pre-dyn)
-      ▼
-   [Gate]
-      │
-      ├──► [PRE EQ] (Post-gate, before EQ and Compressor)
-      ▼
-    [EQ]
-      │
-      ├──► [POST EQ] (After EQ, before Compressor)
-      ▼
-  [Dynamics]
-      │
-      ├──► [PRE FADER] (After EQ & Dynamics; BEFORE Fader & Mute)
-      ▼
-   [Mute]
-      │
-   [Fader]
-      │
-      └──► [POST FADER] (After Fader, Pan, and Mute)
-```
+| Tap point | Picks up the signal … | Typical use |
+|---|---|---|
+| **In / LC** | Right after the headamp and low cut; before gate, EQ and dynamics | Multitrack recording, direct outs |
+| **Pre EQ** | After the gate, before EQ and compressor | Raw-tone feeds |
+| **Post EQ** | After the EQ, before the compressor | Monitor mixes without compressor pumping |
+| **Pre Fader** | After EQ and dynamics, **before** mute and fader | Stage wedges and in-ear mixes |
+| **Post Fader** | After fader, pan and mute | Effects sends, broadcast and recording mixes that follow FOH |
 
 | Tap Point | Characteristics | Recommended Application |
 |---|---|---|

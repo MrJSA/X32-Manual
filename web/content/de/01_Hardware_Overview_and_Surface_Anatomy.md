@@ -10,20 +10,15 @@ Dieses Kapitel beschreibt die physische Bedienoberfläche, die Steuerungszonen, 
 
 Die Bedienoberfläche des X32 gliedert sich in vier zentrale Funktionsbereiche:
 
-```
-┌──────────────────────────────────────────────────────────────────────────────────┐
-│  KANALZUG-HARDWARE                7" TFT-FARBDISPLAY & ENCODER     ASSIGNABLE    │
-│  [Preamp] [Gate] [EQ] [Dyn] [Sends]     [HOME] [CONFIG] [GATE] [EQ]   [A] [B] [C]│
-│                                         [DYN]  [MAIN]   [TAPE] [UTIL] (Regler 1-4)│
-│                                         (Dreh-Encoder 1 bis 6)        (Tasten 5-12)│
-├────────────────────────────────────────┬─────────────────────────────────────────┤
-│  EINGANGS-FADERBANK (16 Fader)         │  AUSGANGS-FADERBANK (8 Fader) + MAIN LR │
-│  - Ch 1-16       - Bus 1-8             │  - DCA 1-8       - Matrix 1-6 / Main C  │
-│  - Ch 17-32      - Bus 9-16            │  - Bus 1-8       - MAIN LR Fader (1)    │
-│  - Aux In / FX   - User Layers         │  - Bus 9-16                             │
-│  (Scribble Strip, Select, Solo, Mute)  │  (Scribble Strip, Select, Solo, Mute)   │
-└────────────────────────────────────────┴─────────────────────────────────────────┘
-```
+| Bereich | Position | Inhalt |
+|---|---|---|
+| **Kanalzug** | Oben links | Eigene Hardware-Regler für Preamp, Gate, EQ, Dynamik und Sends des gewählten Kanals |
+| **7"-Farbdisplay** | Oben Mitte | 10 Menütasten (HOME, METERS, ROUTING, LIBRARY, EFFECTS, SETUP, MONITOR, SCENES, MUTE GRP, UTILITY) und die Dreh-Encoder 1–6 |
+| **Frei belegbare Bedienelemente** | Oben rechts | Regler 1–4 und Tasten 5–12, in den Sets A / B / C |
+| **Eingangs-Faderbank** | Unten links, 16 Fader | Ebenen Ch 1–16, Ch 17–32, Aux In / FX-Returns, Bus 1–8, Bus 9–16 und User-Layer |
+| **Ausgangs-Faderbank** | Unten rechts, 8 Fader + Main LR | Ebenen DCA 1–8, Bus 1–8, Bus 9–16, Matrix 1–6 / Main C, dazu der eigene Main-LR-Fader |
+
+Jeder Faderzug hat ein Scribble-Strip sowie die Tasten **Select**, **Solo** und **Mute**.
 
 ### A. Linke Faderbank (16 Motorfader)
 Die linke Faderbank steuert Eingangskanäle, Hilfskanäle und Bus-Master abhängig von der aktiven Fader-Ebene (Layer):
@@ -57,14 +52,12 @@ Ganz rechts befindet sich der dedizierte Fader für die **Stereo-Hauptsumme (Mai
 
 Im oberen linken Bereich des Mischpults befindet sich die Hardware-Kanalzugsektion für direkten haptischen Zugriff auf alle Bearbeitungsparameter des gewählten Kanals:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│ CONFIG/PREAMP        GATE             EQUALIZER (4-BAND)       DYNAMIK          │
-│ [48V] [POL]          [GATE IN]        [EQ IN] [MODE]           [COMP IN]        │
-│ (GAIN) (LOW CUT)     (THRESH) (RANGE) (LOW) (L-MID) (H-MID)(HI)(THRESH) (RATIO) │
-│ [LOW CUT ON] [VIEW]  [VIEW]           (FREQ) (Q) (GAIN) [VIEW] (ATT) (REL)[VIEW]│
-└─────────────────────────────────────────────────────────────────────────────────┘
-```
+| Sektion | Tasten | Regler |
+|---|---|---|
+| **Config / Preamp** | 48V, Polarität (Ø), Low Cut ein, View | Gain, Low-Cut-Frequenz |
+| **Gate** | Gate in, View | Threshold, Range |
+| **Equalizer (4 Bänder)** | EQ in, Mode, Bandwahl (Low, Lo-Mid, Hi-Mid, High), View | Frequenz, Q, Gain |
+| **Dynamik** | Comp in, View | Threshold, Ratio, Attack, Release |
 
 1. **Konfiguration & Preamp-Sektion**:
    - `48V`: Schaltet +48V Phantomspeisung für Kondensatormikrofone und aktive DI-Boxen.
@@ -100,19 +93,10 @@ Im oberen linken Bereich des Mischpults befindet sich die Hardware-Kanalzugsekti
 
 Das 800x480 Farb-TFT-Display dient der detaillierten Parametrisierung und dem Signalrouting. Die Navigation erfolgt über 8 Hauptmenütasten und 6 Endlos-Dreh-Encoder:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  [HOME]    [METERS]   [ROUTING]   [LIBRARY]   [EFFECTS]     │
-│  [SETUP]   [MONITOR]  [SCENES]    [MUTE GRP]  [UTILITY]     │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│                    HAUPT-7"-TFT-DISPLAY                     │
-│                                                             │
-├─────────────────────────────────────────────────────────────┤
-│   (1)         (2)         (3)         (4)         (5)   (6) │
-│ [Encoder]  [Encoder]  [Encoder]  [Encoder]  [Encoder] [Push]│
-└─────────────────────────────────────────────────────────────┘
-```
+| Reihe | Bedienelemente |
+|---|---|
+| **Menütasten (links neben dem Display)** | HOME · METERS · ROUTING · LIBRARY · EFFECTS · SETUP · MONITOR · SCENES · MUTE GRP · UTILITY |
+| **Unter dem Display** | Sechs Dreh-/Drück-Encoder, je einer pro Parameterspalte am unteren Rand der aktiven Seite |
 
 ### Das VIEW-Prinzip
 Nahezu jeder Hardware-Abschnitt verfügt über eine gelbe **VIEW-Taste**. Ein Druck auf `VIEW` springt auf dem Display augenblicklich zu der passenden Parameterseite. Lästiges Suchen in verschachtelten Menüs entfällt während des Live-Betriebs komplett.
@@ -146,14 +130,13 @@ Halten Sie die `SELECT`-Taste des gewünschten Kanals gedrückt und drücken Sie
 
 ## 5. Anschlüsse auf der Geräterückseite
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│  [ XLR INPUTS 1-16 ]            [ XLR INPUTS 17-32 ]             [ XLR OUTPUTS 1-8 ]        │
-│  [ XLR OUTPUTS 9-16 ]           [ AUX IN 1-6 (TRS) + RCA 5-6 ]   [ AUX OUT 1-6 + RCA 5-6 ]  │
-│  [ AES50 PORT A ] [ AES50 PORT B ]   [ ULTRANET P16 ]   [ REMOTE ETHERNET ]  [ MIDI IN/OUT] │
-│  [ POWER SWITCH & IEC ]         [ X-USB / X-LIVE EXPANSION CARD INTERFACE (32x32) ]         │
-└─────────────────────────────────────────────────────────────────────────────────────────────┘
-```
+| Reihe | Anschlüsse |
+|---|---|
+| **Analoge Eingänge** | XLR-Eingänge 1–16 und 17–32 |
+| **Analoge Ausgänge** | XLR-Ausgänge 1–16, Aux Out 1–6 (Klinke) + Cinch 5–6 |
+| **Aux-Eingänge** | Aux In 1–6 (Klinke) + Cinch 5–6 |
+| **Digital & Steuerung** | AES50 Port A und B, Ultranet P16, Remote-Ethernet, MIDI In / Out |
+| **Karte & Strom** | X-USB / X-LIVE-Erweiterungsschacht (32×32), Netzschalter und Kaltgerätebuchse |
 
 | Anschluss / Schnittstelle | Steckertyp | Funktion & Einsatzzweck |
 |---|---|---|

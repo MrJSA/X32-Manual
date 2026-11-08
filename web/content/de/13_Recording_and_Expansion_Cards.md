@@ -10,14 +10,11 @@ Dieses Kapitel beschreibt den integrierten 2-Spur-USB-Recorder, das standardmä�
 
 Die USB-Typ-A-Buchse auf der Bedienoberfläche ermöglicht direkte Stereo-WAV-Aufnahmen und -Wiedergaben ohne externen Computer.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ TECHNISCHE DATEN DES 2-SPUR-USB-RECORDERS:                  │
-│ - Format: Stereo WAV, 16-Bit unkomprimiert                  │
-│ - Abtastrate: 44,1 kHz oder 48 kHz (entspricht Pult-Clock)  │
-│ - Speichermedium-Formatierung: ZWINGEND FAT32 (max. 32 GB)  │
-└─────────────────────────────────────────────────────────────┘
-```
+| Eigenschaft | Wert |
+|---|---|
+| **Format** | Stereo-WAV, 16 Bit, unkomprimiert |
+| **Abtastrate** | 44,1 kHz oder 48 kHz (folgt der Pult-Clock) |
+| **USB-Stick** | Muss **FAT32**-formatiert sein (max. 32-GB-Partition) |
 
 ### Aufnahme einrichten:
 1. Zu **HOME → TAPE (USB REC)** navigieren (oder die Taste neben dem Display drücken).
@@ -37,17 +34,10 @@ Die USB-Typ-A-Buchse auf der Bedienoberfläche ermöglicht direkte Stereo-WAV-Au
 
 Serienmäßig in den meisten X32-Konsolen verbaut, verwandelt die **X-USB**-Karte das Mischpult in ein 32-Ein- / 32-Ausgangs-USB-2.0-Audiointerface für Digital Audio Workstations (DAWs) wie Reaper, Pro Tools, Logic Pro, Ableton Live und Studio One.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                 X-USB 32x32 ARCHITEKTUR                     │
-├─────────────────────────────────────────────────────────────┤
-│ PULTEINGÄNGE (1–32) ──► Card Out ──► USB-Kabel ──► DAW      │
-│ (Direkte Vorverstärker-Abgriffe bei IN/LC)                  │
-│                                                             │
-│ DAW-PLAYBACK-SPUREN (1–32) ◄── Inputs ◄── USB-Kabel ◄── DAW │
-│ (Virtual Soundcheck Playback)                               │
-└─────────────────────────────────────────────────────────────┘
-```
+| Richtung | Weg | Einsatz |
+|---|---|---|
+| **Aufnahme** | Pultkanäle 1–32 (Abgriff In/LC) → Card Out → USB → DAW | Mehrspuraufnahme |
+| **Wiedergabe** | DAW-Spuren 1–32 → USB → Karteneingänge → Pultkanäle | Virtueller Soundcheck |
 
 ### Treiber- & Betriebssystem-Konfiguration:
 - **Windows**: Benötigt den offiziellen Behringer/Midas ASIO-Treiber. Puffergröße auf **64–128 Samples** für latenzarmes Software-Monitoring einstellen, oder auf **256–512 Samples** für absolut stabile Live-Aufnahmen.
@@ -70,20 +60,13 @@ Serienmäßig in den meisten X32-Konsolen verbaut, verwandelt die **X-USB**-Kart
 
 Die **X-LIVE**-Erweiterungskarte macht einen Laptop bei Live-Konzerten komplett überflüssig:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│               X-LIVE SYSTEM-HIGHLIGHTS                      │
-├─────────────────────────────────────────────────────────────┤
-│ - BIS ZU 32 KANÄLE GLEICHZEITIG direkt auf Standard-SD/     │
-│   SDHC/SDXC-Karten aufnehmen und abspielen.                 │
-│ - REDUNDANTE DOPPEL-SD-SLOTS: Nahtloses Überblenden über    │
-│   Kartengrenzen hinweg (Seamless Spanning), ohne auch nur   │
-│   ein einziges Audio-Sample zu verlieren!                   │
-│ - MARKER-FUNKTION: Während des Konzerts Song-Marker setzen, │
-│   um bei späteren Proben direkt zu Titeln zu springen.      │
-│ - Paralleler Betrieb als USB-Audiointerface möglich.        │
-└─────────────────────────────────────────────────────────────┘
-```
+| Merkmal | Details |
+|---|---|
+| **Kanäle** | 32 Kanäle gleichzeitig, 32 Bit / 48 kHz |
+| **Medien** | Zwei SD-Kartenschächte (SD 1 und SD 2) |
+| **Datei-Übergang** | Überspringt die FAT32-Dateigrößengrenze und wechselt die Karte, ohne ein einziges Sample zu verlieren |
+| **Marker** | Song-Marker während der Show setzen, um in der Probe zwischen Songs zu springen |
+| **USB** | Arbeitet gleichzeitig als USB-Audio-Interface |
 
 ### Empfohlene SD-Karten:
 Ausschließlich **Class 10 / UHS-1 / U3** SD-Karten renommierter Hersteller (SanDisk Extreme, Kingston Canvas) verwenden. Die Karten stets direkt im Setup-Menü des X32 als **FAT32** formatieren.
@@ -103,33 +86,11 @@ Die **X-DANTE**-Karte ersetzt die USB-Schnittstelle durch ein Audinate Dante IP-
 
 Ein **Virtueller Soundcheck** erlaubt es dem Tontechniker, die Band während der Probe aufzuzeichnen, die Musiker von der Bühne zu entlassen und anschließend die 32 aufgenommenen Spuren über die Pultkanäle wiederzugeben. So können EQs, Kompressoren, Gates und Halleffekte in aller Ruhe feingeschliffen werden – ohne die Stimmen und Nerven der Künstler zu strapazieren.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                 VIRTUAL-SOUNDCHECK WORKFLOW-PHASEN                          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ PHASE 1: PROBE AUFZEICHNEN                                                  │
-│ - Routing → Home: Kanäle 1–32 von Local / AES50-Stageboxen belegt.          │
-│ - Routing → Card Out: Kanäle 1–32 in DAW oder X-LIVE SD-Karte mitschneiden. │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ PHASE 2: MISCHPULT AUF WIEDERGABE-MODUS UMSTELLEN                           │
-│ - Zu ROUTING → HOME navigieren.                                             │
-│ - Eingänge 1-8   = [Card 1-8]                                               │
-│ - Eingänge 9-16  = [Card 9-16]                                              │
-│ - Eingänge 17-24 = [Card 17-24]                                             │
-│ - Eingänge 25-32 = [Card 25-32]                                             │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ PHASE 3: WIEDERGABE & MIX FEINSCHLEIFEN                                     │
-│ - Play in der DAW oder auf der X-LIVE starten.                              │
-│ - Die Pultkanäle 1–32 reagieren nun auf die aufgenommenen Spuren!           │
-│ - Kanal-EQs, Kompressoren, Gates und Hallfahnen exakt abstimmen.            │
-│ - Mit dem Tablet durch den Saal gehen und die Beschallung prüfen.           │
-│ - Per Sends on Faders die Bühnenmonitore und In-Ear-Mischungen optimieren.  │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ PHASE 4: ZURÜCK ZUM LIVE-MODUS SCHALTEN                                     │
-│ - Zu ROUTING → HOME navigieren.                                             │
-│ - Eingänge 1–32 zurück auf [Local 1–32] oder [AES50 A 1–32] patchen.        │
-│ - Das Mischpult ist live-bereit und perfekt für das Konzert abgestimmt!     │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Phase | Wo | Was zu tun ist |
+|---|---|---|
+| **1. Probe aufnehmen** | Routing → Home, Routing → Card Out | Eingänge 1–32 kommen von Local / AES50-Stageboxen; Kanäle 1–32 in die DAW oder auf die X-LIVE-SD-Karte aufnehmen |
+| **2. Auf Wiedergabe umschalten** | Routing → Home | Eingänge 1–8, 9–16, 17–24 und 25–32 auf **Card 1–8 … Card 25–32** stellen |
+| **3. Abspielen und mischen** | DAW oder X-LIVE | Play drücken — die Kanäle 1–32 erhalten nun die aufgenommenen Spuren. EQ, Kompressoren, Gates und Hall anpassen, mit dem Tablet durch den Saal gehen, Monitore und In-Ears per Sends on Faders verfeinern |
+| **4. Zurück zu live** | Routing → Home | Eingänge 1–32 wieder auf **Local 1–32** oder **AES50 A 1–32** stellen — das Pult ist live und für die Show eingestellt |
 
 > **Profi-Tipp:** Phase 2 und Phase 4 in zwei separaten **Snippets** (`Snippet 01: VSC WIEDERGABE` und `Snippet 02: LIVE EINGÄNGE`) speichern, bei denen ausschließlich das Häkchen bei **Routing** gesetzt ist. Damit schaltet ein einziger Tastendruck das gesamte Pult zwischen virtuellem Soundcheck und Live-Betrieb um!

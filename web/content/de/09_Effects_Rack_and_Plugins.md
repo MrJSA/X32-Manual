@@ -10,33 +10,18 @@ Dieses Kapitel beschreibt die Rack-Architektur, den Signalfluss Send vs. Insert,
 
 Die 8 FX-Slots unterliegen festen Architektur-Regeln:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ FX-SLOTS 1 BIS 4 (DOPPELTE NUTZUNG):                                        │
-│ - Modus A: SEND / RETURN (Reverbs, Delays, Modulationseffekte)              │
-│   Gespeist von Mix-Bus 13–16 ──► Bearbeitung in FX 1–4 ──► FX-1–4-Returns   │
-│ - Modus B: INSERT-PROZESSOR                                                 │
-│   Direkt eingeschleift in Kanäle, Mix-Busse, Matrizen oder Main LR          │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ FX-SLOTS 5 BIS 8 (AUSSCHLIESSLICH INSERT):                                  │
-│ - Nur für Inserts in Kanälen, Bussen, Matrizen oder Main LR.                │
-│   (Grafische EQs, Vintage-Kompressoren, Pultec-EQs, De-Esser, Enhancer)     │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| FX-Slots | Nutzbar als | Typische Prozessoren |
+|---|---|---|
+| **1–4** (doppelte Nutzung) | **Send / Return** — gespeist von den Mix-Bussen 13–16, Rückweg über die FX-1–4-Return-Fader | Reverbs, Delays, Modulation |
+| | **Insert** — direkt in Kanälen, Mix-Bussen, Matrizen oder Main LR | Jeder Insert-Effekt |
+| **5–8** (nur Insert) | **Insert** in Kanälen, Bussen, Matrizen oder Main LR | Grafische EQs, Vintage-Kompressoren, Pultec-EQs, De-Esser, Enhancer |
 
 ### Die zwei Signal-Workflows:
 
-```
-A. SEND / RETURN (zeitbasierte Effekte):
-   Kanal-Fader ──► Mix-Bus 13 (Post-Fader-Send) ──► FX-Slot 1 (Reverb)
-                                                              │
-   FX-1-Return-Fader (Aux/FX-Layer) ◄─────────────────────────┘
-   (Regelt den gesamten Hall-Anteil im Main LR)
-
-B. INSERT (Dynamik & Klangformer):
-   Kanal-In ──► Low Cut ──► Gate ──► [INSERT-PUNKT: FX 5 (1176)] ──► EQ ──► Fader
-   (100 % des Kanalsignals laufen seriell durch den Prozessor)
-```
+| Workflow | Signalweg | Was Sie steuern |
+|---|---|---|
+| **A. Send / Return** (zeitbasierte Effekte) | Kanalfader → Mix-Bus 13 (Post-Fader-Send) → FX-Slot 1 (Reverb) → FX-1-Return-Fader (Aux/FX-Layer) | Der Return-Fader regelt den gesamten Hallanteil im Main LR |
+| **B. Insert** (Dynamik & Klangformer) | Kanal-In → Low Cut → Gate → **Insert-Punkt: FX 5 (1176)** → EQ → Fader | 100 % des Kanalsignals laufen seriell durch den Prozessor |
 
 ---
 
@@ -45,16 +30,13 @@ B. INSERT (Dynamik & Klangformer):
 ### A. Ultimo Compressor (Emulation des UREI 1176LN Peak Limiter)
 Der schnellste und druckvollste Analog-Kompressor der Aufnahmegeschichte – nachgebildet wird eine extrem schnelle Gain-Reduction-Schaltung mit Feldeffekttransistor (FET).
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ BEDIENELEMENTE ULTIMO COMPRESSOR:                                           │
-│ - INPUT: Treibt das Signal in den Threshold (mehr Input = mehr Kompression) │
-│ - OUTPUT: Make-up-Ausgangspegel                                             │
-│ - ATTACK: 20 bis 800 Mikrosekunden (*Hinweis: 7 ist am schnellsten!*)       │
-│ - RELEASE: 50 bis 1100 Millisekunden (*Hinweis: 7 ist am schnellsten!*)     │
-│ - RATIO: 4:1 (sanft), 8:1, 12:1, 20:1 und „ALL“ (britischer 4-Tasten-Modus) │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Regler | Bereich | Hinweise |
+|---|---|---|
+| **Input** | — | Treibt das Signal in den Threshold: mehr Input = mehr Kompression |
+| **Output** | — | Make-up-Ausgangspegel |
+| **Attack** | 20–800 µs | **7 ist am schnellsten, 1 am langsamsten** |
+| **Release** | 50–1100 ms | **7 ist am schnellsten, 1 am langsamsten** |
+| **Ratio** | 4:1, 8:1, 12:1, 20:1, **ALL** | 4:1 ist sanft; ALL ist der britische „All-Buttons-In“-Modus |
 - **Ideal für**: Snare (mehr Crack und Körper), aggressive Rock-Vocals, Biss beim E-Bass und parallele Drum-Subgruppen.
 - **Der „All-Buttons-In“-Modus**: Ratio-Taste `ALL` wählen. Die Kompressorschaltung verzerrt musikalisch, hebt den Raumanteil drastisch an und erzeugt den klassisch aggressiven „Drum-Crush“-Sound.
 

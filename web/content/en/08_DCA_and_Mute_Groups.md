@@ -10,25 +10,15 @@ This chapter details DCA architecture, the critical pre/post-fader send behavior
 
 A DCA functions as a remote control for a group of channel faders. Borrowed from analog VCA (Voltage Controlled Amplifier) design, **no audio signal ever passes through a DCA**.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                       HOW A DCA WORKS                       │
-├─────────────────────────────────────────────────────────────┤
-│ Channel 1 (Kick)   ──► Fader at   0 dB                      │
-│ Channel 2 (Snare)  ──► Fader at  -6 dB                      │
-│ Channel 3 (Toms)   ──► Fader at  -3 dB                      │
-│                                                             │
-│ All 3 assigned to DCA 1 (Drums).                            │
-│                                                             │
-│ When DCA 1 Fader is pulled down by -4 dB:                   │
-│   Channel 1 effectively becomes  -4 dB                      │
-│   Channel 2 effectively becomes -10 dB                      │
-│   Channel 3 effectively becomes  -7 dB                      │
-│                                                             │
-│ *The internal relative mix balance between channels is     │
-│  preserved perfectly!                                       │
-└─────────────────────────────────────────────────────────────┘
-```
+Example: three drum channels assigned to **DCA 1 (Drums)**, and the DCA fader pulled down by **4 dB**:
+
+| Channel | Channel fader | DCA 1 | Effective level |
+|---|---|---|---|
+| **Ch 1 – Kick** | 0 dB | -4 dB | **-4 dB** |
+| **Ch 2 – Snare** | -6 dB | -4 dB | **-10 dB** |
+| **Ch 3 – Toms** | -3 dB | -4 dB | **-7 dB** |
+
+The balance between the channels stays exactly the same.
 
 ### Why Use DCAs Instead of Subgroups?
 - **Zero DSP Overhead**: DCAs consume no internal mix buses, EQs, or dynamics blocks.
@@ -66,20 +56,10 @@ A proven 8-DCA configuration for live concerts and house-of-worship services:
 
 This is one of the most common operational errors on digital consoles:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                DCA FADER BEHAVIOR ON SENDS                  │
-├─────────────────────────────────────────────────────────────┤
-│ 1. POST-FADER SENDS (Reverbs, Delays, Broadcast Matrix)     │
-│    ► YES: DCA movements DO affect post-fader sends.         │
-│      Pulling down the Drum DCA pulls down drum reverb sends.│
-├─────────────────────────────────────────────────────────────┤
-│ 2. PRE-FADER SENDS (Stage Wedges & Musician In-Ear Monitors)│
-│    ► NO: DCA movements DO NOT affect pre-fader sends!       │
-│      Pulling down the Vocal DCA leaves stage in-ears        │
-│      completely unchanged!                                  │
-└─────────────────────────────────────────────────────────────┘
-```
+| Send type | Typical use | Does the DCA affect it? |
+|---|---|---|
+| **Post-fader sends** | Reverbs, delays, broadcast matrix | **Yes** — pulling down the drum DCA also lowers the drum reverb sends |
+| **Pre-fader sends** | Stage wedges, in-ear monitors | **No** — pulling down the vocal DCA leaves the in-ears completely unchanged |
 
 ### The Real-World Disaster Scenario:
 A lead singer gestures from the stage that their vocal microphone is blasting their ears. The FOH engineer pulls down DCA 5 (Lead Vox) by 10 dB. The house audience can now barely hear the singer, but **the singer's in-ear volume has not changed by a single decibel**.
@@ -92,30 +72,11 @@ A lead singer gestures from the stage that their vocal microphone is blasting th
 
 In firmware 4.x, the X32 introduced **DCA Spill**, eliminating the need to scroll through fader banks to locate individual instruments.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      DCA SPILL WORKFLOW                     │
-├─────────────────────────────────────────────────────────────┤
-│ 1. PRESS the SELECT button on any DCA (e.g., DCA 1).        │
-│                                                             │
-│ 2. The Left 16 Faders INSTANTLY SPILL:                      │
-│    Fader 1 = Kick In                                        │
-│    Fader 2 = Kick Out                                       │
-│    Fader 3 = Snare Top                                      │
-│    Fader 4 = Snare Bottom                                   │
-│    Fader 5 = Rack Tom                                       │
-│    Fader 6 = Floor Tom                                      │
-│    Fader 7 = Hi-Hat                                         │
-│    Fader 8 = Overheads                                      │
-│                                                             │
-│ 3. Make quick surgical tweaks to snare or kick faders.      │
-│    (Buses assigned to the DCA, e.g. drum subgroups, spill   │
-│    out alongside the channels.)                             │
-│                                                             │
-│ 4. PRESS the DCA SELECT button again to UN-SPILL.           │
-│    The left faders immediately return to their normal bank! │
-└─────────────────────────────────────────────────────────────┘
-```
+| Step | Action | Result |
+|---|---|---|
+| **1** | Press the **SELECT** button of a DCA (e.g. DCA 1) | The left 16 faders instantly show that DCA's members |
+| **2** | Adjust the spilled faders | e.g. Kick In, Kick Out, Snare Top, Snare Bottom, Rack Tom, Floor Tom, Hi-Hat, Overheads — buses assigned to the DCA (such as drum subgroups) spill out too |
+| **3** | Press the DCA's **SELECT** button again | The left faders return to their normal bank |
 
 ---
 
@@ -125,14 +86,14 @@ Located directly below the main 7" display, the console features **6 dedicated M
 
 ### Standard Mute Group Configuration:
 
-```
-[MUTE GRP 1] : ALL BAND (Mutes all drum, bass, guitar, and keyboard channels)
-[MUTE GRP 2] : VOCALS (Mutes all singing vocal microphones)
-[MUTE GRP 3] : FX MUTE (CRITICAL: Mutes all Reverb & Delay returns!)
-[MUTE GRP 4] : STAGE DIs (Mutes acoustic guitars, bass DI, and keyboard lines)
-[MUTE GRP 5] : MEDIA / PLAYBACK (Mutes walk-in music and video playback)
-[MUTE GRP 6] : ALL MUTE (Emergency mute for the entire stage)
-```
+| Mute group | Name | Mutes |
+|---|---|---|
+| **1** | All band | Drum, bass, guitar and keyboard channels |
+| **2** | Vocals | All singing microphones |
+| **3** | FX mute | All reverb and delay returns — **essential** |
+| **4** | Stage DIs | Acoustic guitars, bass DI and keyboard lines |
+| **5** | Media / playback | Walk-in music and video playback |
+| **6** | All mute | Emergency mute for the whole stage |
 
 ### Why "FX MUTE" is Mandatory:
 Between songs, when the lead vocalist or pastor begins talking to the congregation or audience, having a giant 3.5-second hall reverb tail on their speech sounds amateurish and destroys intelligibility. 

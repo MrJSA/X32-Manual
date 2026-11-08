@@ -10,28 +10,12 @@ Dieses Kapitel erklärt die Hierarchie der Show-Steuerung, die chirurgische Snip
 
 Die Konsole strukturiert Automationsdaten in drei absteigenden Ebenen, die von einer übergeordneten Cue-Liste gesteuert werden:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ MASTER-SHOW-DATEI (*.shw)                                                   │
-│ Vollständiges Show-Archiv auf USB mit allen Cues, Szenen & Snippets         │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 1. CUES (000 bis 499 ── 500 Einträge insgesamt)                             │
-│    Die zentrale Live-Ablaufliste (Run-Sheet). Jeder Cue kann auslösen:      │
-│    ├── Eine Szene (Lädt einen kompletten Mischpult-Gesamtzustand)           │
-│    ├── Ein Snippet (Führt gezielte, partielle Parameter-Änderungen aus)     │
-│    └── Einen MIDI-Befehl (Sendet Programmwechsel, CC oder Lichtimpulse)     │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 2. SZENEN (00 bis 99 ── 100 Einträge insgesamt)                             │
-│    Ein vollständiger Snapshot des GESAMTEN Mischpults:                      │
-│    Alle 32 Kanäle, 16 Busse, 6 Matrizen, Preamps, Routing, FX-Rack,         │
-│    Fader-Positionen, Mutes, Scribble-Strips und Systemeinstellungen.        │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 3. SNIPPETS (00 bis 99 ── 100 Einträge insgesamt)                           │
-│    Gezielte, chirurgische Teil-Aufrufe:                                     │
-│    Ruft NUR die spezifisch selektierten Kanäle, Busse oder Signalblöcke auf │
-│    (z. B. ändert nur den Lead-Vocal-EQ, ohne Fader oder Preamps anzurühren).│
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Ebene | Bereich | Was sie speichert / auslöst |
+|---|---|---|
+| **Show-Datei** (`*.shw`) | Eine pro Show | Die komplette Sicherung auf USB mit allen Cues, Szenen und Snippets |
+| **Cues** | 000–499 (500 Einträge) | Der Live-Ablauf. Jeder Cue kann eine **Szene** (kompletter Pultzustand), ein **Snippet** (gezielte Änderungen) und/oder einen **MIDI-Befehl** (Program Change, CC oder Licht-Cue) auslösen |
+| **Szenen** | 00–99 (100 Einträge) | Eine Momentaufnahme des **gesamten** Pultes: alle 32 Kanäle, 16 Busse, 6 Matrizen, Preamps, Routing, Effekt-Rack, Fader, Mutes, Scribble-Strips und Einstellungen |
+| **Snippets** | 00–99 (100 Einträge) | Gezielte Teil-Abrufe: **nur** die gewählten Kanäle, Busse oder Bearbeitungsblöcke (z. B. nur der EQ des Lead-Gesangs, ohne Fader oder Gain zu berühren) |
 
 ---
 
@@ -51,17 +35,12 @@ Die Konsole strukturiert Automationsdaten in drei absteigenden Ebenen, die von e
 
 Snippets ermöglichen es Tontechnikern, gezielte Anpassungen vorzunehmen, ohne Gefahr zu laufen, den gesamten Live-Mix zu zerstören:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                 SNIPPET-ERSTELLUNGSMATRIX                   │
-├─────────────────────────────────────────────────────────────┤
-│ ZIEL-KANÄLE:           ZU LADENDE PARAMETER:                │
-│ [X] Kanal 1 (Lead-Voc) [ ] Config / Preamp   [X] Equalizer  │
-│ [ ] Kanal 2 (Gitarre)  [ ] Gate              [X] Dynamics   │
-│ [ ] Kanal 3 (Bass)     [ ] Inserts           [ ] Fader/Mute │
-│ [ ] Kanäle 4-32        [ ] Sends             [ ] Scribble   │
-└─────────────────────────────────────────────────────────────┘
-```
+Beispiel: ein Snippet, das nur EQ und Dynamik des Lead-Gesangs ändert.
+
+| | Enthalten | Nicht enthalten |
+|---|---|---|
+| **Kanäle** | Kanal 1 (Lead-Gesang) | Kanal 2 (Gitarre), Kanal 3 (Bass), Kanäle 4–32 |
+| **Parameter** | Equalizer, Dynamik | Config / Preamp, Gate, Inserts, Sends, Fader / Mute, Scribble-Strip |
 
 ### Praxis-Beispiele für Snippets:
 1. **Gast-Sänger EQ & Kompression**:
@@ -79,23 +58,12 @@ Snippets ermöglichen es Tontechnikern, gezielte Anpassungen vorzunehmen, ohne G
 
 Safes schützen definierte Kanäle oder Signalblöcke davor, beim Laden einer neuen Szene überschrieben zu werden.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ 1. PARAMETER-SAFES (GLOBAL):                                                │
-│    Schützt ganze Funktionsbereiche über ALLE Szenen hinweg:                 │
-│    - ROUTING SAFE: Verhindert, dass Szenen Ein-/Ausgangs-Patching verändern.│
-│    - PREAMP SAFE: Verhindert das Überschreiben der analogen Gain-Werte.     │
-│    - FX RACK SAFE: Verhindert das Neuladen der Effekt-Plugin-Slots.         │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ 2. KANAL-SAFES (PRO KANAL):                                                 │
-│    Schützt einzelne Kanäle vor JEDEM Szenenaufruf:                          │
-│    - Beispiel: Kanal 32 ist das Mikrofon des Moderators / Sprechers.        │
-│    - Kanal-Safe auf Kanal 32 aktivieren.                                    │
-│    - Nun können 20 verschiedene musikalische Songszenen für die Band        │
-│      geladen werden, ohne dass Fader, EQ oder Gain des Moderatormikrofons   │
-│      auch nur ein einziges Mal verändert werden!                            │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Safe | Gültigkeit | Schützt | Beispiel |
+|---|---|---|---|
+| **Routing Safe** | Global (alle Szenen) | Ein- und Ausgangs-Patching | Szenen patchen die Bühne nie um |
+| **Preamp Safe** | Global (alle Szenen) | Analoge Vorverstärker-Pegel | Szenen ändern nie den Gain |
+| **FX Rack Safe** | Global (alle Szenen) | Effekt-Slots | Szenen laden nie Plugins neu |
+| **Channel Safe** | Pro Kanal | Alles in diesem Kanal | Channel Safe auf Kanal 32 (Pastor / Moderation): 20 Band-Szenen abrufen, und Fader, EQ und Preamp dieses Mikrofons ändern sich **nie** |
 
 ### Das Prinzip "Safe on Recall":
 > **Wichtige Regel:** Parameter- und Kanal-Safes greifen im **Moment des Ladens (Recall)**, nicht beim Speichern.
@@ -107,17 +75,13 @@ Safes schützen definierte Kanäle oder Signalblöcke davor, beim Laden einer ne
 
 Der Reiter **CUES** fasst Szenen, Snippets und externe MIDI-Befehle in einer fortlaufenden Liste zusammen:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ CUE-LISTE (Theater / Konzert-Ablaufplan):                                   │
-│                                                                             │
-│ Cue 01: "Einlass / Walk-In" ──► Lädt Szene 01 (Pausenmusik / Grund-Setup)   │
-│ Cue 02: "Song 1 - Rock"     ──► Lädt Szene 02 + MIDI: Program Change 1      │
-│ Cue 03: "Gitarrensolo"      ──► Lädt Snippet 12 (Gitarren-Boost +4 dB)      │
-│ Cue 04: "Akustik-Ballade"   ──► Lädt Szene 03 + MIDI: Program Change 2      │
-│ Cue 05: "Moderation"        ──► Lädt Snippet 08 (Band-Mute + FX-Mute EIN)   │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Cue | Name | Löst aus |
+|---|---|---|
+| **01** | Intro / Einlass | Szene 01 (Einlassmusik-Preset) |
+| **02** | Song 1 – Rock | Szene 02 + MIDI Program Change 1 (Keys) |
+| **03** | Gitarrensolo | Snippet 12 (Gitarre +4 dB) |
+| **04** | Akustik-Ballade | Szene 03 + MIDI Program Change 2 |
+| **05** | Predigt / Ansprache | Snippet 08 (Band-Mute + FX-Mute ein) |
 
 ### Zuweisung von Hardware-Tastern zum Weiterschalten:
 Um Cues während einer Live-Show nahtlos weiterzuschalten, ohne den Bildschirm zu berühren:

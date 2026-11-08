@@ -13,17 +13,13 @@ The 16 Mix Buses serve multiple roles across live and studio environments:
 - **Effects Sends**: Feeding internal reverb, delay, and modulation processors (typically Buses 13–16).
 - **Audio Subgroups**: Grouping drums, backing vocals, or horns for collective bus processing.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ 16 MIX BUSES CAN BE CONFIGURED AS:                                          │
-│                                                                             │
-│ [Pre-EQ]    ──► Picked before channel EQ/Dynamics (Raw, unaffected tone)    │
-│ [Post-EQ]   ──► Picked after EQ, before Compressor (No compression pumping) │
-│ [Pre-Fader] ──► Picked after EQ & Dynamics; INDEPENDENT of channel fader   │
-│ [Post-Fader]──► Picked after Fader, Pan & Mute (Follows FOH fader balance) │
-│ [Subgroup]  ──► Fixed 0 dB summing into bus; fader controls group volume    │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Tap | Picks up the signal … | Result |
+|---|---|---|
+| **Pre-EQ** | Before the channel EQ and dynamics | Raw, unprocessed tone |
+| **Post-EQ** | After the EQ, before the compressor | No compressor pumping |
+| **Pre-Fader** | After EQ and dynamics | **Independent** of the channel fader |
+| **Post-Fader** | After fader, pan and mute | Follows the FOH fader balance |
+| **Subgroup** | Fixed 0 dB into the bus | The bus fader controls the group volume |
 
 ### Mix Bus Processing Capabilities:
 Every one of the 16 mix buses features its own complete processing chain:
@@ -39,22 +35,12 @@ Every one of the 16 mix buses features its own complete processing chain:
 
 Mixing stage monitors and effects sends using small rotary knobs can be slow and inaccurate. The **Sends on Faders** mode transforms the motorized faders into physical send controls.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                       [SENDS ON FADER] (Flashing Red)                       │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ METHOD 1: SELECT A BUS (e.g., Bus 1 - Vocalist Wedge)                       │
-│ - Press SENDS ON FADER (flashes red).                                       │
-│ - Left 16 Faders now represent CHANNEL SENDS into Bus 1!                    │
-│   (Fader 1 = Kick into Bus 1, Fader 2 = Snare into Bus 1, etc.)             │
-│ - Right Bus Fader controls the overall master volume of Bus 1.              │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ METHOD 2: SELECT A CHANNEL (e.g., Channel 1 - Lead Vocal)                   │
-│ - Press SENDS ON FADER (flashes red).                                       │
-│ - Right 8 Faders now represent THAT CHANNEL'S SENDS to each Mix Bus!        │
-│   (Fader 1 = Vox to Bus 1, Fader 2 = Vox to Bus 2, etc.)                    │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+Press **SENDS ON FADER** (it flashes red), then either:
+
+| Method | You select … | The faders then show … | Example |
+|---|---|---|---|
+| **1 – Bus view** | A bus (e.g. Bus 1, vocalist wedge) | Left 16 faders = **each channel's send into that bus**; the bus fader = the bus master | Fader 1 = kick into Bus 1, fader 2 = snare into Bus 1 |
+| **2 – Channel view** | A channel (e.g. Ch 1, lead vocal) | Right 8 faders = **that channel's send to each mix bus** | Fader 1 = vocal to Bus 1, fader 2 = vocal to Bus 2 |
 
 ### To Exit Sends on Faders:
 Press the flashing red **SENDS ON FADER** button again. The console faders instantly return to their normal house mix positions.
@@ -102,22 +88,10 @@ Many engineers confuse Subgroups and DCAs. While both allow controlling multiple
 
 Parallel compression blends an uncompressed, dynamic drum kit with an extremely smashed, aggressively compressed duplicate:
 
-```
-[DRUM CHANNELS 1-8]
-        │
-        ├──► Assigned to [MAIN STEREO LR] ──► (Dry, dynamic, punchy drum sound)
-        │
-        └──► Sent to [BUS 1-2 (SUBGROUP)]
-                     │
-                     ▼
-             [HEAVY COMPRESSOR]
-             - Fair Compressor or Ultimo 1176 (All-buttons mode)
-             - 10-15 dB of heavy gain reduction
-             - Fast attack, fast release
-                     │
-                     ▼
-             [BUS 1-2 FADER] ───────────────► Blend in under Main LR (-10 to -6 dB)
-```
+| Path | Routing | Processing | Result |
+|---|---|---|---|
+| **Dry** | Drum channels 1–8 → Main stereo LR | None extra | Dynamic, punchy drums |
+| **Crushed** | Drum channels 1–8 → Bus 1–2 (subgroup) → Main LR | Fair Compressor or Ultimo 1176 (all-buttons mode), 10–15 dB gain reduction, fast attack, fast release | Blend in under the dry drums with the Bus 1–2 fader at about -10 to -6 dB |
 
 *Result:* The dry drums preserve transient snap and stick attack, while the parallel crushed bus adds massive room tone, body, and sustain without muddying the mix.
 
@@ -127,15 +101,9 @@ Parallel compression blends an uncompressed, dynamic drum kit with an extremely 
 
 A Matrix mixer does not receive inputs from individual channels. Instead, it takes inputs from **Mix Buses 1–16, Main Left/Right, and Mono/Center**:
 
-```
-┌─────────────────┐
-│ Mix Buses 1-16  │ ──┐
-├─────────────────┤   │      ┌──────────────┐
-│ Main Left/Right │ ──┼─────►│ MATRIX 1 - 6 │ ──► [Analog XLR Outputs]
-├─────────────────┤   │      └──────────────┘
-│ Mono / Center   │ ──┘
-└─────────────────┘
-```
+| Matrix inputs | Matrix | Outputs |
+|---|---|---|
+| Mix buses 1–16, Main Left/Right, Mono / Center | **Matrix 1–6** | Analog XLR outputs (or any other output) |
 
 ### Why Use Matrices for PA System Distribution?
 Feeding your PA amplifiers or active speakers directly from the Main LR fader leaves you vulnerable: if someone bumps the master fader, speaker tuning and delays are disturbed. By feeding PA zones through Matrices, your Main LR fader mixes the show, while Matrices manage speaker processing.
@@ -147,14 +115,14 @@ Feeding your PA amplifiers or active speakers directly from the Main LR fader le
 
 ### Typical Matrix Distribution Setup:
 
-```
-MATRIX 1 (Left PA Main)      ◄── Fed from Main L (Post-Fader)
-MATRIX 2 (Right PA Main)     ◄── Fed from Main R (Post-Fader)
-MATRIX 3 (Front Fills)       ◄── Fed from Main L/R (Post-Fader, delayed ~18 ms, HPF 120 Hz)
-MATRIX 4 (Delay Balcony)     ◄── Fed from Main L/R (Post-Fader, delayed ~45 ms)
-MATRIX 5 (Live Stream / Web) ◄── Fed from Main L/R + Ambient Stage Mics (Limiter at -14 LUFS)
-MATRIX 6 (Cry Room / Foyer)  ◄── Fed from Main L/R (Mono summed)
-```
+| Matrix | Zone | Fed from | Processing |
+|---|---|---|---|
+| **1** | Left PA main | Main L, post-fader | |
+| **2** | Right PA main | Main R, post-fader | |
+| **3** | Front fills | Main L/R, post-fader | Delay ~18 ms, HPF 120 Hz |
+| **4** | Balcony delays | Main L/R, post-fader | Delay ~45 ms |
+| **5** | Live stream / web | Main L/R + ambient stage mics | Limiter, -14 LUFS |
+| **6** | Cry room / foyer | Main L/R | Mono sum |
 
 ### Time-Aligning Delay Speakers:
 Sound travels through air at approximately **1.13 feet per millisecond (0.343 meters per millisecond)** at 20°C (68°F).

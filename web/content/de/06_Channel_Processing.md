@@ -10,58 +10,21 @@ Dieses Kapitel beschreibt den Signalfluss im Kanalzug, die Funktionsweise aller 
 
 Das Verständnis der internen Bearbeitungsreihenfolge ist entscheidend, um das Zusammenspiel von Filtern, Kompressor und Fader zu beherrschen:
 
-```
-[Eingangsquelle] (Lokale XLR, AES50, Card oder Aux)
-      │
-      ▼
-┌──────────────┐
-│ ANALOG GAIN  │  (Bzw. digitaler Trim bei aktivem HA Gain Split)
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ POLARITÄT (Ø)│  180° elektrische Phasenumkehr
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ LOW CUT      │  20 Hz - 400 Hz (12 dB/Oktave Hochpassfilter)
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ GATE / DUCK  │  Expander 2/3/4, Gate, Ducker (Sidechain-Filter)
-└──────┬───────┘
-      │
-      ├──────────────────────► [INSERT-PUNKT: PRE] (Internes Effektrack oder Aux)
-      ▼
-┌──────────────┐
-│ 4-BAND PEQ   │  Low, Lo-Mid, Hi-Mid, High (Low Cut, Shelving, PEQ, High Cut)
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ DYNAMIK      │  Kompressor / Limiter / Expander (RMS/Peak, Mix %)
-└──────┬───────┘
-      │
-      ├──────────────────────► [INSERT-PUNKT: POST] (Internes Effektrack oder Aux)
-      ▼
-┌──────────────┐
-│ KANAL-MUTE   │  Stummschaltung des Kanals (Pre/Post-Fader-Sends konfigurierbar)
-└──────┬───────┘
-      │
-      ▼
-┌──────────────┐
-│ 100mm FADER  │  Kanalpegel (-∞ bis +10 dB)
-└──────┬───────┘
-      │
-      ├──────────────────────► [PANORAMA / BALANCE] ──► MAIN STEREO BUS (L/R)
-      │                                             ──► MONO / CENTER BUS
-      ▼
-┌──────────────┐
-│ BUS SENDS    │  Mix-Busse 1-16 (Abgriff: In/LC, Pre-EQ, Post-EQ, Pre-Fade, Post-Fade)
-└──────────────┘
-```
+| # | Block | Bereich / Optionen | Hinweise |
+|---|---|---|---|
+| 1 | **Eingangsquelle** | Lokale XLR, AES50, Card oder Aux | |
+| 2 | **Analog Gain** | -12 bis +60 dB | Bei aktivem HA Gain Split stattdessen digitaler Trim |
+| 3 | **Polarität (Ø)** | Ein / aus | 180° elektrische Phasenumkehr |
+| 4 | **Low Cut** | 20–400 Hz, 12 dB/Okt. | Hochpassfilter |
+| 5 | **Gate / Duck** | Expander 2/3/4, Gate, Ducker | Mit Sidechain-Key-Filter |
+| — | *Insert-Punkt PRE* | Internes Effekt-Rack oder Aux | Optional |
+| 6 | **4-Band-PEQ** | Low, Lo-Mid, Hi-Mid, High | Low Cut, Shelving, PEQ, High Cut |
+| 7 | **Dynamik** | Kompressor / Limiter / Expander | RMS/Peak, paralleler Mix % |
+| — | *Insert-Punkt POST* | Internes Effekt-Rack oder Aux | Optional |
+| 8 | **Kanal-Mute** | Ein / aus | Wirkung auf Pre/Post-Fader-Sends einstellbar |
+| 9 | **100-mm-Fader** | -∞ bis +10 dB | |
+| 10 | **Panorama / Balance** | | → Main-Stereobus (L/R) und Mono-/Center-Bus |
+| 11 | **Bus-Sends** | Mix-Busse 1–16 | Abgriffe: In/LC, Pre-EQ, Post-EQ, Pre-Fade, Post-Fade, Subgroup |
 
 > [!NOTE]
 > **Reihenfolge von EQ und Dynamik umschaltbar:** Die Reihenfolge von Equalizer und Kompressor kann getauscht werden. Auf der Seite **Channel → Config** lässt sich **EQ Pre/Post Dyn** umschalten. Liegt der Kompressor *vor* dem EQ, verhindern spätere EQ-Anhebungen ein unerwünschtes Pumpen des Kompressors.
@@ -98,16 +61,13 @@ Das Low-Cut-Filter ist ein aktives Butterworth-Hochpassfilter mit 12 dB/Oktave F
 
 Das X32 bietet fünf verschiedene Betriebsmodi in der Gate-Sektion:
 
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ BETRIEBSMODI:                                                                │
-│ 1. EXPANDER 2 (1:2 Ratio)  - Sanfte Absenkung unterhalb des Schwellenwerts   │
-│ 2. EXPANDER 3 (1:3 Ratio)  - Mittlere Absenkung                              │
-│ 3. EXPANDER 4 (1:4 Ratio)  - Kräftige Absenkung                              │
-│ 4. GATE                    - Hartes Stummschalten unterhalb des Thresholds   │
-│ 5. DUCK                    - Senkt Signal ab, wenn Steuersignal Threshold ÜBERSTEIGT│
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+| Modus | Ratio | Verhalten |
+|---|---|---|
+| **Expander 2** | 1:2 | Sanfte Absenkung unterhalb des Thresholds |
+| **Expander 3** | 1:3 | Mittlere Absenkung |
+| **Expander 4** | 1:4 | Kräftige Absenkung |
+| **Gate** | — | Hartes Stummschalten unterhalb des Thresholds |
+| **Duck** | — | Senkt das Signal ab, wenn das **Steuersignal den Threshold übersteigt** |
 
 ### Parameter:
 - **Threshold** (-80 dB bis 0 dB): Schwellenwert, ab dem das Modul öffnet.
@@ -141,18 +101,18 @@ Das Steuersignal kann frequenzselektiv gefiltert werden:
 
 Jeder Eingangskanal verfügt über vier vollwertige parametrische Bänder. Band 1 (Low) und Band 4 (High) können alternativ als Kuhschwanz- (Shelving) oder Schnittfilter (Cut) arbeiten:
 
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  BAND 1 (LOW)     : Low Cut (12 dB/Okt), Low Shelving oder Parametrisch (PEQ)│
-│  BAND 2 (LO MID)  : Parametrisch (PEQ)                                       │
-│  BAND 3 (HI MID)  : Parametrisch (PEQ)                                       │
-│  BAND 4 (HIGH)    : High Cut (12 dB/Okt), High Shelving oder Parametrisch    │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Frequenzbereich  : 20 Hz bis 20 kHz (in feinen 1/3-Oktav-Schritten)         │
-│  Gain-Bereich     : -15.0 dB bis +15.0 dB (0,5-dB-Schritte)                  │
-│  Güte Q (Breite)  : 0.3 (breit, 2,5 Oktaven) bis 10.0 (chirurgisch schmal)   │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
+| Band | Filtertypen |
+|---|---|
+| **1 – Low** | Low Cut (12 dB/Okt.), Low Shelving oder parametrisch |
+| **2 – Lo Mid** | Parametrisch |
+| **3 – Hi Mid** | Parametrisch |
+| **4 – High** | High Cut (12 dB/Okt.), High Shelving oder parametrisch |
+
+| Parameter | Bereich |
+|---|---|
+| **Frequenz** | 20 Hz bis 20 kHz (feine 1/3-Oktav-Schritte) |
+| **Gain** | -15,0 dB bis +15,0 dB (0,5-dB-Schritte) |
+| **Q (Bandbreite)** | 0,3 (breit, 2,5 Oktaven) bis 10,0 (chirurgisch schmal, 1/10 Oktave) |
 
 ### Echtzeit-Analyzer (RTA):
 Drücken Sie `VIEW` im EQ-Bereich. Das Display blendet den 100-Band-RTA direkt hinter der Filterkurve ein:
@@ -169,33 +129,26 @@ So beseitigen Sie klingelnde Resonanzen, Feedback-Frequenzen oder nasale Töne:
 
 ### EQ-Spickzettel für Instrumente:
 
-```
-GESANG:
-  80-140 Hz  : Low Cut (gegen Explosivlaute und Bühnenrumpeln)
-  200-300 Hz : 2-3 dB absenken (weniger Matsch / Nahbesprechungseffekt)
-  1,0-1,5 kHz: schmal absenken (entfernt billigen „Megafon“-Klang)
-  3,0-4,0 kHz: sanft anheben (mehr Sprachverständlichkeit und Artikulation)
-  10-12 kHz  : High Shelf +2 dB (weicher, luftiger Glanz)
-
-SNARE:
-  80 Hz      : Low Cut
-  200-240 Hz : 2-4 dB anheben (Snare-„Fleisch“ und Körper)
-  600-900 Hz : schmale Kerbe -4 dB (entfernt hohlen Pappkarton-Ring)
-  2,5-3,5 kHz: 2-3 dB anheben (Stick-Anschlag und Attack)
-  8,0 kHz    : High Shelf (Teppich-Brillanz)
-
-BASSDRUM:
-  30 Hz      : Low Cut
-  50-70 Hz   : 3 dB anheben (Sub-Bass-Druck in der Brust)
-  250-400 Hz : 4-8 dB tief absenken (räumt den matschigen Pappkarton-Klang aus)
-  3,5-5,0 kHz: 3-5 dB anheben (Schlägel-Klick, setzt sich gegen dichte Gitarren durch)
-
-E-GITARRE:
-  80 Hz      : Low Cut
-  400-500 Hz : 2-3 dB absenken (entfernt Matsch, schafft Platz für den E-Bass)
-  2,0-3,5 kHz: sanft anheben (holt die Gitarre im Mix nach vorne)
-  6,5 kHz    : High Cut (entfernt digitales Amp-Modeler-Kratzen)
-```
+| Instrument | Frequenz | Einstellung | Warum |
+|---|---|---|---|
+| **Gesang** | 80–140 Hz | Low Cut | Gegen Explosivlaute und Bühnenrumpeln |
+| | 200–300 Hz | 2–3 dB absenken | Weniger Matsch / Nahbesprechungseffekt |
+| | 1,0–1,5 kHz | Schmal absenken | Entfernt den billigen „Megafon“-Klang |
+| | 3,0–4,0 kHz | Sanft anheben | Sprachverständlichkeit und Artikulation |
+| | 10–12 kHz | High Shelf +2 dB | Weicher, luftiger Glanz |
+| **Snare** | 80 Hz | Low Cut | |
+| | 200–240 Hz | 2–4 dB anheben | Snare-„Fleisch“ und Körper |
+| | 600–900 Hz | Schmale Kerbe -4 dB | Entfernt den hohlen Pappkarton-Ring |
+| | 2,5–3,5 kHz | 2–3 dB anheben | Stick-Anschlag und Attack |
+| | 8 kHz | High Shelf | Teppich-Brillanz |
+| **Bassdrum** | 30 Hz | Low Cut | |
+| | 50–70 Hz | 3 dB anheben | Sub-Bass-Druck |
+| | 250–400 Hz | 4–8 dB tief absenken | Räumt den matschigen Pappkarton-Klang aus |
+| | 3,5–5,0 kHz | 3–5 dB anheben | Schlägel-Klick, setzt sich gegen dichte Gitarren durch |
+| **E-Gitarre** | 80 Hz | Low Cut | |
+| | 400–500 Hz | 2–3 dB absenken | Entfernt Matsch, schafft Platz für den Bass |
+| | 2,0–3,5 kHz | Sanft anheben | Holt die Gitarre nach vorne |
+| | 6,5 kHz | High Cut | Entfernt digitales Amp-Modeler-Kratzen |
 
 ---
 
