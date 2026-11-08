@@ -31,6 +31,7 @@
 <Seo
 	title="{t.breadcrumbChapter} {data.chapter.number}: {data.chapter.title} | {t.brandBadge} {t.manualWord}"
 	description={data.chapter.summary}
+	article={{ headline: data.chapter.title, section: data.chapter.category }}
 />
 
 <div class="chapter-view">
