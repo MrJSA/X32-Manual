@@ -104,6 +104,9 @@ Die DAW oder Streaming-Software empfängt die Mischung auf den Card-Eingängen 3
 ### Szenario 5: Ein zweites Mischpult über AES50 B speisen
 Stellen Sie die AES50-B-Ausgänge auf **User Out 1-8 … 41-48**. Damit wählen Sie bis zu 48 Signale für das andere Pult aus: Eingänge beider Stageboxen, Card-Rückwege, beliebige Ausgänge, P16-Feeds oder den Monitorbus.
 
+### Szenario 6: Ausgewählte Kanäle durch Waves SuperRack
+Über User Out gehen nur die Eingänge zum Plugin-Computer, die Plugins brauchen. Über User In kommen sie auf ihre ursprünglichen Kanalnummern zurück, alle anderen Kanäle bleiben direkt. Die komplette Belegung steht in [Kapitel 17, Methode F](17_SuperRack_Routing_Methods.md#methode-f-user-routing-einzelne-kanale-auswahlen).
+
 ---
 
 ## 6. Typische Fehlerquellen

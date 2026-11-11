@@ -372,8 +372,8 @@ export const CHAPTER_DEFINITIONS: ChapterDefinition[] = [
 			de: 'SuperRack-Routing'
 		},
 		summary: {
-			en: 'Five recipes for the 32-channel card limit: direct input, aux inserts, hybrid 24 + 6, subgroups via Ultranet and User Routing, and X-DANTE with DVS.',
-			de: 'Fünf Rezepte für die 32-Kanal-Grenze der Karte: Direct Input, Aux-Inserts, Hybrid 24 + 6, Subgruppen über Ultranet und User Routing sowie X-DANTE mit DVS.'
+			en: 'Six recipes for the 32-channel card limit: direct input, aux inserts, hybrid 24 + 6, subgroups via Ultranet, X-DANTE with DVS, and picking channels with User Routing.',
+			de: 'Sechs Rezepte für die 32-Kanal-Grenze der Karte: Direct Input, Aux-Inserts, Hybrid 24 + 6, Subgruppen über Ultranet, X-DANTE mit DVS und Kanalauswahl per User Routing.'
 		},
 		category: {
 			en: 'Waves SuperRack Performer',

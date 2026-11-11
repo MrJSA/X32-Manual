@@ -2,7 +2,7 @@
 
 Die X32-Erweiterungskarte ist auf **32 Eingangs- und 32 Ausgangskanäle** begrenzt. Diese Grenze ist die zentrale Rahmenbedingung jedes SuperRack-Setups: Es muss entschieden werden, wie die 32 Sends und Returns auf **direkte Eingangsbearbeitung**, **Insert-Punkte** und **Bus-Bearbeitung** verteilt werden.
 
-Dieses Kapitel stellt fünf Routing-Rezepte vor, vom einfachsten bis zum anspruchsvollsten.
+Dieses Kapitel stellt sechs Routing-Rezepte vor. A bis E reichen vom einfachsten bis zum anspruchsvollsten; F nutzt das User Routing der Firmware 4, um einzelne Kanäle statt Achter-Blöcke auszuwählen.
 
 | Methode | Was wird bearbeitet | Belegte Kartenkanäle | Schwierigkeit |
 |---|---|---|---|
@@ -11,6 +11,7 @@ Dieses Kapitel stellt fünf Routing-Rezepte vor, vom einfachsten bis zum anspruc
 | **C: Hybrid 24 + 6** | 24 Eingänge direkt + 6 Insert-Punkte | 32 / 32 | Mittel |
 | **D: Inserts + Subgruppen + Eingänge** | 16 Eingänge + 6 Inserts + 8 Subgruppenkanäle (+ Stream-Signal) | 32 / 32 | Fortgeschritten |
 | **E: X-DANTE + Dante Virtual Soundcard** | Wie B, aber über Dante statt USB | Dante | Mittel |
+| **F: User Routing (Kanäle auswählen)** | 24 frei gewählte Kanäle + 6 Insert-Punkte + Stream-Signal, Kanalnummern bleiben gleich | 32 / 32 | Mittel |
 
 > **Vor dem Start:** Die Einrichtung aus [Kapitel 16](16_SuperRack_Performer_Setup.md) abschließen: 48 kHz, Karte im 32 × 32-Modus, Preamp-Gains eingestellt.
 
@@ -137,6 +138,8 @@ Bei AES50-Stageboxen `Local` entsprechend durch die Blöcke `AES50 A` / `AES50 B
 
 > **Tipp:** Die Racks nach den Pultkanälen benennen, nicht nach den Kartenkanälen: Rack 9 ist Kanal 1!
 
+> **Firmware 4:** Methode C ist an Achter-Blöcke gebunden: Die bearbeiteten Kanäle verschieben sich, und es sind immer die *letzten* acht Kanäle, die an SuperRack vorbeilaufen. [Methode F](#methode-f-user-routing-einzelne-kanale-auswahlen) nutzt User Routing, um genau die Kanäle auszuwählen, die Plugins bekommen, während jeder Kanal seine Nummer behält.
+
 ---
 
 ## Methode D: Inserts + Subgruppen über Ultranet + User Routing
@@ -246,6 +249,104 @@ Mit X-DANTE auf 0,25 ms, DVS auf 4 ms und 32 Samples Puffer beträgt der gesamte
 
 ---
 
+## Methode F: User Routing (einzelne Kanäle auswählen)
+
+Mit **User In / User Out** der Firmware 4 ([Kapitel 04](04_Firmware_4x_User_Routing.md)) muss die Karte keine ganzen Achter-Blöcke mehr übertragen. Jeder Kartenkanal kann einen beliebigen einzelnen Ein- oder Ausgang führen, und jeder Pultkanal kann von der Karte zurückkommen *oder* direkt von seinem physischen Eingang gespeist werden. Das ermöglicht drei Dinge, die mit Block-Routing nicht gehen:
+
+- **Kanäle auswählen:** Nur die Eingänge, die Plugins brauchen, gehen zu SuperRack, egal wo sie auf dem Pult liegen.
+- **Nummerierung behalten:** Kanal 1 bleibt Mikrofon 1, ob er durch SuperRack läuft oder nicht. Anders als bei Methode C verschiebt sich nichts.
+- **Sends frei kombinieren:** Insert-Sends, ausgewählte Eingänge und ein Stream-Signal teilen sich die 32 Kartenkanäle in beliebiger Aufteilung.
+
+> **Voraussetzung:** Firmware 4.0 oder neuer. Inserts kommen weiterhin über **Aux In = Card 1–6** zurück (der Aux-In-Block kann nur die ersten sechs Kartenkanäle nutzen), daher die Insert-Sends auf User Out 1–6 lassen.
+
+### Beispiel: 24 ausgewählte Kanäle + 6 Inserts + Stream-Signal
+
+Eine Band mit 32 Eingängen: Drums, Bass, Gitarren und Gesang bekommen Waves-Plugins, Keys, Playback-Spuren und Moderationsmikrofone bleiben nur im Pult. In diesem Beispiel steckt jedes Mikrofon im lokalen Eingang mit der Nummer seines Kanals.
+
+| Kanäle | Instrument | Durch SuperRack? |
+|---|---|---|
+| 1–10 | Drums | Ja |
+| 11–12 | Bass | Ja |
+| 13–16 | Gitarren | Ja |
+| 17–20 | Keys | Nein, direkt |
+| 21–28 | Gesang | Ja |
+| 29–32 | Playback, Moderationsmikrofone | Nein, direkt |
+
+### Belegung der Kartenkanäle
+
+| Kartenkanal | Card Out (User Out → SuperRack) | Card In (zurück zum Pult) |
+|---|---|---|
+| 1–6 | Aux Out 1–6 (Insert-Sends) | Aux In 1–6 (Insert-Returns) |
+| 7–8 | Out 15/16 = Stream-Mix | — (für OBS oder einen Recorder) |
+| 9–18 | Local 1–10 | → User In 1–10 → Ch 1–10 |
+| 19–24 | Local 11–16 | → User In 11–16 → Ch 11–16 |
+| 25–32 | Local 21–28 | → User In 21–28 → Ch 21–28 |
+| — | — | Ch 17–20 und 29–32: User In = Local, direkt |
+
+### Schritt für Schritt
+
+**1. Stream-Signal (optional):** den Stream-Mix, z. B. Matrix 1/2, auf `ROUTING → XLR Out 15/16` legen. Mix-Busse und Matrizen sind selbst keine User-Out-Quellen und brauchen deshalb zuerst einen physischen Ausgang.
+
+**2. `ROUTING → User` (Output-Patch, erster Encoder):**
+
+| User Out | Quelle |
+|---|---|
+| 1–6 | Aux Out 1–6 |
+| 7–8 | Out 15 / Out 16 |
+| 9–18 | Local 1–10 |
+| 19–24 | Local 11–16 |
+| 25–32 | Local 21–28 |
+
+**3. `ROUTING → Card Out`** = `User Out 1–8 / 9–16 / 17–24 / 25–32`.
+
+**4. `ROUTING → User` (Input-Patch):**
+
+| User In | Quelle |
+|---|---|
+| 1–16 | Card 9–24 (bearbeitet) |
+| 17–20 | Local 17–20 (direkt) |
+| 21–28 | Card 25–32 (bearbeitet) |
+| 29–32 | Local 29–32 (direkt) |
+
+**5. `ROUTING → Home`:** Eingangsblöcke 1–8 … 25–32 = `User In`, Aux In = `Card 1–6`.
+
+**6. Inserts** wie bei [Methode B](#methode-b-aux-insert-6-insert-punkte), z. B. Vocals 1–3 auf `Aux 1–3` (Post, für Waves Tune), Main LR auf `Aux 5` (belegt Aux 5 + 6).
+
+**7. SuperRack:**
+
+| Rack-Eingang | Rack-Name |
+|---|---|
+| Mono 1–3 | Gesangs-Inserts 1–3 |
+| Mono 4 | Reserve-Insert |
+| Stereo 5–6 | Main LR |
+| 7–8 | Kein Rack (Stream-Signal) |
+| Mono 9–24 | Ch 1–16 |
+| Mono 25–32 | Ch 21–28 |
+
+> **Tipp:** Den Pultkanal in jeden Rack-Namen schreiben. Kartenkanal und Pultkanal haben unterschiedliche Nummern, und in der Rack-Liste wird es sonst unübersichtlich.
+
+### Varianten
+- **Keine Inserts nötig?** Auch auf User Out 1–8 ausgewählte Eingänge legen. Dann gehen bis zu 32 Kanäle zu SuperRack (oder 30 plus ein Stereo-Stream-Signal), weiterhin in beliebiger Reihenfolge.
+- **Stageboxen:** In beiden Patches `AES50 A` / `AES50 B` statt `Local` verwenden. Eingänge mehrerer Stageboxen lassen sich frei kombinieren.
+- **Zwei Kanäle von einem Mikrofon:** Um einen Gesangskanal aus dem In-Ear-Weg herauszuhalten ([Kapitel 18](18_SuperRack_Latency_and_Buffer.md#in-ear-monitoring-die-doppel-patch-strategie)), einen User In auf den Karten-Return und einen weiteren User In auf denselben physischen Eingang legen. Der PA-Kanal bekommt die Plugins, der Monitor-Kanal bleibt direkt.
+
+### Preamps
+Der Gain gehört zum physischen Eingang. Bei den **direkten** Kanälen funktioniert der Gain-Regler des Kanals weiterhin. Bei Kanälen, die von der **Karte** zurückkommen, den Vorverstärker in `SETUP → Preamps` an der physischen Quelle einstellen (z. B. `Local 1–8`).
+
+### Rückfallebene
+Ob ein Kanal durch SuperRack läuft, entscheidet allein der User-In-Patch. Eine Szene oder einen Snippet nur mit Routing ([Kapitel 12](12_Scenes_Cues_and_Snippets.md)) speichern, der User In 1–32 zurück auf die physischen Eingänge setzt. Ein Abruf nimmt das komplette Setup vom Computer. Inserts werden wie gewohnt mit `INSERT` umgangen.
+
+### Eigenschaften
+- ✔ Beliebige Kanäle, keine Achter-Blöcke.
+- ✔ Kanalnummern, Szenen und Kanal-Presets bleiben mit und ohne SuperRack gleich.
+- ✔ Gleiche Latenz wie bei Methode A und B; Kanäle ohne SuperRack bekommen keine zusätzliche Latenz.
+- ✔ Keine Ultranet-Ausgänge nötig, P16 bleibt nutzbar (anders als bei Methode D).
+- ✘ Nur ab Firmware 4, und zwei Patch-Seiten müssen zusammenpassen: Notizen machen.
+- ✘ Insgesamt weiterhin 32 Kartenkanäle, und Inserts belegen Aux In/Out wie bei Methode B.
+- ✘ Keine Subgruppen-Bearbeitung ohne den Ultranet-Trick aus Methode D.
+
+---
+
 ## Die richtige Methode wählen
 
 | Ausgangslage | Methode |
@@ -255,3 +356,4 @@ Mit X-DANTE auf 0,25 ms, DVS auf 4 ms und 32 Samples Puffer beträgt der gesamte
 | Beides, und 8 Eingangskanäle können ohne Plugins auskommen | **C** |
 | Eingänge + Inserts + Gruppenbearbeitung, kein P16 im Einsatz | **D** |
 | Das Pult hat eine X-DANTE- statt einer USB-Karte | **E** |
+| Firmware 4: Plugins nur auf ausgewählten Kanälen, Kanalnummern bleiben gleich | **F** |

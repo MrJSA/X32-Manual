@@ -2,7 +2,7 @@
 
 The X32 expansion card is limited to **32 channels in and 32 channels out**. That limit is the central design constraint for every SuperRack setup: you decide how to spend those 32 sends and returns between **direct input processing**, **insert points**, and **bus processing**.
 
-This chapter presents five routing recipes, from the simplest to the most advanced.
+This chapter presents six routing recipes. A to E go from the simplest to the most advanced; F uses firmware 4 User Routing to choose individual channels instead of blocks of eight.
 
 | Method | What gets processed | Card channels used | Difficulty |
 |---|---|---|---|
@@ -11,6 +11,7 @@ This chapter presents five routing recipes, from the simplest to the most advanc
 | **C: Hybrid 24 + 6** | 24 inputs direct + 6 insert points | 32 / 32 | Medium |
 | **D: Inserts + Subgroups + Inputs** | 16 inputs + 6 inserts + 8 subgroup channels (+ stream feed) | 32 / 32 | Advanced |
 | **E: X-DANTE + Dante Virtual Soundcard** | Same as B, over Dante instead of USB | Dante | Medium |
+| **F: User Routing (channel picking)** | Any 24 channels you choose + 6 insert points + stream feed, channel numbers unchanged | 32 / 32 | Medium |
 
 > **Before you start:** Complete the setup in [Chapter 16](16_SuperRack_Performer_Setup.md): 48 kHz, card in 32 × 32 mode, preamp gains set.
 
@@ -137,6 +138,8 @@ With AES50 stageboxes, replace `Local` with the `AES50 A` / `AES50 B` blocks as 
 
 > **Tip:** Name the racks after the console channels, not the card channels: rack 9 is channel 1!
 
+> **Firmware 4:** Method C is stuck with blocks of eight: the processed channels move, and it is always the *last* eight channels that bypass SuperRack. [Method F](#method-f-user-routing-pick-individual-channels) uses User Routing to choose exactly which channels get plugins while every channel keeps its number.
+
 ---
 
 ## Method D: Inserts + Subgroups via Ultranet + User Routing
@@ -246,6 +249,104 @@ With X-DANTE at 0.25 ms, DVS at 4 ms and a 32-sample buffer, the total round tri
 
 ---
 
+## Method F: User Routing (Pick Individual Channels)
+
+With firmware 4 **User In / User Out** ([Chapter 04](04_Firmware_4x_User_Routing.md)), the card no longer has to carry whole blocks of eight. Every card channel can carry any single input or output, and every channel can be returned from the card *or* fed straight from its physical input. That gives you three things the block methods can't:
+
+- **Pick the channels:** only the inputs that need plugins go to SuperRack, wherever they sit on the console.
+- **Keep the numbering:** channel 1 is still mic 1, whether it runs through SuperRack or not. Unlike Method C, nothing shifts.
+- **Mix sends freely:** insert sends, picked inputs and a stream feed share the 32 card channels however you like.
+
+> **Requirement:** firmware 4.0 or newer. Inserts still return on **Aux In = Card 1–6** (the Aux In block can only take the first six card channels), so keep the insert sends on User Out 1–6.
+
+### Example: 24 Picked Channels + 6 Inserts + Stream Feed
+
+A 32-input band where drums, bass, guitars and vocals get Waves plugins, while keys, playback tracks and announcement mics stay on the console only. In this example each mic is plugged into the local input with its channel's number.
+
+| Channels | Instrument | Through SuperRack? |
+|---|---|---|
+| 1–10 | Drums | Yes |
+| 11–12 | Bass | Yes |
+| 13–16 | Guitars | Yes |
+| 17–20 | Keys | No, direct |
+| 21–28 | Vocals | Yes |
+| 29–32 | Playback, announcement mics | No, direct |
+
+### Card Channel Map
+
+| Card ch. | Card Out (User Out → SuperRack) | Card In (back to the console) |
+|---|---|---|
+| 1–6 | Aux Out 1–6 (insert sends) | Aux In 1–6 (insert returns) |
+| 7–8 | Out 15/16 = stream mix | — (used by OBS or a recorder) |
+| 9–18 | Local 1–10 | → User In 1–10 → Ch 1–10 |
+| 19–24 | Local 11–16 | → User In 11–16 → Ch 11–16 |
+| 25–32 | Local 21–28 | → User In 21–28 → Ch 21–28 |
+| — | — | Ch 17–20 and 29–32: User In = Local, direct |
+
+### Step by Step
+
+**1. Stream feed (optional):** patch the stream mix, e.g. Matrix 1/2, to `ROUTING → XLR Out 15/16`. Mix buses and matrices are not User Out sources themselves, so they need a physical output first.
+
+**2. `ROUTING → User` (output patch, first encoder):**
+
+| User Out | Source |
+|---|---|
+| 1–6 | Aux Out 1–6 |
+| 7–8 | Out 15 / Out 16 |
+| 9–18 | Local 1–10 |
+| 19–24 | Local 11–16 |
+| 25–32 | Local 21–28 |
+
+**3. `ROUTING → Card Out`** = `User Out 1–8 / 9–16 / 17–24 / 25–32`.
+
+**4. `ROUTING → User` (input patch):**
+
+| User In | Source |
+|---|---|
+| 1–16 | Card 9–24 (processed) |
+| 17–20 | Local 17–20 (direct) |
+| 21–28 | Card 25–32 (processed) |
+| 29–32 | Local 29–32 (direct) |
+
+**5. `ROUTING → Home`:** input blocks 1–8 … 25–32 = `User In`, Aux In = `Card 1–6`.
+
+**6. Inserts** as in [Method B](#method-b-aux-insert-6-insert-points), e.g. Vocals 1–3 on `Aux 1–3` (Post, for Waves Tune), Main LR on `Aux 5` (uses Aux 5 + 6).
+
+**7. SuperRack:**
+
+| Rack input | Rack name |
+|---|---|
+| Mono 1–3 | Vocal inserts 1–3 |
+| Mono 4 | Spare insert |
+| Stereo 5–6 | Main LR |
+| 7–8 | No rack (stream feed) |
+| Mono 9–24 | Ch 1–16 |
+| Mono 25–32 | Ch 21–28 |
+
+> **Tip:** Write the console channel into each rack name. Card channel and console channel are different numbers, and the rack list is where it gets confusing.
+
+### Variations
+- **No inserts needed?** Put picked inputs on User Out 1–8 as well. Then up to 32 channels go to SuperRack (or 30 plus a stereo stream feed), still in any order.
+- **Stage boxes:** use `AES50 A` / `AES50 B` inputs in both patches instead of `Local`. Inputs from several stage boxes can be mixed freely.
+- **Two channels from one mic:** to keep a vocal out of the in-ear path ([Chapter 18](18_SuperRack_Latency_and_Buffer.md#in-ear-monitors-the-double-patch-strategy)), set one User In to the card return and another User In to the same physical input. The FOH channel gets the plugins, the monitor channel stays direct.
+
+### Preamps
+Gain belongs to the physical input. For the **direct** channels the channel's gain knob still works. For channels returning from the **card**, adjust the headamp in `SETUP → Preamps` on its physical source (e.g. `Local 1–8`).
+
+### Failsafe
+Only the User In patch decides whether a channel comes through SuperRack. Save a scene, or a Snippet with only the routing included ([Chapter 12](12_Scenes_Cues_and_Snippets.md)), that sets User In 1–32 back to the physical inputs. One recall takes the whole rig off the computer. Inserts are bypassed with `INSERT` as usual.
+
+### Characteristics
+- ✔ Any channels you choose, with no blocks of eight.
+- ✔ Channel numbers, scenes and channel presets stay the same with or without SuperRack.
+- ✔ Same latency as Methods A and B; channels that don't use SuperRack get no extra latency.
+- ✔ No Ultranet outputs needed, so P16 stays available (unlike Method D).
+- ✘ Firmware 4 only, and two patch pages to keep in sync: take notes.
+- ✘ Still 32 card channels in total, and inserts take Aux In/Out as in Method B.
+- ✘ No subgroup processing without the Ultranet trick from Method D.
+
+---
+
 ## Choosing a Method
 
 | Your situation | Method |
@@ -255,3 +356,4 @@ With X-DANTE at 0.25 ms, DVS at 4 ms and a 32-sample buffer, the total round tri
 | Both, and you can spare 8 input channels | **C** |
 | Inputs + inserts + group processing, no P16 in use | **D** |
 | Console has an X-DANTE card instead of USB | **E** |
+| Firmware 4: plugins on chosen channels only, channel numbers unchanged | **F** |

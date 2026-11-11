@@ -127,6 +127,12 @@ User Out 1/2 and the 30 inputs on 3-32, if your streaming software expects the m
 Set the AES50 B outputs to **User Out 1-8 … 41-48**. You can then pick up to 48 signals for the other console:
 inputs from either stage box, card returns, any of the outputs, P16 feeds or the monitor bus.
 
+### 6. Selected channels through Waves SuperRack
+
+Use User Out to send only the inputs that need plugins to the plugin computer, and User In to bring them back on
+their original channel numbers while every other channel stays direct. The full patch is in
+[Chapter 17, Method F](17_SuperRack_Routing_Methods.md#method-f-user-routing-pick-individual-channels).
+
 ---
 
 ## Pitfalls
