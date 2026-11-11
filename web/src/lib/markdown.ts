@@ -24,7 +24,7 @@ export function slugify(text: string): string {
  * with clean web routes (e.g. `/01-gain-staging-preamps`).
  */
 export function normalizeLinks(markdown: string, lang: Lang = 'en'): string {
-	return markdown.replace(/\]\(([0-9]{2}_[^)]+\.md|UserRouting\.md|INDEX\.md)\)/g, (match, file) => {
+	return markdown.replace(/\]\(([0-9]{2}_[^)#]+\.md|UserRouting\.md|INDEX\.md)(#[^)]*)?\)/g, (match, file, hash = '') => {
 		const mapping: Record<string, string> = {
 			'00_Introduction_and_Hardware_Overview.md': '/01-hardware-overview',
 			'01_Hardware_Overview_and_Surface_Anatomy.md': '/01-hardware-overview',
@@ -55,10 +55,18 @@ export function normalizeLinks(markdown: string, lang: Lang = 'en'): string {
 			'14_Network_Remote_Control_and_Software.md': '/14-network-remote-control',
 			'13_Live_Mixing_Workflows_and_Best_Practices.md': '/15-live-mixing-workflows',
 			'15_Live_Mixing_Workflows_and_Best_Practices.md': '/15-live-mixing-workflows',
+			'14_SuperRack_Performer_Setup.md': '/16-superrack-setup',
+			'16_SuperRack_Performer_Setup.md': '/16-superrack-setup',
+			'15_SuperRack_Routing_Methods.md': '/17-superrack-routing',
+			'17_SuperRack_Routing_Methods.md': '/17-superrack-routing',
+			'16_SuperRack_Latency_and_Buffer.md': '/18-superrack-latency',
+			'18_SuperRack_Latency_and_Buffer.md': '/18-superrack-latency',
+			'17_SuperRack_Plugin_Chains.md': '/19-superrack-plugin-chains',
+			'19_SuperRack_Plugin_Chains.md': '/19-superrack-plugin-chains',
 			'INDEX.md': '/'
 		};
 		const route = mapping[file] ?? `/${file.replace(/\.md$/, '')}`;
-		return `](${localize(route, lang)})`;
+		return `](${localize(route, lang)}${hash})`;
 	});
 }
 

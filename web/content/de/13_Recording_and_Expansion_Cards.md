@@ -80,6 +80,8 @@ Die **X-DANTE**-Karte ersetzt die USB-Schnittstelle durch ein Audinate Dante IP-
 - Ermöglicht direkte digitale Integration mit Yamaha-Konsolen, netzwerkfähigen Funkmikrofon-Empfängern (Shure ULX-D / Axient) und der Dante Virtual Soundcard (DVS) auf Laptops.
 - Konfiguration erfolgt unkompliziert über die kostenlose Software **Dante Controller** auf PC oder Mac.
 
+> **Plugins über die Karte:** X-USB, X-UF, X-LIVE und X-DANTE können auch einen Computer mit **Waves SuperRack Performer** als externes Plugin-Rack speisen. Siehe [Kapitel 16](16_SuperRack_Performer_Setup.md).
+
 ---
 
 ## 5. Virtueller Soundcheck (Virtual Soundcheck, VSC) Praxis-Workflow

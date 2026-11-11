@@ -23,6 +23,10 @@ Ein vollständiges, praxisnahes und detailliertes Referenzhandbuch für Konfigur
 | **[13](13_Recording_and_Expansion_Cards.md)** | **[Recording, Wiedergabe & Erweiterungskarten](13_Recording_and_Expansion_Cards.md)** | 2-Spur-USB-WAV-Recorder, 32x32-X-USB-Interface, autarkes X-LIVE Dual-SD-Recording und Virtual Soundcheck. |
 | **[14](14_Network_Remote_Control_and_Software.md)** | **[Netzwerkkonfiguration, Fernsteuerung & Software](14_Network_Remote_Control_and_Software.md)** | Statische IP vs. DHCP, 5-GHz-WLAN-Empfehlungen, X32-Edit, Mixing Station-App und OSC-Fernsteuerung. |
 | **[15](15_Live_Mixing_Workflows_and_Best_Practices.md)** | **[Live-Mixing-Workflows & System-Tuning](15_Live_Mixing_Workflows_and_Best_Practices.md)** | Soundcheck-Ablauf, Virtual Soundcheck, Delay-Zeiten berechnen, Feedback bekämpfen, Streaming-Lautheit. |
+| **[16](16_SuperRack_Performer_Setup.md)** | **[Waves SuperRack Performer: Konzept & Einrichtung](16_SuperRack_Performer_Setup.md)** | Nativer Waves-Plugin-Host über die serienmäßige X-USB- / X-LIVE-Karte, Hardware-Checkliste, 48 kHz und 32x32-Karte, Racks patchen und der Mute-Test. |
+| **[17](17_SuperRack_Routing_Methods.md)** | **[SuperRack Routing-Methoden](17_SuperRack_Routing_Methods.md)** | Direct Input, Aux-Inserts, Hybrid 24 + 6, Subgruppen über Ultranet und User Routing sowie X-DANTE mit Dante Virtual Soundcard. |
+| **[18](18_SuperRack_Latency_and_Buffer.md)** | **[SuperRack: Latenz, Puffergröße & Bild-Ton-Sync](18_SuperRack_Latency_and_Buffer.md)** | Round-Trip-Latenz pro Puffergröße, Grenzwerte für In-Ears, Monitore und PA, Doppel-Patch für In-Ears und Bild-Ton-Sync im Broadcast. |
+| **[19](19_SuperRack_Plugin_Chains.md)** | **[SuperRack Plugin-Ketten für Gesang & Summe](19_SuperRack_Plugin_Chains.md)** | Leadgesangs-Kette (PSE, F6, C6, CLA-76, CLA-2A, R-DeEsser, Waves Tune), Summen-Kette (SSL Comp, L2) und Notfall-Workflow. |
 
 ---
 

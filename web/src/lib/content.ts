@@ -337,6 +337,90 @@ export const CHAPTER_DEFINITIONS: ChapterDefinition[] = [
 			en: 'Control & Live Operations',
 			de: 'Steuerung & Live-Betrieb'
 		}
+	},
+	{
+		slug: '16-superrack-setup',
+		number: '16',
+		fileName: '16_SuperRack_Performer_Setup.md',
+		title: {
+			en: 'Waves SuperRack Performer: Concept & Setup',
+			de: 'Waves SuperRack Performer: Konzept & Einrichtung'
+		},
+		shortTitle: {
+			en: 'SuperRack Setup',
+			de: 'SuperRack-Einrichtung'
+		},
+		summary: {
+			en: 'Native Waves plugin host over the stock X-USB / X-LIVE card: hardware checklist, 48 kHz and 32x32 card setup, rack patching, and the mute test.',
+			de: 'Nativer Waves-Plugin-Host über die serienmäßige X-USB- / X-LIVE-Karte: Hardware-Checkliste, 48 kHz und 32x32-Karte, Racks patchen und der Mute-Test.'
+		},
+		category: {
+			en: 'Waves SuperRack Performer',
+			de: 'Waves SuperRack Performer'
+		}
+	},
+	{
+		slug: '17-superrack-routing',
+		number: '17',
+		fileName: '17_SuperRack_Routing_Methods.md',
+		title: {
+			en: 'SuperRack Routing Methods',
+			de: 'SuperRack Routing-Methoden'
+		},
+		shortTitle: {
+			en: 'SuperRack Routing',
+			de: 'SuperRack-Routing'
+		},
+		summary: {
+			en: 'Five recipes for the 32-channel card limit: direct input, aux inserts, hybrid 24 + 6, subgroups via Ultranet and User Routing, and X-DANTE with DVS.',
+			de: 'Fünf Rezepte für die 32-Kanal-Grenze der Karte: Direct Input, Aux-Inserts, Hybrid 24 + 6, Subgruppen über Ultranet und User Routing sowie X-DANTE mit DVS.'
+		},
+		category: {
+			en: 'Waves SuperRack Performer',
+			de: 'Waves SuperRack Performer'
+		}
+	},
+	{
+		slug: '18-superrack-latency',
+		number: '18',
+		fileName: '18_SuperRack_Latency_and_Buffer.md',
+		title: {
+			en: 'SuperRack Latency, Buffer Size & A/V Sync',
+			de: 'SuperRack: Latenz, Puffergröße & Bild-Ton-Sync'
+		},
+		shortTitle: {
+			en: 'SuperRack Latency',
+			de: 'SuperRack-Latenz'
+		},
+		summary: {
+			en: 'Round-trip latency per buffer size, acceptable limits for IEMs, wedges and FOH, the IEM double-patch strategy, and using latency for broadcast A/V sync.',
+			de: 'Round-Trip-Latenz pro Puffergröße, Grenzwerte für In-Ears, Monitore und PA, die Doppel-Patch-Strategie und Latenz als Werkzeug für Bild-Ton-Sync.'
+		},
+		category: {
+			en: 'Waves SuperRack Performer',
+			de: 'Waves SuperRack Performer'
+		}
+	},
+	{
+		slug: '19-superrack-plugin-chains',
+		number: '19',
+		fileName: '19_SuperRack_Plugin_Chains.md',
+		title: {
+			en: 'SuperRack Plugin Chains for Vocals & Main Bus',
+			de: 'SuperRack Plugin-Ketten für Gesang & Summe'
+		},
+		shortTitle: {
+			en: 'SuperRack Plugin Chains',
+			de: 'SuperRack Plugin-Ketten'
+		},
+		summary: {
+			en: 'Lead vocal chain (PSE, F6, C6, CLA-76, CLA-2A, R-DeEsser, Waves Tune) and Main LR chain (SSL Comp, L2) with starting values and a failsafe workflow.',
+			de: 'Leadgesangs-Kette (PSE, F6, C6, CLA-76, CLA-2A, R-DeEsser, Waves Tune) und Summen-Kette (SSL Comp, L2) mit Startwerten und Notfall-Workflow.'
+		},
+		category: {
+			en: 'Waves SuperRack Performer',
+			de: 'Waves SuperRack Performer'
+		}
 	}
 ];
 

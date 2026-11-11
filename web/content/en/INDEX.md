@@ -23,6 +23,10 @@ A complete, practical, and in-depth reference manual for configuring, routing, p
 | **[13](13_Recording_and_Expansion_Cards.md)** | **[Recording, Playback & Expansion Cards](13_Recording_and_Expansion_Cards.md)** | Top-panel 2-track USB recorder, 32x32 X-USB interface, X-LIVE standalone dual SD card recording, and Dante expansion. |
 | **[14](14_Network_Remote_Control_and_Software.md)** | **[Network Setup, Remote Control & Software](14_Network_Remote_Control_and_Software.md)** | Network configuration (Static vs DHCP), Wi-Fi router setup, X32-Edit, Mixing Station app customization, and OSC remote control. |
 | **[15](15_Live_Mixing_Workflows_and_Best_Practices.md)** | **[Live Mixing Workflows & System Tuning](15_Live_Mixing_Workflows_and_Best_Practices.md)** | Step-by-step soundcheck checklist, virtual soundcheck, aux-fed subs, feedback elimination, and broadcast streaming setup. |
+| **[16](16_SuperRack_Performer_Setup.md)** | **[Waves SuperRack Performer: Concept & Setup](16_SuperRack_Performer_Setup.md)** | Native Waves plugin host over the stock X-USB / X-LIVE card, hardware checklist, 48 kHz and 32x32 card setup, rack patching, and the mute test. |
+| **[17](17_SuperRack_Routing_Methods.md)** | **[SuperRack Routing Methods](17_SuperRack_Routing_Methods.md)** | Direct input, aux inserts, hybrid 24 + 6, subgroups via Ultranet and User Routing, and X-DANTE with Dante Virtual Soundcard. |
+| **[18](18_SuperRack_Latency_and_Buffer.md)** | **[SuperRack Latency, Buffer Size & A/V Sync](18_SuperRack_Latency_and_Buffer.md)** | Round-trip latency per buffer size, limits for IEMs, wedges and FOH, the IEM double patch, and broadcast A/V sync. |
+| **[19](19_SuperRack_Plugin_Chains.md)** | **[SuperRack Plugin Chains for Vocals & Main Bus](19_SuperRack_Plugin_Chains.md)** | Lead vocal chain (PSE, F6, C6, CLA-76, CLA-2A, R-DeEsser, Waves Tune), Main LR chain (SSL Comp, L2), and a failsafe workflow. |
 
 ---
 
