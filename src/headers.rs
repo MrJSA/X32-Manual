@@ -59,14 +59,17 @@ pub async fn only_get_head(req: Request, next: Next) -> Response {
 
 pub async fn apply(req: Request, next: Next) -> Response {
     let cache = cache_policy(req.uri().path());
+    let page = is_page_path(req.uri().path());
     let mut res = next.run(req).await;
     *res.status_mut() = permanent(res.status());
     let status = res.status();
-    let is_html = res
-        .headers()
-        .get(header::CONTENT_TYPE)
-        .and_then(|v| v.to_str().ok())
-        .is_some_and(|v| v.starts_with("text/html"));
+    // A 304 carries no Content-Type, yet browsers merge its headers into the cached page,
+    // so without a type fall back to the path. Otherwise a revalidated page would get
+    // `CSP_OTHER` (`default-src 'none'`) and lose every script and stylesheet.
+    let is_html = match res.headers().get(header::CONTENT_TYPE) {
+        Some(v) => v.to_str().is_ok_and(|v| v.starts_with("text/html")),
+        None => page,
+    };
     let headers = res.headers_mut();
 
     if status.is_success() || status.is_redirection() {
@@ -107,6 +110,13 @@ fn cache_policy(path: &str) -> &'static str {
     }
 }
 
+/// Paths `ServeDir` answers with an HTML page: directories (`/`, `/de/`), `.html` files,
+/// and extensionless paths (redirected to their directory).
+fn is_page_path(path: &str) -> bool {
+    let last = path.rsplit('/').next().unwrap_or("");
+    last.is_empty() || last.ends_with(".html") || !last.contains('.')
+}
+
 /// `ServeDir` answers `/chapter` with a temporary 307 to `/chapter/`. The move is
 /// permanent, and search engines only transfer ranking for permanent redirects.
 fn permanent(status: StatusCode) -> StatusCode {
@@ -135,6 +145,19 @@ mod tests {
         assert_eq!(cache_policy("/"), REVALIDATE);
         assert_eq!(cache_policy("/06-channel-processing/"), REVALIDATE);
         assert_eq!(cache_policy("/init.js"), REVALIDATE);
+    }
+
+    #[test]
+    fn page_paths() {
+        assert!(is_page_path("/"));
+        assert!(is_page_path("/de/"));
+        assert!(is_page_path("/06-channel-processing/"));
+        assert!(is_page_path("/06-channel-processing"));
+        assert!(is_page_path("/index.html"));
+        assert!(!is_page_path("/init.js"));
+        assert!(!is_page_path("/_app/immutable/assets/0.B4VjHqJ-.css"));
+        assert!(!is_page_path("/search.json"));
+        assert!(!is_page_path("/favicon.svg"));
     }
 
     #[test]
