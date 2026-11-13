@@ -57,6 +57,15 @@ Rückkopplungen entstehen, wenn der vom Lautsprecher abgestrahlte Schall wieder 
 5. Die Lautstärke erneut behutsam anheben und die nächste pfeifende Frequenz ziehen.
 6. Nach 3 bis 4 Absenkungen stoppen – übermäßiges Filtern führt zu einem hohlen, unnatürlichen Stimmenklang.
 
+Einpfeifen mit den Mikrofonen **dort, wo sie benutzt werden**, mit eingeschaltetem Low Cut und mit den tatsächlichen Monitorpositionen. Jedes Mikrofon einzeln behandeln und das Ergebnis notieren: ein guter Ausgangspunkt für die nächste Show im selben Raum.
+
+### Aufstellung kommt vor dem EQ
+Jedes gesetzte Filter kostet Klang. Geometrie kostet nichts:
+- **Niemals einen Lautsprecher auf ein Mikrofon richten.** Ein direkter Weg vom Lautsprecher zum Mikrofon ist die häufigste Ursache für Rückkopplungen, auch bei einem Richtmikrofon.
+- **Monitore zielen auf die Ohren der Musiker**, nicht auf das Mikrofon, und stehen in der Nullstelle seiner Richtcharakteristik (Tabelle oben).
+- **Die PA beschallt das Publikum, nicht die Bühne.** Die Hauptlautsprecher vor der Mikrofonlinie aufstellen und von ihr weg winkeln.
+- **Monitorpegel im Zaum halten.** Jedes dB weniger auf der Bühne ist ein dB mehr Abstand zur Rückkopplung und weniger Übersprechen in jedem offenen Mikrofon.
+
 ---
 
 ## 4. Live-Streaming- & Broadcast-Mischung
@@ -106,3 +115,43 @@ Treten während einer Live-Aufführung Probleme auf, führt dieser strukturierte
 ### „Starker Hall stört bei Ansagen/Sprache“:
 - **Ursache**: Hall-Returns blieben nach dem Song aktiv.
 - **Lösung**: Sofort nach dem letzten Akkord auf **MUTE GRP 3 (FX MUTE)** drücken.
+
+### „Musiker hören ein stummgeschaltetes Mikrofon weiterhin“:
+- **Ursache**: Die Personal-Mixer oder Direct Outs sind Pre Fader abgegriffen, also vor dem Mute.
+- **Lösung**: Den Abgriff auf **Pre Fader+M** ändern ([Kapitel 03](03_Routing_and_Patching.md)).
+
+### „Bass oder Keyboard klingt über die DI dünn“:
+- **Ursache**: Das Pad einer billigen passiven DI filtert die Tiefen weg, oder ein Stereo-Klinkenkabel steckt in einem symmetrischen Mono-Eingang.
+- **Lösung**: Das Pad ausschalten und die Verkabelung prüfen ([Kapitel 05](05_Gain_Staging_and_Preamps.md)).
+
+---
+
+## 6. Das System mit Smaart oder REW messen
+
+Die Delay-Formel aus Abschnitt 2 liefert einen Startwert. Eine Messung liefert den exakten Wert, und mit der Erweiterungskarte ist das Pult sein eigenes Mess-Interface: Ein zusätzliches Audio-Interface ist nicht nötig.
+
+| Signal | Weg |
+|---|---|
+| **Testsignal** | Messsoftware → USB → ein Karteneingang → ein Pultkanal → der zu messende Lautsprecherausgang |
+| **Messmikrofon** | Ein Messmikrofon mit Kugelcharakteristik an der Hörposition → ein Pulteingang → **Card Out** → Software. Diesen Kanal **nicht** auf Main LR legen |
+| **Referenz** | Dasselbe Testsignal direkt auf einem zweiten Kartenkanal zurück zur Software, damit sie Gesendetes und Empfangenes vergleichen kann |
+
+1. Den Computer mit der Karte verbinden und sie in der Messsoftware als Audiogerät wählen.
+2. Das Rosa Rauschen der Software als Testsignal verwenden. Ein periodisches (pseudozufälliges) Rosa Rauschen pendelt sich schnell ein und braucht wenig Mittelung.
+3. Jeden Lautsprecher einzeln messen: Der Delay-Finder der Software zeigt die jeweilige Ankunftszeit.
+4. Die **Differenz** als Delay auf der früheren Quelle eintragen: das Matrix- oder Bus-Delay (0–500 ms) für Lautsprecherzonen, etwa ein Topteil und ein Subwoofer, die einige Millisekunden auseinanderliegen.
+5. Beide zusammen messen und prüfen, ob sie sich um die Trennfrequenz nun addieren. Erst danach mit dem Entzerren beginnen.
+
+Die Polarität allein kann einen Laufzeitunterschied nicht beheben; siehe [Kapitel 05](05_Gain_Staging_and_Preamps.md).
+
+---
+
+## 7. Funkmikrofone & In-Ears: HF-Grundlagen
+
+Ein Funkaussetzer klingt wie ein Pultproblem und ist nie eines. Ein paar Gewohnheiten verhindern die meisten:
+
+- **Zuerst scannen.** Den Veranstaltungsort mit den Empfängern (oder einem Scanner) scannen, bevor Frequenzen gewählt werden, und die Koordinationssoftware des Herstellers (z. B. das kostenlose Shure Wireless Workbench) kompatible Frequenzen berechnen lassen. Vorher die Fernsehsender der Umgebung nachschlagen.
+- **Richtantennen mit Blick auf ihre Nullstellen ausrichten.** Eine logarithmisch-periodische Antenne (LPDA, „Paddel“) ist nach hinten am unempfindlichsten. Auf die Bühne richten, sodass starke Fernsehsender in dieser rückwärtigen Nullstelle liegen.
+- **Während der Show die Zeitachse beobachten.** Die Koordinationssoftware protokolliert HF-Pegel, Audiopegel und Batteriezustand pro Kanal. Sie zeigt auch auf einen Blick, ob ein Sender eingeschaltet ist. Nach der Show das Alarmprotokoll lesen.
+- **Sender an einem Ort sammeln.** Handsender und Taschensender am Monitorplatz einsammeln, wenn die Musiker die Bühne verlassen; eine mit Schaumstoff ausgelegte Ablage hält sie sortiert und geschützt.
+- **Das Pult immer gleich belegen.** Zum Beispiel Schlagzeug, Bass, Gitarren und Gesang auf der ersten Fader-Ebene; Keyboards, Zuspieler und Talkback auf der zweiten. Eine gedruckte Eingangs- und Patchliste am Pult bereithalten.

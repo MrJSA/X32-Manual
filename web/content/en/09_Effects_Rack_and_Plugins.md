@@ -23,6 +23,8 @@ The 8 FX slots operate under specific architectural rules:
 | **A. Send / return** (time-based effects) | Channel fader → Mix Bus 13 (post-fader send) → FX slot 1 (reverb) → FX 1 return fader (Aux/FX layer) | The return fader sets the overall reverb level in Main LR |
 | **B. Insert** (dynamics & tone shapers) | Channel in → Low Cut → Gate → **insert point: FX 5 (1176)** → EQ → Fader | 100 % of the channel passes through the processor in series |
 
+To insert an effect: select the channel or bus, open its **Config** page, choose the FX slot as the insert, set the position (Pre or Post EQ/dynamics) and switch the insert on ([Chapter 06](06_Channel_Processing.md)). A dual (mono/mono) effect offers its two sides separately, so one slot can serve two different channels.
+
 ---
 
 ## 2. Vintage Dynamics Processors
@@ -112,6 +114,8 @@ Phase-aligns incoming frequencies by delaying low and mid-frequencies slightly s
 ### E. Dual / Stereo Enhancer (SPL Vitalizer Style)
 Psychoacoustic harmonic generator that enriches bass frequencies and adds crystalline sparkle to upper harmonics through dynamic phase-filtering.
 
+> **Use with care on a PA:** enhancers, exciters and stereo wideners (Sound Maxer, Enhancer, Stereo Imager) work with phase shifts and added harmonics. On a large system that easily turns into harsh highs, and widened signals can partly cancel for listeners off the center line. Use them on single sources in small doses, compare with the effect bypassed, and keep them off the main bus.
+
 ---
 
 ## 5. Graphic Equalizers (GEQ & TruEQ)
@@ -128,12 +132,36 @@ The console provides two distinct 31-band 1/3-octave graphic equalizer models:
 | Effect Processor | Character & Architecture | Optimal Use Case |
 |---|---|---|
 | **Vintage Reverb** | Emulation of the legendary **EMT 250** (1976), the first fully electronic (digital) reverb. Warm, velvety, open diffusion; decay 0.4–4.5 s. | Lead vocals, snare drum, acoustic guitars. |
+| **Vintage Room** | Modeled on the **Quantec QRS** room simulator. Darker voiced and very natural: it sounds like a real room around the source instead of a tail behind it. Decay 0.1–20 s. | The go-to natural space for vocals and drums. |
 | **Plate Reverb / Rich Plate** | Bright, dense mechanical plate with rapid build-up and shimmering high-end tail. | Rock drums, modern pop vocals, brass. |
 | **Hall Reverb** | Expansive concert hall acoustic simulation with adjustable pre-delay and room dimensions. | Orchestral strings, choirs, ballads. |
 | **Room Reverb / Ambience** | Tight acoustic room reflection without a long wash. | Adding natural drum booth room tone to dry direct inputs. |
 | **Stereo Delay** | Dual independent delays with cross-feedback, low/high cut filters, and tempo tap sync. | Lead vocal slapback, stereo ping-pong guitar echoes. |
 | **3-Tap Delay / Rhythm Delay**| Multi-tap tempo-synced delay with independent pan and level per tap. | Complex rhythmic repeats and atmospheric guitar swells. |
 | **Tape Delay** | Warm vintage magnetic tape echo with tape flutter, wow, and saturation modeling. | Vintage rockabilly vocals, classic electric guitar solos. |
+
+### Vintage Room in Detail
+
+| Parameter | Range | What it does |
+|---|---|---|
+| **Reverb Delay** | 0–200 ms | Pre-delay: the gap between the dry signal and the start of the reverb |
+| **Decay** | 0.1–20 s | Length of the tail (measured at 1 kHz) |
+| **Size** | 2–100 | Size of the simulated room |
+| **Density** | 1–30 | Number of reflections |
+| **ER Level** | 0–100 % | Level of the early reflections |
+| **Lo / Hi Multiply** | — | Decay of the lows (around 300 Hz) and highs (around 6 kHz) relative to the main decay |
+| **Lo Cut / Hi Cut** | 10–500 Hz / 10–20 kHz | Filters on the reverb signal |
+| **ER Left / ER Right** | 0–200 ms | Timing of the early reflections per side |
+| **Freeze** | On / off | Holds the current reverb indefinitely |
+
+Two starting points:
+
+| | Reverb Delay | Decay | Size | Density | ER Level | Character |
+|---|---|---|---|---|---|---|
+| **Dark vocal room** | 16 ms | 1.75 s | 24 | 16 | 46 % | Longer, dark tail; set Hi Cut low |
+| **Small bright room** | 0 ms | 0.75 s | 16 | 12 | 42 % | Short and bright, good for drums |
+
+If the reverb clouds the mix: raise the Reverb Delay, shorten the Decay, raise the Lo Cut or lower the Hi Cut, in that order.
 
 ---
 
@@ -143,7 +171,9 @@ The console provides two distinct 31-band 1/3-octave graphic equalizer models:
 - **Rotary Speaker**: Faithful Leslie 122 cabinet emulation with independent slow/fast rotor speed switching for Hammond organs and psychedelic guitars.
 - **Sub Monster**: Subharmonic synthesizer that analyzes incoming low-end frequencies and generates a synthesised sub-octave tone below them. Incredible on thin kick drums and electric bass.
 - **Pitch Shifter**: Dual-voice pitch transposer (-12 to +12 semitones, fine cents detune). Setting +4 cents on Left and -4 cents on Right creates lush 80s vocal doubling.
-- **Guitar Amp & Tube Stage**: Valve saturation, cabinet emulations, and drive circuits for direct DI guitars and keyboards.
+- **Guitar Amp & Tube Stage**: Valve saturation, cabinet emulations, and drive circuits for direct DI guitars and keyboards. Tube Stage adds harmonic saturation as an insert on bass, organ or snare.
+
+> **Emergency amp:** if a guitar amp dies on stage, plug the guitar into a DI box, insert the **Stereo / Dual Guitar Amp** on that channel and the show goes on, in the PA and in the monitors. Sub Monster is a special effect; for solid low end in a live mix, aux-fed subs ([Chapter 07](07_Mixing_Buses_and_Sends.md)) are the more precise tool.
 
 ---
 

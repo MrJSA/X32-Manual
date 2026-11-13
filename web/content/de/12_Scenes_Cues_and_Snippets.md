@@ -100,3 +100,15 @@ Vor wichtigen Produktionen stets eine vollständige Show-Sicherung anlegen:
 3. **UTILITY** drücken.
 4. **Export Show to USB** wählen. Dateinamen eingeben (z. B. `TOUR_2026_MASTER.shw`).
 5. Die Konsole speichert ein konsistentes Gesamtarchiv mit allen 500 Cues, 100 Szenen, 100 Snippets und Routing-Einstellungen auf den USB-Stick.
+
+---
+
+## 7. Library-Presets: wiederverwendbare Bausteine
+
+Szenen und Snippets gehören zu einer Show. Die **LIBRARY** enthält Presets, die zwischen Shows und Pulten wandern: **Kanal**-Presets, **Effekt**-Presets und **Routing**-Presets.
+
+- **Speichern**: Kanal anwählen, **LIBRARY** drücken, einen freien Platz wählen und speichern. Dasselbe funktioniert für einen Effekt-Slot und für die Routing-Seiten.
+- **Recall Scope (Ladeumfang)**: Beim Laden eines Kanal-Presets legen Sie fest, welche Sektionen überschrieben werden dürfen: Vorverstärker (Headamp), Konfiguration, Gate, Dynamik, EQ und Sends. Ohne Haken bei Vorverstärker und Sends bringt „mein Leadgesang“ EQ und Kompressor auf einen Kanal, ohne den gerade eingestellten Gain oder die Monitormischungen anzutasten.
+- **Typischer Einsatz**: ein persönliches Gesangs- oder Bassdrum-Preset am Festivalpult, eine bevorzugte Halleinstellung oder ein Routing-Preset für eine wiederkehrende Stagebox-Belegung.
+
+Wie Szenen lassen sich Presets mit **UTILITY** auf einen USB-Stick exportieren.

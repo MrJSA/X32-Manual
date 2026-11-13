@@ -23,10 +23,29 @@ Drücken Sie die Taste **MONITOR** neben dem Bildschirm, um die Einstellungen au
 
 | Einstellung | Was Sie hören | Wofür |
 |---|---|---|
-| **PFL** (Pre-Fader Listen) | Das unverfälschte Signal direkt nach Gain und Low Cut; Fader und Mute haben keinen Einfluss | Einpegeln und Prüfen auf Brummen |
-| **AFL** (After-Fader Listen) | Das Signal nach Fader, Panorama und Mute | Abhören von Stereo-In-Ear-Mischungen und Subgruppen |
+| **PFL** (Pre-Fader Listen) | Den Kanal vor seinem Fader; Fader, Mute und DCA-Pegel haben keinen Einfluss | Einpegeln bei geschlossenem Fader, Prüfen auf Brummen |
+| **AFL** (After-Fader Listen) | Das Signal nach Fader, Panorama und Mute, einschließlich DCA-Pegeländerungen | Abhören von Stereo-In-Ear-Mischungen, Subgruppen und DCA-Gruppen |
 | **Exclusive Solo** | Ein: ein Solo hebt alle anderen auf. Aus: Solos addieren sich | Aus, um mehrere Kanäle zusammen abzuhören |
-| **Solo Dims** | Die Abhöre wird bei aktivem Solo um 20 dB abgesenkt | Schutz vor plötzlich lauten Signalen |
+| **Use Dim for PFL** | Ein PFL-Solo wird um den Dim-Wert abgesenkt | Heiß eingepegelte Vorverstärker springen nicht aus dem Kopfhörer |
+| **Select Follows Solo** | Ein Solo wählt den Kanal zugleich an | Kanalzug und Bildschirm zeigen den Kanal, den Sie gerade hören |
+
+### PFL oder AFL je Typ
+AFL wird für drei Arten von Solo getrennt eingeschaltet: **Channel Solo AFL**, **MixBus Solo AFL** und **DCA Solo AFL**. Was nicht angehakt ist, wird als PFL abgehört. Eine bewährte Kombination:
+
+| Solo-Typ | Einstellung | Ergebnis |
+|---|---|---|
+| **Kanäle** | PFL | Einpegeln und Line-Check funktionieren bei geschlossenen Fadern |
+| **Mix-Busse** | AFL | Sie hören eine Monitormischung mit dem Pegel und Panorama, die der Musiker bekommt |
+| **DCAs** | AFL | Ein Solo auf dem Drum-DCA spielt die **gesamte Schlagzeuggruppe genau so, wie sie in die Summe gemischt ist**, mit jeder Fader- und DCA-Bewegung |
+
+### Drahtloses Solo beim Mischen mit dem Tablet
+Beim Mischen mit dem Tablet im Saal, und bei X32 Rack oder Core grundsätzlich, ist die Kopfhörerbuchse außer Reichweite. Der Solo-Bus liegt aber auch am **Control-Room- / Monitorausgang** an:
+
+1. Die Control-Room-Ausgänge mit einem **In-Ear-Funksender** verbinden (jedes Stereo-IEM-System).
+2. Den Taschenempfänger beim Gang durch den Saal tragen.
+3. In X32-Mix, X32-Edit oder Mixing Station ([Kapitel 14](14_Network_Remote_Control_and_Software.md)) Solo drücken: Der gewählte Kanal oder Bus ist im Ohr, egal wo Sie stehen.
+
+Der Regler **Level** der Monitorsektion bestimmt den Pegel in den Sender; einmal einstellen und die Abhörlautstärke am Empfänger regeln.
 
 ---
 

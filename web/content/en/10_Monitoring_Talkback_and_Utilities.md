@@ -23,10 +23,29 @@ Press the **MONITOR** screen button to access the configuration tab:
 
 | Setting | What you hear | Use it for |
 |---|---|---|
-| **PFL** (pre-fader listen) | The raw signal right after preamp and low cut; fader and mute have no effect | Checking input gain and hum |
-| **AFL** (after-fader listen) | The signal after fader, pan and mute | Checking stereo in-ear mixes and subgroups |
+| **PFL** (pre-fader listen) | The channel before its fader; fader, mute and DCA levels have no effect | Setting input gain with the fader down, checking for hum |
+| **AFL** (after-fader listen) | The signal after fader, pan and mute, including DCA level changes | Checking stereo in-ear mixes, subgroups and DCA groups |
 | **Exclusive solo** | On: pressing a solo releases all others. Off: solos add up | Off for listening to a group of channels |
-| **Solo dims** | The monitor level drops by 20 dB while a solo is active | Avoiding a sudden blast in your ears |
+| **Use Dim for PFL** | A PFL solo is turned down by the dim amount | Hot preamp levels don't jump out of the headphones |
+| **Select Follows Solo** | Soloing a channel also selects it | The channel strip and screen are on the channel you are listening to |
+
+### PFL or AFL per Type
+AFL is switched on separately for three kinds of solo: **Channel Solo AFL**, **MixBus Solo AFL** and **DCA Solo AFL**. Anything not ticked solos as PFL. A proven combination:
+
+| Solo type | Setting | Result |
+|---|---|---|
+| **Channels** | PFL | Gain setting and line check work with the faders down |
+| **Mix buses** | AFL | You hear a monitor mix at the level and pan the musician gets |
+| **DCAs** | AFL | Soloing the drum DCA plays the **whole drum group exactly as it is mixed** into the main bus, with every fader and DCA move included |
+
+### Wireless Solo for Tablet Mixing
+When mixing from a tablet in the room, and always on an X32 Rack or Core, the headphone jack is out of reach. The solo bus is also present on the **Control Room / Monitor output**:
+
+1. Connect the Control Room outputs to a **wireless in-ear transmitter** (any stereo IEM system).
+2. Wear the bodypack receiver while walking the room.
+3. Press solo in X32-Mix, X32-Edit or Mixing Station ([Chapter 14](14_Network_Remote_Control_and_Software.md)): the soloed channel or bus is in your ears wherever you stand.
+
+The monitor **Level** knob on the console sets the level into the transmitter; set it once and adjust the listening volume on the bodypack.
 
 ---
 

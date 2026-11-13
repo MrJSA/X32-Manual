@@ -138,6 +138,10 @@ With AES50 stageboxes, replace `Local` with the `AES50 A` / `AES50 B` blocks as 
 
 > **Tip:** Name the racks after the console channels, not the card channels: rack 9 is channel 1!
 
+> **Why the shift is unavoidable:** Main LR and the buses have no card insert of their own, so they must go through the aux inserts, and the Aux In block can only take the **first six** card channels (`Card 1–6`). With the default layout, where channels 1–8 already use Card 1–8, there is no room left for a bus insert.
+
+> **Check the patch:** mute one rack in SuperRack. Exactly the matching console channel (or the bus on that insert) must go silent. If a different channel drops out, the card map is off by a block.
+
 > **Firmware 4:** Method C is stuck with blocks of eight: the processed channels move, and it is always the *last* eight channels that bypass SuperRack. [Method F](#method-f-user-routing-pick-individual-channels) uses User Routing to choose exactly which channels get plugins while every channel keeps its number.
 
 ---

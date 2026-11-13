@@ -36,6 +36,8 @@ Der proprietäre **Ultranet**-Digitalbus überträgt bis zu 16 unkomprimierte Au
 > Stellen Sie den Tap Point auf **POST-EQ** oder **PRE-FADER**!
 > Verwenden Sie **niemals Post-Fader**: Steht Ultranet auf Post-Fader, verändert jedes Nachjustieren des FOH-Mischers im Saal sofort die Lautstärke im Ohr des Musikers. Pre-Fader liefert den fertigen Kanalklang inklusive EQ, trennt den Musiker aber zuverlässig von den Faderbewegungen der Saalmischung.
 
+**Legen Sie fest, was ein Mute bewirken soll:** Ein normaler Direct Out mit `Pre Fader` ignoriert die Mute-Taste des Kanals. Ein am FOH stummgeschaltetes Mikrofon bleibt also auf jedem P16-M hörbar. Das ist praktisch für einen Soundcheck mit stummer PA, während der Show aber selten erwünscht. Mit **`Pre Fader+M`** (oder `Post EQ+M`) wird der P16-Feed zusammen mit dem Kanal stumm. Hintergründe in [Kapitel 03](03_Routing_and_Patching.md).
+
 ---
 
 ## 3. Die „16-Kanal-Strategie“ (The 16-Channel Squeeze)

@@ -40,6 +40,7 @@ Beispiel aus der Praxis: Mit 32 belegten Kanälen lag die CPU-Auslastung auf dem
 - **X-DANTE + Dante Virtual Soundcard:** etwa **10 ms** bei 32 Samples (DVS 4 ms + Karte 0,25 ms + Puffer); 128 Samples bringen etwa 4 ms zusätzlich.
 - **Mehrere Durchgänge** (Eingangs-Rack + Insert + Gruppe + Main-LR-Insert) addieren sich: Jeder Durchgang kostet einen vollen Round-Trip.
 - **Plugins mit Look-Ahead** bringen eigene Latenz mit (z. B. Waves **L2**: 64 Samples, etwa 1,3 ms).
+- **Zum Vergleich:** Das Pult allein hat etwa 0,83 ms vom analogen Eingang zum analogen Ausgang, und eine X-WSG-Karte mit SoundGrid-Server kommt nur auf etwa 0,86 ms zusätzlich (zusammen 1,69 ms). Das ist der Unterschied zwischen einem serverbasierten System und einem nativen Host auf dem Laptop ([Kapitel 13](13_Recording_and_Expansion_Cards.md)).
 
 ### Abtastrate
 Das X32 mit **48 kHz** betreiben. Bei 44,1 kHz steigt die Latenz im gesamten System (Pult-I/O, SuperRack und Plugins) um rund **9 %**.

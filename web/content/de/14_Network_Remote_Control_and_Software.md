@@ -50,6 +50,8 @@ Entwickelt von David Schumann, gilt **Mixing Station** (Windows, macOS, iOS, And
 - **Schwebende Fader & Layer (Floating Faders)**: Wichtige Lead-Vocal- und DCA-Fader am Bildschirmrand anpinnen, sodass sie auf jedem Layer sofort erreichbar bleiben.
 - **Feine Fader-Auflösung**: Pinch-to-Zoom für präzise Lautstärkeanpassungen im 0,1-dB-Bereich.
 
+> **Das Solo abseits des Pults hören:** Jede Remote-App kann Solo drücken, das Audiosignal kommt aber weiterhin aus dem Pult. Speist man den Control-Room-Ausgang in einen In-Ear-Funksender, lassen sich Kanäle von jedem Platz im Saal aus vorhören. Siehe [Kapitel 10](10_Monitoring_Talkback_and_Utilities.md).
+
 ### C. Persönliche In-Ear-Monitoring-Apps (M32-Q / X32-Q)
 Ermöglicht Bandmitgliedern, ihren eigenen Monitormix per Smartphone abzumischen:
 - **Bus-Sperre (Bus Locking)**: Die App jedes Musikers wird fest auf seinen zugewiesenen Mix-Bus beschränkt (z. B. Drummer auf Bus 3–4), um versehentliche Eingriffe in die Saalmischung oder die Monitore anderer Musiker auszuschließen.

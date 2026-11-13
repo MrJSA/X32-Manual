@@ -2,7 +2,7 @@
 
 Gain Staging ist das fundamentale Fundament jeder Tontechnik – sowohl live auf der Bühne als auch im Aufnahmestudio. Auf digitalen Mischpulten wie dem Behringer X32 und Midas M32 garantiert ein sauberes Einpegeln den bestmöglichen Rauschabstand, erhält die maximale Dynamik und schützt vor digitaler Übersteuerung (Clipping).
 
-Dieses Kapitel erläutert analoge Vorverstärker im Vergleich zu digitalem Trim, digitale Pegelkalibrierung, Phantomspeisungs-Sicherheitsregeln, Polaritätsumkehr, Gain-Sharing über AES50 und den Gain-Split-Modus.
+Dieses Kapitel erläutert analoge Vorverstärker im Vergleich zu digitalem Trim, digitale Pegelkalibrierung, Phantomspeisungs-Sicherheitsregeln, Polaritätsumkehr, Gain-Sharing über AES50 und den Gain-Split-Modus. Die letzten beiden Abschnitte behandeln, was vor der XLR-Buchse passiert: symmetrische Leitungen, DI-Boxen und Mikrofonpositionierung.
 
 ---
 
@@ -106,6 +106,16 @@ Die Polaritätstaste (`Ø`) dreht die elektrische Phasenlage des Signals um 180 
 4. **Akustikgitarre mit Tonabnehmer und Mikrofon**:
    - Die Kombination eines internen Piezo-Tonabnehmers (unter dem Steg) mit einem externen Kondensatormikrofon erzeugt häufig Kammfiltereffekte. Das Umkehren der Polarität eines Kanals stellt oft die akustische Wärme wieder her.
 
+### Polarität ist kein Laufzeitausgleich
+Die Taste `Ø` vertauscht die positive und die negative Halbwelle. Mit Zeit hat sie nichts zu tun. Sie löst ein Problem nur dann vollständig, wenn zwei Signale **im selben Moment**, aber gespiegelt ankommen, wie bei Snare oben und unten.
+
+Kommen zwei Signale um wenige Millisekunden versetzt an (DI und mikrofonierter Verstärker, Nahmikrofon und Overhead oder zwei Lautsprecher), entsteht ein **Kammfilter**: Je nach Verzögerung löschen sich manche Frequenzen aus, andere addieren sich. Ein Polaritätsdreh verschiebt die Einbrüche nur auf andere Frequenzen. Die eigentliche Lösung ist, das frühere Signal zu verzögern:
+
+- **Input-Delay**: Die Kanäle 1–32 haben auf der Seite **Config** jeweils ein Delay (bis 500 ms). Verzögern Sie die DI, bis sie zum Verstärkermikrofon passt. Schall legt etwa 34 cm pro Millisekunde zurück; ein Mikrofon 30 cm vor dem Lautsprecher braucht also rund 1 ms auf dem DI-Kanal.
+- **Ausgangs-Delay**: Mix-Busse, Matrizen und die Summe haben ein eigenes Delay zum Angleichen von Lautsprechern ([Kapitel 07](07_Mixing_Buses_and_Sends.md), [Kapitel 15](15_Live_Mixing_Workflows_and_Best_Practices.md)).
+
+Stellen Sie zuerst das Delay ein, probieren Sie dann beide Polaritäten und behalten Sie die vollere.
+
 ---
 
 ## 6. Gain-Sharing über AES50 bei mehreren Konsolen
@@ -146,3 +156,80 @@ Firmware 4.x bietet mit **HA Gain Split** vollständige Pegelunabhängigkeit fü
 - Der physische `GAIN`-Drehregler jedes Kanalzugs steuert nun automatisch den **digitalen Trim (-18 dB bis +18 dB)**.
 - Veränderungen des Trims wirken ausschließlich im DSP-Kanal dieses spezifischen Pultes; die analoge Vorstufe und alle anderen vernetzten Pulte bleiben absolut unberührt.
 - Sollte während des Konzerts doch eine echte analoge Gain-Änderung zwingend nötig sein, kann sie weiterhin gezielt im Menü **SETUP → PREAMPS** vorgenommen werden.
+
+---
+
+## 8. Vor dem Vorverstärker: Symmetrische Leitungen & DI-Boxen
+
+Gain Staging kann nur erhalten, was an der XLR-Buchse ankommt. Auf der Bühne entscheiden darüber zwei Dinge: wie das Signal über das Kabel läuft und ob das Instrument die Last sieht, die es braucht.
+
+### Symmetrisch vs. unsymmetrisch
+
+| Verbindung | Leiter | Verhalten auf langen Strecken |
+|---|---|---|
+| **Unsymmetrisch** (Instrumentenkabel mit Mono-Klinke, Cinch) | Signal + Masse | Brummen und Einstreuungen landen direkt auf dem Signal. Nur kurze Wege (wenige Meter) |
+| **Symmetrisch** (XLR, Stereo-Klinke/TRS) | Signal +, Signal − (invertierte Kopie), Masse | Der Eingang bildet die Differenz der beiden Signaladern. Störungen, die beide Adern gleich treffen, löschen sich aus; das Nutzsignal bleibt |
+
+> **Die Stereokabel-Falle:** Ein Stereo-Klinkenstecker aus einem Kopfhörer-, Smartphone- oder Laptop-Ausgang ist **nicht** symmetrisch. Er führt **links auf der Spitze und rechts auf dem Ring**. Steckt man ihn in einen einzelnen symmetrischen Eingang (zum Beispiel eine einzelne Aux-In-Buchse), zieht der Eingang rechts von links ab: Alles, was in der Mitte liegt (Leadgesang, Bassdrum, Bass), verschwindet fast, und übrig bleibt ein dünner, breiter Rest. Verwenden Sie ein Y-Kabel (Stereo-Klinke auf zwei Mono-Stecker) in **zwei** Eingänge, die Cinch-Buchsen von Aux In 5/6 oder eine Stereo-DI-Box.
+
+### Was eine DI-Box leistet
+Eine DI-Box löst zwei Probleme auf einmal: Sie macht aus dem unsymmetrischen Instrumentensignal ein symmetrisches Signal mit Mikrofonpegel für den langen Weg zur Stagebox, und sie bietet dem Instrument eine **hohe Eingangsimpedanz**.
+
+Passive Tonabnehmer und vor allem Piezo-Systeme brauchen eine Last von **1 MΩ oder mehr**, um ihren vollen Frequenzgang und ihre Dynamik zu liefern. Ein Mikrofoneingang liegt im unteren Kiloohm-Bereich (etwa 10 kΩ an den XLR-Eingängen des X32). Direkt angeschlossen bricht die Spannung des Tonabnehmers unter dieser Last ein, und das Instrument klingt dünn und leblos.
+
+### Aktiv oder passiv? Das Gegenteil des Instruments
+
+| Instrument | DI-Box | Warum |
+|---|---|---|
+| **Passive** Elektronik: passiver Bass, E-Gitarre, Akustikgitarre mit Piezo ohne Vorverstärker | **Aktive DI** (Speisung über +48V oder Batterie) | Ihr Puffer bietet den Eingang mit ≥ 1 MΩ, den der Tonabnehmer braucht |
+| **Aktive** Elektronik mit kräftigem Ausgang: Keyboards, Stage-Pianos, aktive Bässe, Laptops, Modeler | **Passive DI** (Übertrager, keine Speisung nötig) | Der Übertrager verkraftet hohe Pegel ohne Clipping, sättigt bei Spitzen weich und trennt die Massen galvanisch |
+
+Aktive DIs sind der übliche Grund, auf einem DI-Kanal +48V einzuschalten (Abschnitt 4).
+
+### Billige Pads können den Bass schlucken
+Die Qualität einer passiven DI ist wichtiger, als die einfache Schaltung vermuten lässt. Eine veröffentlichte Messung einer preiswerten passiven DI zeigte, dass ihr 20-dB-**Pad** nicht gleichmäßig dämpfte. Es verhielt sich wie ein Hochpass erster Ordnung bei etwa 840 Hz:
+
+| Frequenz | Pegel mit eingeschaltetem Pad |
+|---|---|
+| 5 kHz | etwa -5 dB |
+| 1 kHz | etwa -8 dB |
+| 125 Hz | etwa -18 dB |
+| 30 Hz | etwa -30 dB |
+| 20 Hz | etwa -32 dB |
+
+Die gesamte untere Oktave von Bass oder Klavier war weg, bevor das Signal den Vorverstärker erreichte, und kein EQ am Pult holt sie sauber zurück. Ohne Pad maß dieselbe Box weitgehend linear; gut gebaute DI-Boxen blieben mit und ohne Pad von 20 Hz bis 20 kHz linear.
+
+- Klingt ein Bass oder Keyboard über die DI ohne erkennbaren Grund dünn, **schalten Sie das Pad aus** und senken Sie stattdessen den Ausgangspegel des Instruments oder den Preamp-Gain. Der Headamp des X32 reicht bis -12 dB hinunter.
+- Prüfen Sie unbekannte DI-Boxen vor der Show: Schicken Sie das Rosa Rauschen des Oszillators ([Kapitel 10](10_Monitoring_Talkback_and_Utilities.md)) durch die DI und vergleichen Sie auf dem RTA die Stellung mit und ohne Pad.
+
+### Brummen: Ground Lift, niemals der Schutzleiter
+Ein gleichmäßiges tiefes Brummen bei **50 Hz** (Europa) oder **60 Hz** (Nordamerika) samt Obertönen bedeutet meist eine Masseschleife: Der Instrumentenverstärker oder ein Netzteil auf der Bühne und das Pult sind an zwei verschiedenen Punkten geerdet.
+
+- **Abhilfe:** den **Ground-Lift**-Schalter der DI-Box betätigen. Er trennt die Masseverbindung zwischen Ein- und Ausgang der DI, während das Audiosignal weiterläuft.
+
+> **Lebensgefahr:** Entfernen oder überkleben Sie niemals den Schutzkontakt eines Netzsteckers, und verwenden Sie keine Adapter ohne Schutzleiter, um Brummen zu beseitigen. Ohne Schutzleiter kann im Fehlerfall die volle Netzspannung am Gehäuse eines Instruments oder Mikrofons anliegen. Der Ground Lift an der DI-Box ist der einzige sichere Schalter für diese Aufgabe.
+
+---
+
+## 9. Mikrofonierung auf der Bühne: Trennung vor Bearbeitung
+
+Gates und Kompressoren können nur dann musikalisch arbeiten, wenn das Mikrofon bereits mehr von der gewünschten Quelle liefert als von ihren Nachbarn. Ein Kompressor hebt jedes Übersprechen an, das er bekommt. Gute Positionierung nutzt die **Nullstelle** der Richtcharakteristik, also den Winkel, in dem das Mikrofon am unempfindlichsten ist (siehe auch die Monitor-Tabelle in [Kapitel 15](15_Live_Mixing_Workflows_and_Best_Practices.md)).
+
+### Snare oben und unten
+
+| Position | Typisches Mikrofon | Positionierung |
+|---|---|---|
+| **Oben** | Dynamische Niere oder Superniere (z. B. SM57, Beta 57A) | **Zwischen Hi-Hat und erstem Hänge-Tom** hindurchführen, sodass beide in den unempfindlichsten Winkeln des Mikrofons liegen. Das nimmt viel Hi-Hat-Übersprechen weg, bevor überhaupt ein Gate arbeitet |
+| **Unten** | Kleinmembran-Kondensator (feinere Auflösung des Snare-Teppichs) oder dynamisches Clip-Mikrofon | Etwa 4 cm vom Kesselrand nach innen, 3–5 cm unter dem Fell und 10–12 cm vom Snare-Teppich entfernt, damit dessen Luftstoß nicht auf die Kapsel trifft. Polarität umkehren (Abschnitt 5) |
+
+Die passenden Kompressor-Einstellungen stehen in [Kapitel 06](06_Channel_Processing.md).
+
+### Kleine Schlagzeug-Setups
+Wenn Kanäle, Zeit oder Platz knapp sind (In-Ear-Racks mit einem X32 Rack, kleine Bühnen, Festival-Umbauten):
+
+- **Bassdrum + Snare + ein Kit-Mikrofon**: Eine einzelne Niere mittig über der Bassdrum, knapp oberhalb der Schlägelseite und auf die Snare gerichtet, liefert ein ausgewogenes Bild des gesamten Sets. Zusammen mit Stützmikrofonen an Bassdrum und Snare entsteht ein vollständiger Schlagzeugklang auf drei Kanälen. In größeren Setups dient dieselbe Position als stark komprimiertes „Crush“-Mikrofon, das unter die Nahmikrofone gemischt wird.
+- **Underheads auf lauten Bühnen**: Hoch über dem Set positionierte Overheads nehmen viel von Gitarrenverstärkern und Monitoren auf. Mikrofone **unterhalb** der Becken, leicht nach innen zum Set gewinkelt, verbessern das Verhältnis von Schlagzeug zu Bühnenlärm deutlich. Bei wenigen Kanälen den Low Cut dieser Mikrofone tief lassen, damit sie im In-Ear-Mix auch den Körper des Sets übertragen.
+- **Cajon**: Ein dynamisches Mikrofon am hinteren Schallloch für den Bass, ein Kondensatormikrofon an der vorderen Schlagfläche, dazu leichte Kompression und etwas Hall, kommen im Ohr einem kompletten Schlagzeug erstaunlich nahe.
+
+### Akustikgitarre auf der Bühne
+Verwenden Sie **ein** Mikrofon mit Nieren- oder Supernierencharakteristik und kein Mikrofonpaar wie im Studio: Zwei Mikrofone an einem Musiker, der sich bewegt, erzeugen bei jeder Bewegung Kammfilter gegeneinander. Kombinieren Sie es mit einem Low Cut bei 80–100 Hz, um tieffrequente Rückkopplungen im Griff zu behalten.

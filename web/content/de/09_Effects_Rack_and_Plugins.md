@@ -23,6 +23,8 @@ Die 8 FX-Slots unterliegen festen Architektur-Regeln:
 | **A. Send / Return** (zeitbasierte Effekte) | Kanalfader → Mix-Bus 13 (Post-Fader-Send) → FX-Slot 1 (Reverb) → FX-1-Return-Fader (Aux/FX-Layer) | Der Return-Fader regelt den gesamten Hallanteil im Main LR |
 | **B. Insert** (Dynamik & Klangformer) | Kanal-In → Low Cut → Gate → **Insert-Punkt: FX 5 (1176)** → EQ → Fader | 100 % des Kanalsignals laufen seriell durch den Prozessor |
 
+So wird ein Effekt eingeschleift: Kanal oder Bus anwählen, die Seite **Config** öffnen, den FX-Slot als Insert wählen, die Position festlegen (Pre oder Post EQ/Dynamik) und den Insert einschalten ([Kapitel 06](06_Channel_Processing.md)). Ein Dual-Effekt (Mono/Mono) bietet seine beiden Seiten getrennt an, ein Slot kann also zwei verschiedene Kanäle bedienen.
+
 ---
 
 ## 2. Vintage-Dynamikprozessoren
@@ -112,6 +114,8 @@ Richtet die Phase der Frequenzen aus, indem tiefe und mittlere Frequenzen leicht
 ### E. Dual / Stereo Enhancer (im Stil des SPL Vitalizer)
 Psychoakustischer Obertongenerator, der Bassfrequenzen anreichert und den oberen Obertönen durch dynamische Phasenfilterung kristallklaren Glanz verleiht.
 
+> **Auf einer PA mit Vorsicht einsetzen:** Enhancer, Exciter und Stereoverbreiterer (Sound Maxer, Enhancer, Stereo Imager) arbeiten mit Phasenverschiebungen und zusätzlichen Obertönen. Auf einer großen Anlage wird daraus schnell eine scharfe Höhenwiedergabe, und verbreiterte Signale können sich für Zuhörer abseits der Mitte teilweise auslöschen. Nur auf Einzelquellen und sparsam dosieren, mit dem Bypass vergleichen und nicht auf der Summe einsetzen.
+
 ---
 
 ## 5. Grafische Equalizer (GEQ & TruEQ)
@@ -128,12 +132,36 @@ Das Pult bietet zwei unterschiedliche grafische 31-Band-Equalizer im Terzabstand
 | Effekt-Prozessor | Charakter & Architektur | Optimaler Einsatz |
 |---|---|---|
 | **Vintage Reverb** | Emulation des legendären **EMT 250** (1976), des ersten vollelektronischen (digitalen) Halls. Warme, samtige, offene Diffusion; Nachhallzeit 0,4–4,5 s. | Lead-Vocals, Snare, Akustikgitarren. |
+| **Vintage Room** | Dem Raumsimulator **Quantec QRS** nachempfunden. Dunkler abgestimmt und sehr natürlich: Er klingt wie ein echter Raum um die Quelle statt wie eine Hallfahne dahinter. Decay 0,1–20 s. | Der natürliche Standardraum für Gesang und Schlagzeug. |
 | **Plate Reverb / Rich Plate** | Helle, dichte mechanische Hallplatte mit schnellem Aufbau und schimmernder Höhenfahne. | Rock-Drums, moderne Pop-Vocals, Bläser. |
 | **Hall Reverb** | Weitläufige Konzertsaal-Simulation mit einstellbarem Pre-Delay und Raumgröße. | Orchester-Streicher, Chöre, Balladen. |
 | **Room Reverb / Ambience** | Enge, natürliche Raumreflexionen ohne lange Hallfahne. | Natürlichen Drum-Raumklang zu trockenen Direktsignalen hinzufügen. |
 | **Stereo Delay** | Zwei unabhängige Delays mit Cross-Feedback, Low-/High-Cut-Filtern und Tap-Tempo-Sync. | Slapback auf Lead-Vocals, Stereo-Ping-Pong-Echos auf Gitarren. |
 | **3-Tap Delay / Rhythm Delay**| Tempo-synchrones Multi-Tap-Delay mit eigenem Panorama und Pegel pro Tap. | Komplexe rhythmische Wiederholungen und atmosphärische Gitarrenflächen. |
 | **Tape Delay** | Warmes Vintage-Bandecho mit Nachbildung von Flutter, Wow und Bandsättigung. | Rockabilly-Vocals, klassische E-Gitarren-Soli. |
+
+### Vintage Room im Detail
+
+| Parameter | Bereich | Wirkung |
+|---|---|---|
+| **Reverb Delay** | 0–200 ms | Pre-Delay: der Abstand zwischen Direktsignal und Hallbeginn |
+| **Decay** | 0,1–20 s | Länge der Hallfahne (gemessen bei 1 kHz) |
+| **Size** | 2–100 | Größe des simulierten Raums |
+| **Density** | 1–30 | Anzahl der Reflexionen |
+| **ER Level** | 0–100 % | Pegel der frühen Reflexionen |
+| **Lo / Hi Multiply** | — | Abklingzeit der Tiefen (um 300 Hz) und Höhen (um 6 kHz) im Verhältnis zum Decay |
+| **Lo Cut / Hi Cut** | 10–500 Hz / 10–20 kHz | Filter im Hallsignal |
+| **ER Left / ER Right** | 0–200 ms | Zeitpunkt der frühen Reflexionen pro Seite |
+| **Freeze** | Ein / aus | Hält den aktuellen Hall unbegrenzt |
+
+Zwei Startpunkte:
+
+| | Reverb Delay | Decay | Size | Density | ER Level | Charakter |
+|---|---|---|---|---|---|---|
+| **Dunkler Gesangsraum** | 16 ms | 1,75 s | 24 | 16 | 46 % | Längere, dunkle Fahne; Hi Cut tief ansetzen |
+| **Kleiner heller Raum** | 0 ms | 0,75 s | 16 | 12 | 42 % | Kurz und hell, gut für Schlagzeug |
+
+Wenn der Hall die Mischung zudeckt: das Reverb Delay erhöhen, den Decay verkürzen, den Lo Cut anheben oder den Hi Cut absenken, in dieser Reihenfolge.
 
 ---
 
@@ -143,7 +171,9 @@ Das Pult bietet zwei unterschiedliche grafische 31-Band-Equalizer im Terzabstand
 - **Rotary Speaker**: Originalgetreue Emulation eines Leslie-122-Kabinetts mit getrennt umschaltbarer langsamer/schneller Rotorgeschwindigkeit für Hammond-Orgeln und psychedelische Gitarren.
 - **Sub Monster**: Subharmonischer Synthesizer, der die tiefen Frequenzen analysiert und darunter einen synthetischen Ton eine Oktave tiefer erzeugt. Hervorragend für dünne Bassdrums und E-Bass.
 - **Pitch Shifter**: Zweistimmiger Tonhöhen-Transponierer (-12 bis +12 Halbtöne, Feinverstimmung in Cent). +4 Cent links und -4 Cent rechts ergeben eine üppige Vocal-Dopplung im Stil der 80er.
-- **Guitar Amp & Tube Stage**: Röhrensättigung, Boxen-Emulationen und Verzerrerschaltungen für direkt per DI abgenommene Gitarren und Keyboards.
+- **Guitar Amp & Tube Stage**: Röhrensättigung, Boxen-Emulationen und Verzerrerschaltungen für direkt per DI abgenommene Gitarren und Keyboards. Tube Stage liefert als Insert harmonische Sättigung für Bass, Orgel oder Snare.
+
+> **Notfall-Verstärker:** Fällt auf der Bühne ein Gitarrenverstärker aus, die Gitarre an eine DI-Box anschließen, den **Stereo / Dual Guitar Amp** in diesen Kanal einschleifen, und die Show läuft weiter, auf der PA und in den Monitoren. Sub Monster ist ein Spezialeffekt; für ein solides Bassfundament im Live-Mix sind Aux-Fed Subs ([Kapitel 07](07_Mixing_Buses_and_Sends.md)) das präzisere Werkzeug.
 
 ---
 

@@ -32,6 +32,14 @@ Jeder AES50-Port (Port A und Port B) überträgt und empfängt gleichzeitig:
 | **Midas DL16** | 16 XLR Mic/Line | 8 XLR Line | **Echte Midas Pro Preamps** | Legendäre Midas-Analogübertrager-Charakteristik, vergoldete Neutrik-Buchsen. |
 | **Midas DL32** | 32 XLR Mic/Line | 16 XLR Line | **Echte Midas Pro Preamps** | 32 Pro Preamps, 16 symmetrische XLR-Outs, duales AES50, duales ADAT. |
 
+### Ultranet an der Stagebox: mit oder ohne Stromversorgung
+- **S16 / S32**: ein Ultranet-Ausgang, der nur Audio überträgt. Personal-Mixer brauchen einen P16-D-Verteiler oder eigene Netzteile.
+- **SD8 / SD16**: Die integrierten Verteiler-Ports (2 an der SD8, 4 an der SD16) liefern Audio **und Strom**. Ein P16-M wird mit einem einzigen Cat5e-Kabel direkt an die Stagebox angeschlossen, ganz ohne Netzteil.
+
+Die 16 Ultranet-Kanäle werden weiterhin am Pult unter **ROUTING → Ultranet** belegt ([Kapitel 11](11_Personal_Monitoring_DP48_and_P16.md)).
+
+> **Keine Stagebox:** Ein X-Air- / XR-Mischer hat keinen AES50-Port. Er kann das X32 nur über seine analogen Ausgänge speisen (z. B. seine Summe L/R in zwei Eingänge), und das X32 kann ihn nicht fernsteuern.
+
 ---
 
 ## 3. ZWINGENDE VORSCHRIFT: Geschirmte STP-Kabel & EtherCON
@@ -72,6 +80,8 @@ In jedem digitalen Audionetzwerk darf **genau ein Gerät als Taktgeber (Clock Ma
    - Öffnen Sie **SETUP → CONFIG**.
    - Wählen Sie unter **Synchronization** den Port **AES50 A** (oder **AES50 B**, passend zur Kabelverbindung).
    - Prüfen Sie, ob in der oberen Statuszeile das grüne Symbol `AES50` dauerhaft leuchtet.
+
+> **Gemischte Systeme:** Dieselbe Regel gilt, wenn ein Midas M32 oder Midas-Stageboxen mit einem X32 kombiniert werden. Alle Geräte müssen mit **derselben Abtastrate** laufen, und jedes Pult außer dem Master synchronisiert sich auf den AES50-Port, der zum Master führt.
 
 ---
 

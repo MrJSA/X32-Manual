@@ -142,14 +142,14 @@ Halten Sie die `SELECT`-Taste des gewünschten Kanals gedrückt und drücken Sie
 |---|---|---|
 | **Eingänge 1–32** | XLR weiblich | 32 ferngesteuerte Midas-Mikrofonvorverstärker mit schaltbarer +48V Phantomspeisung. |
 | **Ausgänge 1–16** | XLR männlich | 16 symmetrische Line-Pegel-Ausgänge (zuweisbar an Main LR, Mix-Busse, Matrizen oder Direct Outs). |
-| **Aux In 1–6** | 6,35-mm-Klinke symmetrisch | 6 Line-Eingänge für Keyboards, Zuspieler oder externe Effekte. Kanäle 5–6 zusätzlich mit Cinch-Buchsen. |
+| **Aux In 1–6** | 6,35-mm-Klinke symmetrisch | 6 Line-Eingänge für Keyboards, Zuspieler oder externe Effekte. Kanäle 5–6 zusätzlich mit Cinch-Buchsen. Jede Buchse ist ein **symmetrischer Mono**-Eingang: niemals ein Stereo-Klinkenkabel (Kopfhörerausgang) in eine einzelne Buchse stecken (siehe [Kapitel 05](05_Gain_Staging_and_Preamps.md)). |
 | **Aux Out 1–6** | 6,35-mm-Klinke symmetrisch | 6 symmetrische Line-Ausgänge für In-Ear-Sender, Outboard-FX oder Nebenräume. Ausgänge 5–6 mit Cinch. |
 | **Control Room Out** | Klinke & XLR symmetrisch | Unabhängige Stereo-Abhöre für Regielautsprecher oder Nahfeldmonitore. |
 | **AES50 Ports A & B** | Neutrik EtherCON | Digitale SuperMAC-Multicores für jeweils 48 bidirektionale Audiokanäle (24 Bit / 48 kHz) über geschirmtes CAT5e/CAT6. |
 | **Ultranet P16** | RJ45 / EtherCON | 16-Kanal-Digitalbus inklusive Stromversorgung für Behringer P16-M Personal-Monitor-Mischer. |
 | **Ethernet Remote** | RJ45 | 100-Mbit-Netzwerkbuchse für Fernsteuerung via X32-Edit, Mixing Station, OSC und Steuerungssoftware. |
 | **MIDI In / Out** | 5-Pol DIN | MIDI-Kommunikation für Szenenumschaltung, DAW-Transportsteuerung und Fader-Automation. |
-| **Erweiterungsslot** | 32x32-Kartenschacht | Modulare Audio-Interface-Karten: X-USB (Standard), X-LIVE (SD-Recording), X-DANTE oder X-MADI. |
+| **Erweiterungsslot** | 32x32-Kartenschacht | Modulare Audio-Interface-Karten: X-USB (Standard), X-LIVE (SD-Recording), X-DANTE, X-MADI, X-ADAT oder X-WSG (Vergleich in [Kapitel 13](13_Recording_and_Expansion_Cards.md)). |
 | **Kopfhörer (Phones)** | 6,35-mm-Stereoklinke | Zwei getrennte Kopfhörerbuchsen an den vorderen Seitenwangen des Pultes. |
 
 ---
@@ -167,3 +167,20 @@ Die frontseitige USB-Typ-A-Buchse erfüllt zwei zentrale Aufgaben:
 - **Preamp-Gain ist an die Hardware gebunden**: Der analoge Gain gehört zur physikalischen Buchse (lokale XLR-Buchse oder Stagebox), nicht zum Kanalzug. Ein Umrouten des Kanals nimmt den Gain mit.
 - **Speichern vor großen Änderungen**: Speichern Sie vor grundlegendem Umrouten oder Firmware-Updates immer eine vollständige Show- oder Szenendatei auf einem USB-Stick.
 - **Ausschließlich geschirmte Netzwerkkabel verwenden**: Für AES50-Verbindungen zu digitalen Stageboxen (S16, S32, DL16, DL32) sind zwingend **geschirmte STP-Kabel mit beidseitig metallisch geerdeten EtherCON-Steckern** erforderlich, um Tonaussetzer durch statische Entladungen (ESD) sicher zu verhindern.
+
+---
+
+## 8. Die X32-Familie: Fünf Bauformen, ein Mischkern
+
+Dieses Kapitel beschreibt das große X32. Die kleineren Modelle arbeiten mit **demselben Mischkern**: 40 Eingangskanäle, 25 Busse, 8 Effekt-Slots, zwei AES50-Ports, Ultranet und der 32×32-Kartenschacht. Szenen und Show-Dateien lassen sich zwischen den Modellen austauschen. Unterschiedlich sind die Bedienoberfläche und die Zahl der lokalen Anschlüsse:
+
+| Modell | Lokale Mikrofonvorverstärker (XLR) | XLR-Ausgänge | Aux In / Out (Klinke) | Fader | Display | Hinweise |
+|---|---|---|---|---|---|---|
+| **X32** | 32 | 16 | 6 / 6 | 25 | 7" | LCD-Scribble-Strips |
+| **X32 Compact** | 16 | 8 | 6 / 6 | 17 | 7" | LCD-Scribble-Strips; Kanäle auf mehr Ebenen verteilt |
+| **X32 Producer** | 16 | 8 | 6 / 6 | 17 | 5" | Rackmontage möglich; **keine** LCD-Scribble-Strips |
+| **X32 Rack** | 16 | 8 | 6 / 6 | — | 5" | 3 HE, Bedienung per Tablet oder Computer |
+| **X32 Core** | — | — | — | — | Kleines Statusdisplay | 1 HE; nur ein Talkback-Eingang und ein Monitorausgang. Alle Signale kommen über AES50 oder die Karte |
+
+- **Alle 32 Kanäle sind immer vorhanden.** Auch ein Modell mit 16 lokalen Vorverstärkern mischt 32 Kanäle: Die übrigen Eingänge kommen von einer AES50-Stagebox ([Kapitel 02](02_Stageboxes_and_AES50_Networking.md)) oder von der Erweiterungskarte.
+- **Mischen ohne Fader:** Bei Rack und Core hört man den Solo-Bus am einfachsten über eine In-Ear-Funkstrecke am Monitorausgang ab. Siehe [Kapitel 10](10_Monitoring_Talkback_and_Utilities.md).

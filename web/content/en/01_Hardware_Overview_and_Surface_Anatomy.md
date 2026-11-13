@@ -142,14 +142,14 @@ Hold the channel's `SELECT` button and press the `UTILITY` button. The screen im
 |---|---|---|
 | **Inputs 1–32** | XLR Female | 32 studio-grade, digitally controlled Midas microphone preamps with switchable +48V phantom power. |
 | **Outputs 1–16** | XLR Male | 16 balanced analog line-level outputs (assignable to Main LR, Mix Buses, Matrices, or Direct Outs). |
-| **Aux In 1–6** | 1/4" TRS Balanced | 6 line inputs for keyboards, outboard gear, and media playback. Channels 5–6 include parallel unbalanced RCA jacks. |
+| **Aux In 1–6** | 1/4" TRS Balanced | 6 line inputs for keyboards, outboard gear, and media playback. Channels 5–6 include parallel unbalanced RCA jacks. Each jack is a **balanced mono** input: never feed a stereo headphone-style TRS cable into a single jack (see [Chapter 05](05_Gain_Staging_and_Preamps.md)). |
 | **Aux Out 1–6** | 1/4" TRS Balanced | 6 balanced line outputs for outboard FX sends, green room feeds, or IEM transmitters. Outputs 5–6 include parallel RCA jacks. |
 | **Control Room Out** | 1/4" TRS & XLR Balanced | Stereo monitor feeds for studio control room speakers or booth monitoring. |
 | **AES50 Ports A & B** | Neutrik EtherCON | Dual SuperMAC digital snake ports carrying 48 bidirectional audio channels at 24-bit, 48 kHz over shielded CAT5e/CAT6. |
 | **Ultranet P16** | RJ45 / EtherCON | 16-channel digital bus delivering audio and remote DC power to Behringer P16-M personal monitor mixers. |
 | **Ethernet Remote** | RJ45 | 100 Mbps network jack for remote control via X32-Edit, Mixing Station, OSC, and third-party automation tools. |
 | **MIDI In / Out** | 5-Pin DIN | Standard MIDI communication for scene recall, DAW transport automation, and fader tracking. |
-| **Expansion Slot** | Proprietary 32x32 Slot | Houses modular digital audio cards: X-USB (factory standard), X-LIVE (SD recording), X-DANTE, X-MADI, or X-WSG. |
+| **Expansion Slot** | Proprietary 32x32 Slot | Houses modular digital audio cards: X-USB (factory standard), X-LIVE (SD recording), X-DANTE, X-MADI, X-ADAT, or X-WSG (compared in [Chapter 13](13_Recording_and_Expansion_Cards.md)). |
 | **Phones Out** | 1/4" TRS Stereo | Dual high-current headphone jacks located on the front underside cheeks of the console. |
 
 ---
@@ -167,3 +167,20 @@ The top-panel USB Type-A port serves two vital roles:
 - **Preamp Gain is Physical**: Preamp gain belongs to the input hardware jack (local XLR or stagebox), not the channel strip. Re-patching an input moves the preamp control along with it.
 - **Save Before Major Reconfiguration**: Always store a complete Scene or Show file onto an external USB drive before re-patching routing blocks or updating firmware.
 - **Shielded Network Cables Only**: All AES50 connections between the console and digital stageboxes (S16, S32, DL16, DL32) **must** use shielded CAT5e/CAT6 cables with EtherCON metal shells grounded on both ends to prevent electrostatic discharge (ESD) mutes.
+
+---
+
+## 8. The X32 Family: Five Form Factors, One Mix Engine
+
+This chapter describes the full-size X32. The smaller models run the **same mix engine**: 40 input channels, 25 buses, 8 effects slots, two AES50 ports, Ultranet and the 32×32 card slot. Scenes and show files can be moved between them. What changes is the control surface and the number of local connectors:
+
+| Model | Local mic preamps (XLR) | XLR outputs | Aux In / Out (TRS) | Faders | Display | Notes |
+|---|---|---|---|---|---|---|
+| **X32** | 32 | 16 | 6 / 6 | 25 | 7" | LCD scribble strips |
+| **X32 Compact** | 16 | 8 | 6 / 6 | 17 | 7" | LCD scribble strips; channels spread over more layers |
+| **X32 Producer** | 16 | 8 | 6 / 6 | 17 | 5" | Rack-mountable; **no** LCD scribble strips |
+| **X32 Rack** | 16 | 8 | 6 / 6 | — | 5" | 3U rack unit, mixed from a tablet or computer |
+| **X32 Core** | — | — | — | — | Small status display | 1U; only a talkback input and a monitor output. All audio arrives over AES50 or the card |
+
+- **All 32 channels are always there.** A model with 16 local preamps still mixes 32 channels: the other inputs come from an AES50 stagebox ([Chapter 02](02_Stageboxes_and_AES50_Networking.md)) or the expansion card.
+- **Mixing without faders:** on the Rack and Core, the solo bus is easiest to hear over a wireless in-ear pack on the monitor output. See [Chapter 10](10_Monitoring_Talkback_and_Utilities.md).

@@ -93,7 +93,7 @@ Das Steuersignal kann frequenzselektiv gefiltert werden:
    - **Range** auf **4 dB bis 6 dB**, Attack auf **5 ms**, Release auf **80 ms** stellen.
    - *Ergebnis*: Bei jedem Kick-Schlag senkt sich der Bass für den Bruchteil einer Sekunde um 5 dB ab. Kick und Bass verzahnen sich perfekt, ohne dass sich die Tiefbässe gegenseitig überlagern.
 3. **Automatisches Ducking von Musik bei Sprache**:
-   - Hintergrundmusik (Aux 7/8) auswählen. Modus auf **DUCK** stellen und als Key Source das Mikrofon des Pastors bzw. Moderators wählen. Die Musik wird automatisch leiser, sobald jemand spricht.
+   - Aux-In-Kanäle haben keine Gate-Sektion (Abschnitt 8). Legen Sie die Hintergrundmusik deshalb auf ein Paar **normaler Eingangskanäle**: Stellen Sie deren Quelle auf der Seite **Config** auf den Aux In oder den USB-Player. Modus auf **DUCK** stellen und als Key Source das Mikrofon des Pastors bzw. Moderators wählen. Die Musik wird automatisch leiser, sobald jemand spricht.
 
 ---
 
@@ -126,6 +126,8 @@ So beseitigen Sie klingelnde Resonanzen, Feedback-Frequenzen oder nasale Töne:
 3. Den Frequenzregler langsam durch das Spektrum fahren, während der Musiker singt oder spielt.
 4. Sobald die störende Frequenz unangenehm heraussticht, anhalten.
 5. Den Gain von +9 dB auf **-3 dB bis -6 dB** umkehren und das Q etwas verbreitern (**Q = 2,0 bis 3,0**). Die störende Resonanz verschwindet, ohne dem Instrument seine Musikalität zu nehmen.
+
+> **Nicht zum Einpfeifen von Monitoren:** Eine Anhebung um +9 dB regt Raumresonanzen an, die bei Show-Pegel nie koppeln würden. Am Ende senkt man Frequenzen ab, die gar kein Problem waren. Um echte Rückkopplungsfrequenzen zu finden, den Pegel anheben, bis das erste Pfeifen einsetzt, und die Frequenz am RTA ablesen ([Kapitel 15](15_Live_Mixing_Workflows_and_Best_Practices.md)).
 
 ### EQ-Spickzettel für Instrumente:
 
@@ -177,6 +179,24 @@ Jeder Kanalkompressor im X32 besitzt einen integrierten **MIX-Regler (0% bis 100
 - **50%**: Mischt 50% unkomprimiertes Originalsignal mit 50% brachial komprimiertem Signal (New-York-Style Parallelkompression).
 - *Vorteil*: Sie können eine Snare Drum oder Gesangsstimme mit 10:1 Ratio und 10 dB Gain-Reduction massiv verdichten und den MIX-Regler dann auf **40%** zurückdrehen. So erhalten Sie maximalen Druck, klare Transienten und endloses Sustain, ohne dass es gequetscht oder erstickt klingt.
 
+### Rezept: Eine fette Snare
+Eine Einstellung, die den „Ton“ des Kessels verlängert, ohne den Anschlag zu ersticken:
+
+| Parameter | Wert |
+|---|---|
+| **Ratio** | 5:1 |
+| **Attack** | 20–30 ms |
+| **Release** | 80–125 ms |
+| **Knee** | 4 (weich) |
+| **Gain Reduction** | 3–6 dB bei einem normalen Backbeat |
+
+- **Warum das weiche Knee:** In einem Set wechseln leise und laute Stücke. Mit Knee 4 setzt die Kompression allmählich ein und arbeitet so bei leisen Passagen wie bei lauten Backbeats, ohne dass der Threshold nachgestellt werden muss.
+- **Der Release formt das Ausklingen:** Ein kürzerer Release holt das Sustain des Kessels schneller hoch, ein längerer hält es straffer.
+- Das funktioniert nur mit einem sauberen Signal. Ist das Snare-Mikrofon voller Hi-Hat, hebt der Kompressor auch die Hi-Hat an: zuerst die Mikrofonposition korrigieren ([Kapitel 05](05_Gain_Staging_and_Preamps.md)).
+
+### De-Essing: dynamisch statt statisch
+Eine feste EQ-Absenkung bei 4–7 kHz reduziert Zischlaute, macht aber auch jede andere Silbe stumpfer. Ein De-Esser aus dem Effektrack ([Kapitel 09](09_Effects_Rack_and_Plugins.md)) als Insert im Gesangskanal senkt das Band nur ab, während tatsächlich ein „S“ erklingt.
+
 ---
 
 ## 6. Kanal-Inserts
@@ -199,3 +219,26 @@ Ungerade und gerade Kanalpaare (z. B. 1+2, 3+4, 15+16) können zu einem echten S
 3. Beide Scribble-Strips zeigen nun Klammern für die Verkopplung an.
 4. **Verhalten der Verkopplung**: Fader, Mute, EQ, Kompressor und Preamp-Gain bewegen sich synchron.
 5. **Unabhängiges Panorama**: Die Panoramaregler werden automatisch entkoppelt und gespiegelt (Kanal 1 hart links, Kanal 2 hart rechts), damit das Stereobild erhalten bleibt. Die Link-Regeln legen Sie unter **SETUP → CONFIG → Link Preferences** fest.
+
+---
+
+## 8. Aux-In-Kanäle & FX-Returns: reduzierte Bearbeitung
+
+Alles oben Beschriebene gilt für die Eingangskanäle **1–32**. Die 8 Aux-In-Kanäle (Aux 1–6 plus USB L/R) und die FX-Returns sind schlankere Kanalzüge:
+
+| Block | Kanäle 1–32 | Aux In 1–8 | FX-Returns 1–4 (L/R) |
+|---|---|---|---|
+| **Gain / Trim** | ✔ | ✔ | — |
+| **Polarität** | ✔ | ✔ | — |
+| **Low Cut** | ✔ | — | — |
+| **Input-Delay** | ✔ | — | — |
+| **Gate / Ducker** | ✔ | — | — |
+| **Insert** | ✔ | — | — |
+| **4-Band-EQ** | ✔ | ✔ | ✔ |
+| **Kompressor** | ✔ | — | — |
+| **Bus-Sends, Panorama, Fader, Mute** | ✔ | ✔ | ✔ |
+
+Was das in der Praxis bedeutet:
+- **Low Cut auf einem Aux-Kanal:** EQ-Band 1 auf **Low Cut** umschalten.
+- **Alles, was Dynamik, Gate, Insert oder Delay braucht** (ein Keyboard, das komprimiert werden soll, Musik, die unter Sprache abgesenkt wird, ein Zuspieler, der laufzeitkorrigiert werden muss), gehört auf einen normalen Kanal. Die Quelle eines Kanals kann auf der Seite **Config** ein Aux In oder der USB-Player sein; die Buchse auf der Rückseite muss also nicht gewechselt werden.
+- Planen Sie die Eingangsliste entsprechend: Aux Ins eignen sich ideal für Pausenmusik, Click- und Talkback-Rückwege und andere Quellen, die nur Pegel und EQ brauchen.

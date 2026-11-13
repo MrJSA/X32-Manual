@@ -52,6 +52,7 @@ Press the flashing red **SENDS ON FADER** button again. The console faders insta
 ### A. Floor Monitors (Stage Wedges):
 - **Mandatory Setting**: Configure buses feeding floor wedges to **PRE-FADER** (or Post-EQ).
 - *Why Pre-Fader is Mandatory*: If a stage wedge is post-fader, every time the FOH engineer pushes or pulls a fader in the house, the volume in the musician's wedge changes. If the FOH engineer pulls down a vocalist during a quiet speech, the singer can no longer hear themselves. If the FOH engineer pushes a guitar solo, the wedge can instantly feed back into the microphones.
+- **Output Tap Stays Post-Fader**: Pre-fader applies to the channel **sends** into the bus. The physical output that carries the bus (**ROUTING → Out 1–16**) stays on **Post Fader**, otherwise the bus master fader no longer controls the wedge. See [Chapter 03](03_Routing_and_Patching.md).
 - **Feedback Ringing**: Insert a **Dual TruEQ** or use the bus's onboard 6-band PEQ with narrow notch filters (Q = 8.0) to cut stage feedback rings identified on the RTA.
 
 ### B. In-Ear Monitors (IEMs):
@@ -59,6 +60,11 @@ Press the flashing red **SENDS ON FADER** button again. The console faders insta
 - **Pan Positioning**: Panning individual instruments in the performer's ears creates spatial separation, lowering the required overall volume and reducing ear fatigue.
 - **Reverb in In-Ears**: Musicians love vocal reverb in their ears. Route the stereo returns of **FX 1 (Reverb)** to the musician's IEM bus using Sends on Faders.
 - **Hearing Protection Limiting**: **Always engage the bus dynamics compressor in Limiter mode (Ratio: 100:1, Attack: 0 ms, Fast Release)** on every IEM bus. Set the threshold so it never clamps down during normal singing, but will instantly catch dropped microphones, guitar unplug pops, or accidental digital spikes before they damage the musician's hearing!
+
+### C. What Singers Need in Their Ears
+- **Own voice far above the band**: a lead singer typically wants their own vocal **15 to 20 dB louder** than the rest of the band in their in-ear mix. A workable starting point: own vocal at 0 dB, everything else around -15 to -20 dB, then adjust on request.
+- **Moderate compression**: aim for about **3 to 9 dB of gain reduction** on a vocal that feeds in-ears. With none, loud notes hurt. With too much, the singer fights the compressor, backs off the microphone, and hears the stage noise pumped up in every pause.
+- **Mic technique beats every fader**: a singer who stays far from the microphone needs a lot of preamp gain, and that gain also amplifies drums and PA reflections. The usual request is then "take the overheads out of my ears", but the spill arrives through their **own vocal mic**. The only real fix is singing close to the grille.
 
 ---
 

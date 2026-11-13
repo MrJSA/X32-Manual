@@ -50,6 +50,8 @@ Created by developer David Schumann, **Mixing Station** (Windows, macOS, iOS, An
 - **Floating Faders & Layers**: Pin key lead vocal and DCA faders to the edge of the screen so they remain accessible regardless of which layer you navigate.
 - **Fine Fader Resolution**: Pinch-to-zoom fader travel for precision 0.1 dB level rides.
 
+> **Hearing your solo away from the desk:** every remote app can press solo, but the audio still comes out of the console. Feed the Control Room output into a wireless in-ear transmitter and you can cue channels from anywhere in the room. See [Chapter 10](10_Monitoring_Talkback_and_Utilities.md).
+
 ### C. Personal In-Ear Monitor Apps (M32-Q / X32-Q)
 Allows band members to adjust their own monitor mixes using smartphones:
 - **Bus Locking Protection**: Lock each musician's app strictly to their assigned Mix Bus (e.g., Drummer locked to Bus 3–4), preventing performers from accidentally altering Front of House faders or other band members' monitors.

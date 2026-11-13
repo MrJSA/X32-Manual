@@ -34,6 +34,7 @@ Navigate to **ROUTING → ULTRANET** to configure the 16 P16 channels:
 ### The Tap Point Rule for Personal Mixers:
 - **Never use Post-Fader**: If Ultranet taps are set to Post-Fader, every time the FOH engineer adjusts a fader in the house mix, the musician's in-ear level shifts erratically.
 - **Use Pre-Fader or Post-EQ**: Delivers clean, finished tone with channel EQ intact, while isolating the performer from FOH volume adjustments.
+- **Decide what a mute should do**: a plain `Pre Fader` direct out ignores the channel's Mute button, so a mic muted at FOH stays audible on every P16-M. That is handy for a soundcheck with the PA muted, but rarely wanted during the show. Choose **`Pre Fader+M`** (or `Post EQ+M`) and the P16 feed mutes together with the channel. Background in [Chapter 03](03_Routing_and_Patching.md).
 
 ---
 

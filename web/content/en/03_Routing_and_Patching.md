@@ -60,6 +60,30 @@ When routing any signal to an analog XLR output, Aux output, P16 Ultranet bus, o
 | **POST FADER** | Dependent on channel fader, pan, and mute status. | **Reverb/Delay FX Sends**, **Main PA Speakers**, **Matrix Feeds**, **Delay Towers**, and **Live Stream Mixes**. |
 | **SUBGROUP** | Direct audio summing without variable send level (fixed unity gain). | Drum subgroups, horn sections, or choir stems. |
 
+### The "+M" Taps: Making a Pre-Fader Tap Follow the Mute
+
+In the output tap list, every tap before the fader exists twice: `IN/LC` and `IN/LC+M`, `Pre EQ` and `Pre EQ+M`, `Post EQ` and `Post EQ+M`, `Pre Fader` and `Pre Fader+M`. **+M means "with mute".**
+
+All taps before the fader also sit before the channel's **Mute** button. A direct out tapped at `Pre Fader` therefore keeps playing when the channel is muted at front of house.
+
+| Tap | Channel muted at FOH | Use it for |
+|---|---|---|
+| **Pre Fader** | The output **keeps playing** | Multitrack recording; in-ear feeds that must stay open during soundcheck while the PA is muted |
+| **Pre Fader+M** | The output is **muted too** | P16 personal mixers and direct outs during the show: a mic muted at FOH (feedback, speech break, backstage chatter) is also silent in the musicians' ears |
+
+`Post Fader` needs no +M version: it always follows the mute.
+
+### Send Tap vs. Output Tap: Two Different Settings
+
+A monitor mix has **two** tap settings, and they are easy to mix up:
+
+| Setting | Where | Value for a stage wedge | Why |
+|---|---|---|---|
+| **Channel sends into the bus** | Select the bus → `VIEW` in the Config/Preamp section → send tap (set per odd/even bus pair) | **Pre Fader** | FOH fader moves don't change the monitor mix |
+| **Output tap of the bus** | **ROUTING → Out 1–16** → tap of the output that carries the bus | **Post Fader** | The bus master fader (and its mute) controls the wedge level |
+
+If the output tap is set to Pre Fader instead, the bus master fader does nothing and the wedge can only be turned down at the amplifier.
+
 ---
 
 ## 4. Output Routing Tabs Explained
@@ -84,6 +108,7 @@ Controls the 6 balanced 1/4" TRS jacks on the rear panel:
 ### C. Ultranet Tab (P16 Personal Monitoring)
 Assigns 16 discrete audio streams to the Ultranet EtherCON port. Connects directly to Behringer P16-D distribution hubs and P16-M personal mixers:
 - Standard practice: Tap channels at **Pre-Fader** or **Post-EQ** so stage performers hear their tone without being affected by FOH fader balancing.
+- For the show, prefer the **+M** version (`Pre Fader+M`) so channels muted at FOH are also muted on the personal mixers.
 
 ### D. Card Out Tab (32-Channel DAW / USB Expansion)
 Assigns 32 audio channels sent over the expansion card (X-USB, X-LIVE, X-DANTE):

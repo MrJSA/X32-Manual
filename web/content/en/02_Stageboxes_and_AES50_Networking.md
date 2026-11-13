@@ -32,6 +32,14 @@ Each AES50 port (Port A and Port B) transmits and receives:
 | **Midas DL16** | 16 XLR Mic/Line | 8 XLR Line | **Genuine Midas Pro Preamps**| Warm analog saturation characteristics, gold-plated Neutrik connectors. |
 | **Midas DL32** | 32 XLR Mic/Line | 16 XLR Line | **Genuine Midas Pro Preamps**| 32 Pro preamps, 16 balanced XLR outs, dual AES50, dual ADAT. |
 
+### Ultranet on the Stagebox: Powered or Not
+- **S16 / S32**: one Ultranet output that carries audio only. Personal mixers need a P16-D hub or their own power supplies.
+- **SD8 / SD16**: the built-in hub ports (2 on the SD8, 4 on the SD16) carry audio **and power**. A P16-M plugs straight into the stagebox with one Cat5e cable and no power supply.
+
+The 16 Ultranet channels are still patched on the console under **ROUTING → Ultranet** ([Chapter 11](11_Personal_Monitoring_DP48_and_P16.md)).
+
+> **Not a stagebox:** an X-Air / XR mixer has no AES50 port. It can only feed the X32 with its analog outputs (e.g. its main L/R into two inputs), and the X32 cannot control it.
+
 ---
 
 ## 3. MANDATORY REQUIREMENT: Shielded Cable & EtherCON
@@ -71,6 +79,8 @@ In digital audio networking, **exactly one device can serve as the Clock Master*
    - Navigate to **SETUP → CONFIG**.
    - Set **Synchronization** to **AES50 A** (or **AES50 B**, matching the cable connection).
    - Verify that the green `AES50` lock indicator illuminates solidly on the top status bar.
+
+> **Mixing brands:** the same rule applies when a Midas M32 or Midas stageboxes are combined with an X32. All devices must run at the **same sample rate**, and every console except the master is set to synchronize from the AES50 port that faces the master.
 
 ---
 

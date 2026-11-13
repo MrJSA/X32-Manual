@@ -93,7 +93,7 @@ The gate includes a tunable sidechain filter:
    - Set **Range** to **4 dB to 6 dB**, Attack to **5 ms**, Release to **80 ms**.
    - *Result*: Every time the kick drum strikes, the bass guitar ducks by 5 dB for a fraction of a second. This glues the rhythm section together and creates massive low-end punch without muddy buildup.
 3. **Speech / Music Auto-Ducking**:
-   - Select background music (Aux 7/8). Set Mode to **DUCK** keyed to the Pastor or Announcer microphone. The music automatically dips whenever someone speaks.
+   - Aux In channels have no gate section (Section 8), so bring the background music into a pair of **regular input channels**: set their source to the Aux In or USB player on the **Config** page. Set Mode to **DUCK** keyed to the Pastor or Announcer microphone. The music automatically dips whenever someone speaks.
 
 ---
 
@@ -126,6 +126,8 @@ To eliminate ringing resonances, feedback frequencies, or nasal tones:
 3. Slowly sweep the frequency knob through the spectrum while the performer sings or plays.
 4. When the offending frequency screams out painfully, stop sweeping.
 5. Invert the gain from +9 dB down to **-3 dB to -6 dB** and broaden the Q slightly (**Q = 2.0 to 3.0**). The offending resonance disappears without gutting the instrument's musicality.
+
+> **Not for ringing out monitors:** a +9 dB boost excites room resonances that would never feed back at show level, so you end up cutting frequencies that were no problem. To find real feedback frequencies, raise the level until the first ring starts and read it off the RTA ([Chapter 15](15_Live_Mixing_Workflows_and_Best_Practices.md)).
 
 ### Instrument EQ Cheat Sheet:
 
@@ -177,6 +179,24 @@ The X32 features an onboard **MIX (0% to 100%)** parameter inside every channel 
 - **50%**: Blends 50% uncompressed dry transient signal with 50% heavily compressed signal (New York parallel compression).
 - *Benefit*: You can crush a snare drum or vocal with a 10:1 ratio and 10 dB of gain reduction, then roll the MIX knob back to **40%**. You get maximum punch, transient clarity, and endless sustain without sounding squeezed or choked.
 
+### Recipe: A Fat Snare
+A setting that lengthens the "note" of the shell without choking the stick attack:
+
+| Parameter | Value |
+|---|---|
+| **Ratio** | 5:1 |
+| **Attack** | 20–30 ms |
+| **Release** | 80–125 ms |
+| **Knee** | 4 (soft) |
+| **Gain reduction** | 3–6 dB on a normal backbeat |
+
+- **Why the soft knee:** a set moves between quiet and loud songs. With Knee 4 the compression sets in gradually, so it works on soft passages and on loud backbeats without re-adjusting the threshold.
+- **Release shapes the ring:** shorter release brings the shell's sustain up faster; longer release keeps it tighter.
+- This only works on a clean signal. If the snare mic is full of hi-hat, the compressor lifts the hi-hat too: fix the mic position first ([Chapter 05](05_Gain_Staging_and_Preamps.md)).
+
+### De-Essing: Dynamic Beats Static
+A fixed EQ cut at 4–7 kHz reduces sibilance, but it also dulls every other syllable. A de-esser from the effects rack ([Chapter 09](09_Effects_Rack_and_Plugins.md)) inserted on the vocal channel only turns the band down while an "S" is actually sounding.
+
 ---
 
 ## 6. Channel Inserts
@@ -199,3 +219,26 @@ Odd and even channel pairs (e.g., 1+2, 3+4, 15+16) can be linked into a unified 
 3. Both scribble strips update to show linked brackets.
 4. **Link Behavior**: Faders, mutes, EQ, dynamics, and preamp gains move in unison.
 5. **Pan Independence**: Channel pans are automatically unlinked and mirrored (Channel 1 hard Left, Channel 2 hard Right) to preserve true stereo imaging. Configure link rules under **SETUP → CONFIG → Link Preferences**.
+
+---
+
+## 8. Aux In Channels & FX Returns: Reduced Processing
+
+Everything above describes input channels **1–32**. The 8 Aux In channels (Aux 1–6 plus USB L/R) and the FX returns are lighter strips:
+
+| Block | Channels 1–32 | Aux In 1–8 | FX Returns 1–4 (L/R) |
+|---|---|---|---|
+| **Gain / trim** | ✔ | ✔ | — |
+| **Polarity** | ✔ | ✔ | — |
+| **Low Cut** | ✔ | — | — |
+| **Input delay** | ✔ | — | — |
+| **Gate / ducker** | ✔ | — | — |
+| **Insert** | ✔ | — | — |
+| **4-band EQ** | ✔ | ✔ | ✔ |
+| **Compressor** | ✔ | — | — |
+| **Bus sends, pan, fader, mute** | ✔ | ✔ | ✔ |
+
+What this means in practice:
+- **Low cut on an aux channel:** switch EQ band 1 to **Low Cut**.
+- **Anything that needs dynamics, a gate, an insert or delay** (a keyboard that needs compression, music that should duck under speech, a playback track that must be time-aligned) belongs on a regular channel. A channel's source on the **Config** page can be an Aux In or the USB player, so the jack on the rear panel doesn't have to change.
+- Plan the input list accordingly: Aux Ins are ideal for walk-in music, click and talkback returns, and other sources that need level and EQ only.

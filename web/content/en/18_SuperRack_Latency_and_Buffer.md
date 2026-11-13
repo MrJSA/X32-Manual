@@ -40,6 +40,7 @@ Example from practice: with 32 channels loaded, CPU usage was about 12 % at 512 
 - **X-DANTE + Dante Virtual Soundcard:** about **10 ms** at 32 samples (DVS 4 ms + card 0.25 ms + buffer); 128 samples adds about 4 ms.
 - **Multiple passes** (input rack + insert + group + Main LR insert) add up: each pass costs a full round trip.
 - **Plugins with look-ahead** add their own latency on top (e.g. Waves **L2** adds 64 samples, about 1.3 ms).
+- **For comparison:** the console alone has about 0.83 ms from analog in to analog out, and an X-WSG card with a SoundGrid server adds only about 0.86 ms (1.69 ms in total). That is the price difference between a server-based system and a native host on a laptop ([Chapter 13](13_Recording_and_Expansion_Cards.md)).
 
 ### Sample Rate
 Run the X32 at **48 kHz**. At 44.1 kHz, latency throughout the system (console I/O, SuperRack and plugins) increases by roughly **9 %**.

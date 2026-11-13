@@ -100,3 +100,15 @@ Always back up complete show archives before major events:
 3. Press **UTILITY**.
 4. Select **Export Show to USB**. Enter a name (e.g., `TOUR_2026_MASTER.shw`).
 5. The console writes a unified archive containing all 500 Cues, 100 Scenes, 100 Snippets, and routing configurations to the drive.
+
+---
+
+## 7. Library Presets: Reusable Building Blocks
+
+Scenes and snippets belong to one show. The **LIBRARY** holds presets that travel between shows and consoles: **channel** presets, **effects** presets and **routing** presets.
+
+- **Save**: select the channel, press **LIBRARY**, pick an empty slot and save. The same works for an effect slot and for the routing pages.
+- **Recall scope**: when loading a channel preset, choose which sections it may overwrite: preamp (headamp), configuration, gate, dynamics, EQ and sends. Untick the preamp and the sends and "my lead vocal" brings its EQ and compressor onto a channel without touching the gain you just set or the monitor mixes.
+- **Typical use**: a personal vocal or kick preset at a festival desk, a favorite reverb setting, or a routing preset for a recurring stagebox layout.
+
+Like scenes, presets can be exported to a USB stick with **UTILITY**.

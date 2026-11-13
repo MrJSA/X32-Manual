@@ -58,6 +58,15 @@ Acoustic feedback occurs when sound from a loudspeaker enters a microphone, gets
 5. Push the volume again. Notch the next ringing frequency.
 6. Stop after 3 to 4 cuts. Excessive notching hollows out the vocal tone.
 
+Ring out with the microphones **where they will be used**, with their low cut engaged, and with the real wedge positions. Treat each microphone on its own and note the result: it is a good starting point for the next show in the same room.
+
+### Placement Comes Before EQ
+Every filter you set costs tone. Geometry is free:
+- **Never aim a loudspeaker at a microphone.** A direct path from speaker to mic is the most common cause of feedback, even with a directional mic.
+- **Wedges point at the performer's ears**, not at the microphone, and sit in the null of its polar pattern (table above).
+- **The PA covers the audience, not the stage.** Keep the mains in front of the microphone line and angle them away from it.
+- **Keep monitor levels in check.** Every dB less on stage is a dB more margin before feedback, and less spill in every open microphone.
+
 ---
 
 ## 4. Live Streaming / Broadcast Mix Mastery
@@ -107,3 +116,43 @@ When problems arise during a live performance, follow this rapid elimination tre
 ### "Reverb Sounds Washed Out on Speech":
 - **Diagnosis**: Reverb returns were left active when the speaker began talking.
 - **Fix**: Tap **MUTE GRP 3 (FX MUTE)** immediately when the song concludes.
+
+### "Musicians Still Hear a Muted Microphone":
+- **Diagnosis**: The personal mixers or direct outs are tapped Pre Fader, which sits before the mute.
+- **Fix**: Change the tap to **Pre Fader+M** ([Chapter 03](03_Routing_and_Patching.md)).
+
+### "Bass or Keyboard Sounds Thin Through the DI":
+- **Diagnosis**: The pad of a cheap passive DI is filtering the low end, or a stereo TRS cable is plugged into a balanced mono input.
+- **Fix**: Switch the pad off, and check the cabling ([Chapter 05](05_Gain_Staging_and_Preamps.md)).
+
+---
+
+## 6. Measuring the System with Smaart or REW
+
+The delay formula in Section 2 gives a starting value. A measurement gives the exact one, and the expansion card makes the console its own measurement interface: no extra audio interface is needed.
+
+| Signal | Path |
+|---|---|
+| **Test signal** | Measurement software → USB → a card input → a console channel → the loudspeaker output under test |
+| **Measurement microphone** | An omnidirectional measurement mic at the listening position → a console input → **Card Out** → software. Do **not** assign this channel to Main LR |
+| **Reference** | The same test signal looped straight back to the software on a second card channel, so it can compare what was sent with what arrived |
+
+1. Connect the computer to the card and select it as the audio device in the measurement software.
+2. Use the software's pink noise as test signal. A periodic (pseudo-random) pink noise settles quickly and needs little averaging.
+3. Measure one loudspeaker at a time: the software's delay finder shows the arrival time of each.
+4. Enter the **difference** as delay on the earlier source: the matrix or bus delay (0–500 ms) for loudspeaker zones, such as a top and a sub that stand a few milliseconds apart.
+5. Measure both together to confirm they now add up around the crossover frequency. Only then start equalizing.
+
+Polarity alone cannot fix an arrival-time difference; see [Chapter 05](05_Gain_Staging_and_Preamps.md).
+
+---
+
+## 7. Wireless Microphones & In-Ears: RF Basics
+
+A wireless dropout sounds like a console problem and never is one. A few habits prevent most of them:
+
+- **Scan first.** Scan the venue with the receivers (or a scanner) before choosing frequencies, and let the manufacturer's coordination software (e.g. Shure Wireless Workbench, which is free) calculate compatible ones. Look up the local TV transmitters beforehand.
+- **Aim directional antennas with their nulls in mind.** A log-periodic (LPDA, "paddle") antenna is least sensitive to the rear. Point it at the stage so that strong TV transmitters lie in that rear null.
+- **Watch the timeline during the show.** The coordination software logs RF level, audio level and battery state per channel. It also shows at a glance whether a transmitter is switched on. Read the alert log after the show.
+- **Keep transmitters in one place.** Collect handhelds and bodypacks at the monitor desk as the musicians leave the stage; a tray lined with foam keeps them sorted and protected.
+- **Lay out the console the same way every time.** For example drums, bass, guitars and vocals on the first fader layer; keys, tracks and talkback on the second. Keep a printed input and patch list at the desk.

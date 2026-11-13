@@ -52,6 +52,7 @@ Drücken Sie die rot blinkende Taste **SENDS ON FADER** erneut. Die Motorfader f
 ### A. Bodenmonitore (Wedges):
 - **Zwingende Einstellung**: Busse für Bodenmonitore müssen auf **PRE-FADER** (oder Post-EQ) stehen.
 - *Warum Pre-Fader Pflicht ist*: Bei Post-Fader würde jede Faderbewegung des FOH-Mischers die Lautstärke auf der Bühne verändern. Zieht der Mischer Gesang im Saal leiser, hört sich der Musiker selbst nicht mehr. Schiebt er ein Gitarrensolo laut, pfeift der Monitor auf der Bühne sofort in Rückkopplung.
+- **Der Ausgangs-Abgriff bleibt Post-Fader**: Pre-Fader gilt für die Kanal-**Sends** in den Bus. Der physische Ausgang, der den Bus führt (**ROUTING → Out 1–16**), bleibt auf **Post Fader**, sonst regelt der Bus-Masterfader den Monitor nicht mehr. Siehe [Kapitel 03](03_Routing_and_Patching.md).
 - **Rückkopplungen einpfeifen**: Schleifen Sie einen **Dual TruEQ** ein oder nutzen Sie den 6-Band-PEQ des Busses mit schmalen Kerbfiltern (Q = 8,0), um die im RTA erkannten Feedback-Frequenzen gezielt abzusenken.
 
 ### B. In-Ear-Monitoring (IEM):
@@ -59,6 +60,11 @@ Drücken Sie die rot blinkende Taste **SENDS ON FADER** erneut. Die Motorfader f
 - **Panorama-Staffelung**: Durch gezieltes Verteilen der Instrumente im Stereofeld der Ohrhörer hören Musiker jedes Detail wesentlich klarer bei deutlich geringerer Gesamtlautstärke.
 - **Hall auf den Ohren**: Musiker wünschen sich oft Raumhall. Mischen Sie die Stereo-Returns von **FX 1 (Reverb)** über Sends on Faders auf den IEM-Bus des Musikers.
 - **Gehörschutz durch Limiter**: **Aktivieren Sie zwingend den Bus-Kompressor im Limiter-Modus (Ratio: 100:1, Attack: 0 ms, schneller Release)** auf jedem In-Ear-Bus. Der Schwellenwert wird so gesetzt, dass er im normalen Spiel nicht eingreift, aber herunterfallende Mikrofone oder herausgezogene Gitarrenkabel blitzschnell abfängt, bevor Gehörschäden entstehen!
+
+### C. Was Sänger im Ohr brauchen
+- **Die eigene Stimme weit über der Band**: Ein Leadsänger möchte die eigene Stimme im In-Ear-Mix typischerweise **15 bis 20 dB lauter** als den Rest der Band. Ein brauchbarer Startpunkt: eigene Stimme auf 0 dB, alles andere bei etwa -15 bis -20 dB, danach auf Zuruf anpassen.
+- **Maßvolle Kompression**: Zielen Sie auf etwa **3 bis 9 dB Gain Reduction** für eine Stimme, die In-Ears speist. Ganz ohne Kompression schmerzen laute Töne. Bei zu viel kämpft der Sänger gegen den Kompressor an, geht vom Mikrofon weg und hört in jeder Pause den hochgezogenen Bühnenlärm.
+- **Mikrofontechnik schlägt jeden Fader**: Wer weit vom Mikrofon entfernt singt, braucht viel Preamp-Gain, und dieser Gain verstärkt auch Schlagzeug und PA-Reflexionen. Der übliche Wunsch lautet dann „nimm die Overheads aus meinem Ohr“, doch das Übersprechen kommt über das **eigene Gesangsmikrofon**. Die einzige echte Lösung ist, direkt am Korb zu singen.
 
 ---
 

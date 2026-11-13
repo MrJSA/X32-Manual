@@ -138,6 +138,10 @@ Bei AES50-Stageboxen `Local` entsprechend durch die Blöcke `AES50 A` / `AES50 B
 
 > **Tipp:** Die Racks nach den Pultkanälen benennen, nicht nach den Kartenkanälen: Rack 9 ist Kanal 1!
 
+> **Warum die Verschiebung unvermeidbar ist:** Main LR und die Busse haben keinen eigenen Karten-Insert, sie müssen also über die Aux-Inserts laufen, und der Aux-In-Block kann nur die **ersten sechs** Kartenkanäle (`Card 1–6`) aufnehmen. In der Standardbelegung, bei der die Kanäle 1–8 bereits Card 1–8 nutzen, bleibt kein Platz für einen Bus-Insert.
+
+> **Patch prüfen:** Ein Rack in SuperRack stummschalten. Genau der zugehörige Pultkanal (oder der Bus auf diesem Insert) muss verstummen. Fällt ein anderer Kanal aus, ist die Kartenbelegung um einen Block verschoben.
+
 > **Firmware 4:** Methode C ist an Achter-Blöcke gebunden: Die bearbeiteten Kanäle verschieben sich, und es sind immer die *letzten* acht Kanäle, die an SuperRack vorbeilaufen. [Methode F](#methode-f-user-routing-einzelne-kanale-auswahlen) nutzt User Routing, um genau die Kanäle auszuwählen, die Plugins bekommen, während jeder Kanal seine Nummer behält.
 
 ---

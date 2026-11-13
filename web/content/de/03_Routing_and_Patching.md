@@ -61,6 +61,30 @@ Wann immer ein Signal auf einen analogen XLR-Ausgang, einen Aux-Ausgang, den Ult
 | **POST FADER** | Streng abhängig von Faderstellung, Panorama und Mute-Status des Kanals. | **Effekt-Sends (Hall/Delay)**, **Haupt-PA-Lautsprecher**, **Matrizen**, **Delay-Lines** und **Livestream-Mischungen**. |
 | **SUBGROUP** | Feste 1:1-Summierung ohne Pegelregler (feste Einheitsverstärkung / 0 dB). | Schlagzeug-Subgruppen, Bläsersätze oder Chöre. |
 
+### Die „+M“-Abgriffe: Pre-Fader-Abgriff, der dem Mute folgt
+
+In der Liste der Ausgangsabgriffe gibt es jeden Abgriff vor dem Fader doppelt: `IN/LC` und `IN/LC+M`, `Pre EQ` und `Pre EQ+M`, `Post EQ` und `Post EQ+M`, `Pre Fader` und `Pre Fader+M`. **+M bedeutet „mit Mute“.**
+
+Alle Abgriffe vor dem Fader liegen auch vor der **Mute**-Taste des Kanals. Ein Direct Out mit Abgriff `Pre Fader` spielt deshalb weiter, wenn der Kanal am FOH stummgeschaltet wird.
+
+| Abgriff | Kanal am FOH stummgeschaltet | Einsatz |
+|---|---|---|
+| **Pre Fader** | Der Ausgang **spielt weiter** | Mehrspuraufnahme; In-Ear-Feeds, die beim Soundcheck trotz stummer PA offen bleiben sollen |
+| **Pre Fader+M** | Der Ausgang ist **ebenfalls stumm** | P16-Personal-Mixer und Direct Outs während der Show: Ein am FOH stummgeschaltetes Mikrofon (Rückkopplung, Redepause, Gespräche hinter der Bühne) ist auch im Ohr der Musiker stumm |
+
+`Post Fader` braucht keine +M-Variante: Dieser Abgriff folgt dem Mute immer.
+
+### Send-Abgriff und Ausgangs-Abgriff: zwei verschiedene Einstellungen
+
+Eine Monitormischung hat **zwei** Abgriff-Einstellungen, die leicht verwechselt werden:
+
+| Einstellung | Wo | Wert für einen Bühnenmonitor | Warum |
+|---|---|---|---|
+| **Kanal-Sends in den Bus** | Bus anwählen → `VIEW` in der Sektion Config/Preamp → Send-Abgriff (gilt jeweils für ein ungerade/gerade-Buspaar) | **Pre Fader** | Faderbewegungen am FOH verändern die Monitormischung nicht |
+| **Ausgangs-Abgriff des Busses** | **ROUTING → Out 1–16** → Abgriff des Ausgangs, der den Bus führt | **Post Fader** | Der Bus-Masterfader (und sein Mute) regelt die Lautstärke des Monitors |
+
+Steht der Ausgangs-Abgriff stattdessen auf Pre Fader, bewirkt der Bus-Masterfader nichts mehr, und der Monitor lässt sich nur noch an der Endstufe leiser stellen.
+
 ---
 
 ## 4. Die Ausgangs-Routing-Menüs im Detail
@@ -85,6 +109,7 @@ Konfiguriert die 6 symmetrischen Klinkenbuchsen auf der Pultrückseite:
 ### C. Menü Ultranet (P16 Personal Monitoring)
 Weist dem Ultranet-EtherCON-Port 16 diskrete Audiosignale zu. Versorgt Behringer P16-D Signalverteiler und P16-M Personal-Mixer direkt mit Audio und Strom:
 - Bewährte Praxis: Signale auf **Pre-Fader** oder **Post-EQ** abgreifen, damit Musiker ihren Bühnensound unabhängig von FOH-Faderfahrten hören.
+- Für die Show die **+M**-Variante (`Pre Fader+M`) bevorzugen, damit am FOH stummgeschaltete Kanäle auch auf den Personal-Mixern stumm sind.
 
 ### D. Menü Card Out (32-Kanal-DAW / USB-Erweiterung)
 Definiert die 32 Audiosignale, die über die Erweiterungskarte (X-USB, X-LIVE, X-DANTE) gesendet werden:
